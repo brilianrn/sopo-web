@@ -1,0 +1,19 @@
+.apps-banner {
+  @apply relative p-5 w-full h-[292px] rounded-b-[20px];
+  background: url("../../../../public/assets/images/dashboard-background.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.apps-top-bar {
+  @apply flex justify-between gap-4 items-center bg-danger-default;
+}
+
+.apps-top-bar-left {
+  @apply rounded-l-full bg-opacity-60 bg-white rounded-r-lg flex items-center justify-start gap-1;
+}
+
+.apps-top-bar-left-avatar {
+  @apply size-10 rounded-full border-b-2 border-primary-default;
+}

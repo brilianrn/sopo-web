@@ -1,0 +1,23 @@
+@reference "../tailwind.css";
+
+.topbar {
+  @apply md:top-8 top-4 lg:w-4/5 w-11/12 left-1/2 -translate-x-1/2 bg-white rounded-md fixed flex justify-between items-center gap-2 z-10 p-4;
+  box-shadow: 0px 0px 4px 0px rgba(87, 87, 87, 0.24);
+  /* box-shadow: 0px 0px 4px 0px #ac171747; */
+}
+
+.topbar-header {
+  @apply fixed z-10 w-full pt-[6px] pb-4 bg-danger-default text-white text-sm md:flex hidden justify-between gap-2 items-center;
+}
+
+.topbar-menu {
+  @apply hover:text-danger-default transition-all duration-200;
+}
+
+.topbar-menu-active {
+  @apply bg-warning-default px-4 py-1 rounded-full text-white flex justify-center items-center;
+}
+
+.logo {
+  @apply w-22 h-8 cursor-pointer bg-[url("/assets/images/logo.png")] bg-cover bg-center bg-no-repeat;
+}
