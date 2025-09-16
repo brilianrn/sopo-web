@@ -11,3 +11,18 @@ export interface AppsCategoryItemProps {
   label: ReactNode;
   seoTitle: string;
 }
+
+export interface AppsFarmerItemProps {
+  photo: string;
+  name: string;
+  location: string;
+  distance: string;
+}
+
+export interface AppsFarmerlandItemProps {
+  ownerName: string;
+  location: string;
+  distance: string;
+  photo: string;
+  wide: number;
+}
