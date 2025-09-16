@@ -1,7 +1,7 @@
 @reference "../tailwind.css";
 
 .apps-banner {
-  @apply relative p-5 w-full min-h-[292px] h-full rounded-b-[20px] space-y-6;
+  @apply relative p-5 w-full h-full rounded-b-[20px] space-y-6;
   background: url("../../../../public/assets/images/dashboard-background.webp");
   background-size: cover;
   background-position: center;
@@ -34,7 +34,7 @@
 }
 
 .apps-top-bar-right-item-count-icon {
-  @apply size-6 rounded-full bg-cover bg-center bg-no-repeat;
+  @apply min-h-6 min-w-6 rounded-full bg-cover bg-center bg-no-repeat;
 }
 
 .apps-category-item {

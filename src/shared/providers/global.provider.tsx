@@ -1,5 +1,6 @@
 "use client";
 
+import { SplashScreen } from "@/components/templates";
 import { queryClient } from "@/shared/utils";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -14,7 +15,7 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
       {process.env.NEXT_PUBLIC_DEV_TOOLS === "true" && (
         <ReactQueryDevtools initialIsOpen={false} />
       )}
-      <Suspense fallback={"SPASHSCREEN"}>
+      <Suspense fallback={<SplashScreen />}>
         {/* <SessionProvider>{children}</SessionProvider> */}
         {children}
       </Suspense>

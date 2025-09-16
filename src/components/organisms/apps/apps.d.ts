@@ -22,7 +22,7 @@ export interface AppsFarmerItemProps {
 export interface AppsFarmerlandItemProps {
   ownerName: string;
   location: string;
-  distance: string;
+  distance?: string;
   photo: string;
   wide: number;
 }

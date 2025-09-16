@@ -2,7 +2,7 @@ const nextConfig = {
   reactStrictMode: process.env.NODE_ENV === "development",
   pageExtensions: ["mdx", "md", "jsx", "js", "tsx", "ts"],
   images: {
-    domains: [],
+    domains: ["img.freepik.com", "sc04.alicdn.com", "s.alicdn.com"],
   },
   staticPageGenerationTimeout: 1000,
   env: {

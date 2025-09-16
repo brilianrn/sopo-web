@@ -24,15 +24,21 @@ export const AppsNearestFarmerItem: FC<AppsFarmerItemProps> = ({
         errorClassName="!p-0"
         className="rounded object-cover size-10"
       />
-      <div className="space-y-1">
-        <p className="text-sm font-bold truncate">{name}</p>
+      <div className="space-y-1 w-[169px]">
+        <p className="text-md font-bold truncate text-nowrap line-clamp-1">
+          {name}
+        </p>
         <div className="flex justify-start items-center gap-1">
-          <IcPinRed className="size-3" />
-          <p className="text-xs text-gray-500">{location}</p>
+          <IcPinRed className="size-4" />
+          <p className="text-sm text-gray-500 text-nowrap truncate">
+            {location}
+          </p>
         </div>
         <div className="flex justify-start items-center gap-1">
-          <LocateFixed className="size-3 text-ocean-default" />
-          <p className="text-xs text-gray-500">{distance}</p>
+          <LocateFixed className="size-4 text-ocean-default" />
+          <p className="text-sm text-gray-500 text-nowrap truncate">
+            {distance}
+          </p>
         </div>
       </div>
     </div>

@@ -12,3 +12,5 @@ export const farmerRoute = {
   index: Routes.FARMER,
   detail: (id: string) => `${Routes.FARMER}/${id}`,
 };
+
+export const productDetailRoute = (seoTitle: string) => `/product/${seoTitle}`;

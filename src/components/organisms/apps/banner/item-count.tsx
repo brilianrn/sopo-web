@@ -23,7 +23,7 @@ export const AppsBannerItemCount: FC<AppsBannerItemCountProps> = ({
         )}
         <p className="text-sm font-medium">{label}</p>
       </div>
-      <p className="text-[32px] font-bold leading-11 truncate">
+      <p className="text-2xl tracking-075 font-bold truncate">
         {thousandFormat(total)}
       </p>
     </div>

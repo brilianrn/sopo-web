@@ -9,7 +9,6 @@ import { IcPinRed } from "../../../../../public/assets/icons";
 import { AppsFarmerlandItemProps } from "../apps";
 
 export const AppsNearestFarmerlandItem: FC<AppsFarmerlandItemProps> = ({
-  distance,
   location,
   ownerName,
   photo,
@@ -28,15 +27,15 @@ export const AppsNearestFarmerlandItem: FC<AppsFarmerlandItemProps> = ({
       <div className="px-4 py-2 space-y-1">
         <div className="flex items-center gap-2">
           <Grid3X3 className="size-4 items-center text-primary-default" />
-          <h3 className="text-sm">{wide} (ha)</h3>
+          <h3 className="text-md font-bold">{wide} ha</h3>
         </div>
         <div className="flex items-center gap-2">
           <Key className="size-4 text-warning-darker/70" />
-          <h3 className="text-sm font-bold">{ownerName}</h3>
+          <h3 className="text-sm text-gray-500">{ownerName}</h3>
         </div>
         <div className="flex items-center gap-2">
           <IcPinRed className="size-4 items-center text-gray-darker" />
-          <h3 className="text-sm truncate">{location}</h3>
+          <h3 className="text-sm text-gray-500 truncate">{location}</h3>
         </div>
       </div>
     </div>
