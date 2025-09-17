@@ -20,8 +20,8 @@ const data: AppsCategoryItemProps[] = [
   },
   {
     icon: "cat-environment.png",
-    label: "Lingkungan",
-    seoTitle: "lingkungan",
+    label: "Biochar",
+    seoTitle: "biochar",
   },
   {
     icon: "cat-oil.png",

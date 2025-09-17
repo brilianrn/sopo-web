@@ -1,9 +1,11 @@
 "use client";
 
 import { Image } from "@/components/atoms";
+import { farmerRoute } from "@/shared/constants";
 import styles from "@/shared/styles/packages/apps.module.css";
 import { cn } from "@/shared/utils";
 import { LocateFixed } from "lucide-react";
+import Link from "next/link";
 import { FC } from "react";
 import { IcPinRed } from "../../../../../public/assets/icons";
 import { AppsFarmerItemProps } from "../apps";
@@ -13,17 +15,23 @@ export const AppsNearestFarmerItem: FC<AppsFarmerItemProps> = ({
   location,
   name,
   photo,
+  seoKey,
 }) => {
   return (
-    <div className={cn("box-shadow", styles["apps-nearest-farmer-item"])}>
-      <Image
-        src={photo}
-        alt={`sopo apps nearest farmer ${name?.toLowerCase()}`}
-        width={40}
-        height={40}
-        errorClassName="!p-0"
-        className="rounded object-cover size-10"
-      />
+    <Link
+      href={farmerRoute.detail(seoKey || "")}
+      className={cn("box-shadow", styles["apps-nearest-farmer-item"])}
+    >
+      <div className="space-y-1">
+        <Image
+          src={photo}
+          alt={`sopo apps nearest farmer ${name?.toLowerCase()}`}
+          width={40}
+          height={40}
+          errorClassName="!p-0"
+          className="rounded object-cover size-10"
+        />
+      </div>
       <div className="space-y-1 w-[169px]">
         <p className="text-md font-bold truncate text-nowrap line-clamp-1">
           {name}
@@ -41,6 +49,6 @@ export const AppsNearestFarmerItem: FC<AppsFarmerItemProps> = ({
           </p>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };

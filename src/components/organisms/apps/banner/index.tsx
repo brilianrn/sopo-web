@@ -15,17 +15,17 @@ const counts: AppsBannerItemCountProps[] = [
   {
     icon: "farmerland.webp",
     label: "Lahan (ha)",
-    total: 91820112,
+    total: 1200,
   },
   {
     icon: "sachi-animate.webp",
     label: "Total Panen (Ton)",
-    total: 79289,
+    total: 850,
   },
   {
     icon: "co2.webp",
     label: "Serapan CO² (Ton)",
-    total: 1982031,
+    total: 73829,
   },
 ];
 

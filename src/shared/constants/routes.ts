@@ -1,6 +1,8 @@
 export enum Routes {
   CATEGORY = "/category",
   FARMER = "/farmer",
+  DOCUMENT = "/document",
+  FARMERLAND = "/farmerland",
 }
 
 export const categoryRoute = {
@@ -14,3 +16,13 @@ export const farmerRoute = {
 };
 
 export const productDetailRoute = (seoTitle: string) => `/product/${seoTitle}`;
+
+export const documentRoute = {
+  index: Routes.DOCUMENT,
+  detail: (seoTitle: string) => `${Routes.DOCUMENT}/${seoTitle}`,
+};
+
+export const farmerlandRoute = {
+  index: Routes.FARMERLAND,
+  detail: (id: string) => `${Routes.FARMERLAND}/${id}`,
+};

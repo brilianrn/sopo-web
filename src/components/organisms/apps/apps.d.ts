@@ -17,6 +17,7 @@ export interface AppsFarmerItemProps {
   name: string;
   location: string;
   distance: string;
+  seoKey?: string;
 }
 
 export interface AppsFarmerlandItemProps {
@@ -25,4 +26,5 @@ export interface AppsFarmerlandItemProps {
   distance?: string;
   photo: string;
   wide: number;
+  seoKey?: string;
 }

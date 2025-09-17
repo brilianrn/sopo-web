@@ -1,19 +1,10 @@
-"use client";
-
+import { AppsLayout } from "@/components/templates/apps-layout";
 import { ReactNode } from "react";
 
-const AppsLayout = ({
+const Layout = ({
   children,
 }: Readonly<{
   children: ReactNode;
-}>) => {
-  return (
-    <div className="w-screen h-screen bg-gray-400/70 flex justify-center overflow-hidden">
-      <div className="w-[430px] h-screen overflow-x-hidden overflow-y-auto bg-white">
-        {children}
-      </div>
-    </div>
-  );
-};
+}>) => <AppsLayout>{children}</AppsLayout>;
 
-export default AppsLayout;
+export default Layout;

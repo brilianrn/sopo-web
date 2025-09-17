@@ -22,7 +22,7 @@ export const AppsCategoryItem: FC<AppsCategoryItemProps> = ({
         ) : (
           icon
         )}
-        <p className="text-sm">{label}</p>
+        <p className="text-sm text-center text-nowrap truncate">{label}</p>
       </div>
     </Link>
   );
