@@ -27,6 +27,7 @@ export const InstallPwaModal = () => {
     };
 
     window.addEventListener("beforeinstallprompt", handler);
+
     return () => window.removeEventListener("beforeinstallprompt", handler);
   }, []);
 
