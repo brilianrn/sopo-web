@@ -10,6 +10,7 @@ import {
   Plus,
 } from "lucide-react";
 import { FC, ReactNode, useState } from "react";
+import { InstallPwaModal } from "../install-pwa";
 
 export const AppsLayout: FC<{ children: ReactNode }> = ({ children }) => {
   const [visible, setVisible] = useState(true);
@@ -33,6 +34,7 @@ export const AppsLayout: FC<{ children: ReactNode }> = ({ children }) => {
   return (
     <div className={cn(styles["apps-layout"])}>
       <div className={styles.inner} onScroll={handleScroll}>
+        <InstallPwaModal />
         {children}
         <footer className={cn(styles.footer)}>
           <div className={cn(styles["bottom-bar"], styles[cls])}>
