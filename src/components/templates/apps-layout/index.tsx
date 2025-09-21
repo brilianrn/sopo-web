@@ -9,14 +9,11 @@ import {
   MessageCircleMore,
   Plus,
 } from "lucide-react";
-import { usePathname } from "next/navigation";
 import { FC, ReactNode, useState } from "react";
 
 export const AppsLayout: FC<{ children: ReactNode }> = ({ children }) => {
   const [visible, setVisible] = useState(true);
   const [lastScrollTop, setLastScrollTop] = useState(0);
-
-  const pathname = usePathname();
 
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
     const target = e.currentTarget;
