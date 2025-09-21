@@ -5,16 +5,23 @@ import { DialogDrawer } from "@/components/molecules";
 import { useEffect, useState } from "react";
 import { OgImage } from "../../../../public/assets/images";
 
+interface BeforeInstallPromptEvent extends Event {
+  prompt: () => Promise<void>;
+  userChoice: Promise<{ outcome: "accepted" | "dismissed"; platform: string }>;
+}
+
 export const InstallPwaModal = () => {
-  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+  const [deferredPrompt, setDeferredPrompt] =
+    useState<BeforeInstallPromptEvent | null>(null);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const handler = (e: any) => {
-      e?.preventDefault();
+    const handler = (e: Event) => {
+      e.preventDefault();
+      const event = e as BeforeInstallPromptEvent;
       const alreadyInstalled = localStorage.getItem("pwa-installed");
       if (!alreadyInstalled) {
-        setDeferredPrompt(e);
+        setDeferredPrompt(event);
         setOpen(true);
       }
     };
@@ -25,11 +32,11 @@ export const InstallPwaModal = () => {
 
   const handleInstall = async () => {
     if (!deferredPrompt) return;
-    deferredPrompt.prompt();
+    await deferredPrompt.prompt();
     const { outcome } = await deferredPrompt.userChoice;
     if (outcome === "accepted") {
-      console.log("✅ User accepted install");
       localStorage.setItem("pwa-installed", "true");
+      console.log("✅ User accepted install");
     } else {
       console.log("❌ User dismissed install");
     }
