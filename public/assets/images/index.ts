@@ -1,6 +1,11 @@
+export { default as OgImage } from "../../og-image.webp";
 export { default as IcCo2 } from "./co2.webp";
-export { default as BgDashboard } from "./dashboard-background.png";
+export { default as BgDashboard } from "./dashboard-background.webp";
 export { default as IcFarmer } from "./farmer.webp";
 export { default as IcFarmerland } from "./farmerland.webp";
+export { default as ImAppIphone } from "./landing-page/app-iphone.webp";
+export { default as BgBadge } from "./landing-page/badge.webp";
+export { default as LogoWhite } from "./logo-white.webp";
+export { default as Logo } from "./logo.webp";
 export { default as ImNotFound } from "./not-found.webp";
 export { default as IcSachiAnimate } from "./sachi-animate.webp";

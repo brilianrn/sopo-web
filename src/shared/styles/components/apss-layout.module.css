@@ -5,7 +5,7 @@
 }
 
 .inner {
-  @apply w-[430px] h-screen overflow-x-hidden overflow-y-auto bg-white relative;
+  @apply w-[480px] h-screen overflow-x-hidden overflow-y-auto bg-white relative;
 }
 
 .footer {

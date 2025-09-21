@@ -1,18 +1,69 @@
-"use client";
+import { DashboardView } from "@/packages/landing-page/presentation/view";
+import { Metadata } from "next";
 
-import { Button } from "@/components/atoms";
-import Link from "next/link";
-
-const Home = () => {
-  return (
-    <div className="w-screen h-screen flex justify-center items-center">
-      <Link href="/apps" className="w-fit">
-        <Button size="3xl" variant="primary">
-          Ke Apps
-        </Button>
-      </Link>
-    </div>
-  );
+export const metadata: Metadata = {
+  title: "SOPO | Bersama Membangun Ekosistem Agribisnis Berkelanjutan",
+  description:
+    "SOPO adalah ekosistem pertanian digital berbasis Sacha Inchi yang mempertemukan petani, pemilik lahan, pemodal, pembibit, trainer, dan konsumen. Dari marketplace produk, carbon credit, manajemen lahan hingga training digital tersedia dalam satu aplikasi.",
+  metadataBase: new URL("https://sopo-gamma.vercel.app"),
+  openGraph: {
+    title: "SOPO | Ekosistem Pertanian Digital Berbasis Sacha Inchi",
+    description:
+      "Gabung bersama SOPO, platform pertanian digital untuk membangun ekosistem agribisnis berkelanjutan. Hadir dengan fitur marketplace, carbon credit, manajemen lahan, dan training digital.",
+    url: "https://sopo.vercel.app",
+    siteName: "SOPO",
+    images: [
+      {
+        url: "/og-image.webp",
+        width: 1200,
+        height: 630,
+        alt: "SOPO - Ekosistem Pertanian Digital Berbasis Sacha Inchi",
+      },
+    ],
+    locale: "id_ID",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "SOPO | Bersama Membangun Ekosistem Agribisnis Berkelanjutan",
+    description:
+      "SOPO, ekosistem pertanian digital berbasis Sacha Inchi yang mempertemukan petani, pemilik lahan, pemodal, pembibit, trainer, dan konsumen dalam satu aplikasi.",
+    images: ["/og-image.webp"],
+  },
+  authors: [
+    {
+      name: "Brilian Rachmad",
+      url: "https://brilianrachmad.vercel.app/",
+    },
+  ],
+  publisher: "SOPO",
+  keywords: [
+    "SOPO",
+    "Ekosistem Agribisnis Berkelanjutan",
+    "Pertanian Digital",
+    "Sacha Inchi",
+    "Marketplace Pertanian",
+    "Carbon Credit",
+    "Manajemen Lahan",
+    "Training Digital Petani",
+    "Petani",
+    "Pemilik Lahan",
+    "Pemodal",
+    "Pembibit",
+    "Trainer",
+    "Konsumen",
+    "Agritech Indonesia",
+    "Pertanian Modern",
+    "Produk Turunan Sacha Inchi",
+  ],
+  robots: {
+    index: true,
+    follow: true,
+  },
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+  },
 };
 
-export default Home;
+export default DashboardView;

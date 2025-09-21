@@ -1,0 +1,9 @@
+@reference '../tailwind.css';
+
+.dashboard {
+  @apply bg-[url('/assets/images/landing-page/dashboard.webp')] bg-center bg-cover bg-no-repeat;
+}
+
+.dashboard-blur {
+  @apply relative flex min-h-screen flex-col items-center justify-center px-12 text-center text-white bg-black/30 backdrop-blur-sm h-screen w-screen;
+}

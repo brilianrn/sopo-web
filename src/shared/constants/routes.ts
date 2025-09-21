@@ -1,8 +1,10 @@
 export enum Routes {
-  CATEGORY = "/category",
-  FARMER = "/farmer",
-  DOCUMENT = "/document",
-  FARMERLAND = "/farmerland",
+  APPS = "/apps",
+  CATEGORY = "/apps/category",
+  FARMER = "/apps/farmer",
+  DOCUMENT = "/apps/document",
+  FARMERLAND = "/apps/farmerland",
+  AUTH = "/apps/auth",
 }
 
 export const categoryRoute = {
@@ -25,4 +27,9 @@ export const documentRoute = {
 export const farmerlandRoute = {
   index: Routes.FARMERLAND,
   detail: (id: string) => `${Routes.FARMERLAND}/${id}`,
+};
+
+export const authRoute = {
+  login: `${Routes.AUTH}/login`,
+  register: `${Routes.AUTH}/register`,
 };

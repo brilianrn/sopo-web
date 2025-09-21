@@ -1,19 +1,22 @@
+import withPWA from "next-pwa";
+
+const isDev = process.env.NODE_ENV === "development";
+
 const nextConfig = {
-  reactStrictMode: process.env.NODE_ENV === "development",
+  reactStrictMode: isDev,
   pageExtensions: ["mdx", "md", "jsx", "js", "tsx", "ts"],
   images: {
     domains: ["img.freepik.com", "sc04.alicdn.com", "s.alicdn.com"],
   },
   staticPageGenerationTimeout: 1000,
   env: {
-    PREFIX_API_V1: process.env.PREFIX_API_V1,
+    PREFIX_API_V1: process.env.PREFIX_API_V1 ?? "",
   },
-  // eslint-disable-next-line
   webpack(config: any) {
-    // eslint-disable-next-line
     const fileLoaderRule = config.module.rules.find((rule: any) =>
       rule.test?.test?.(".svg")
     );
+
     config.module.rules.push(
       {
         ...fileLoaderRule,
@@ -27,9 +30,14 @@ const nextConfig = {
         use: ["@svgr/webpack"],
       }
     );
+
     fileLoaderRule.exclude = /\.svg$/i;
     return config;
   },
 };
 
-module.exports = nextConfig;
+// 👉 pakai any biar gak clash sama typings next-pwa
+export default withPWA({
+  dest: "public",
+  disable: isDev,
+})(nextConfig as any);

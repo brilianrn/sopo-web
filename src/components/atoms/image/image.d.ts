@@ -1,5 +1,5 @@
 export interface ImageCompProps {
-  src: string;
+  src: string | StaticImport;
   alt: string;
   height: number;
   width: number;
