@@ -1,4 +1,3 @@
-import { AppsLayout } from "@/components/templates/apps-layout";
 import { Metadata } from "next";
 import { ReactNode } from "react";
 
@@ -72,6 +71,6 @@ const Layout = ({
   children,
 }: Readonly<{
   children: ReactNode;
-}>) => <AppsLayout>{children}</AppsLayout>;
+}>) => children;
 
 export default Layout;

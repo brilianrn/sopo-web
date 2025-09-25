@@ -1,0 +1,37 @@
+@reference "../tailwind.css";
+
+.login {
+  @apply px-4 py-8 flex flex-col items-center;
+}
+
+.eye {
+  @apply cursor-pointer text-gray-default;
+}
+
+.or {
+  @apply relative w-full flex items-center justify-center my-8;
+}
+
+.or-text {
+  @apply bg-white w-fit text-xs text-gray-400 px-4 z-[2] text-center;
+}
+
+.or-line {
+  @apply border-gray-300 absolute w-full top-1/2 -translate-y-1/2 z-[1];
+}
+
+.forgot-password {
+  @apply text-primary-default text-sm text-right hover:text-primary-600;
+}
+
+.google {
+  @apply bg-[url('/assets/images/google.webp')] bg-center bg-cover bg-no-repeat size-5 absolute left-4 top-1/2 -translate-y-1/2 rounded-md;
+}
+
+.apple {
+  @apply bg-[url('/assets/images/apple.webp')] bg-center bg-cover bg-no-repeat h-6 w-5 absolute left-4 top-1/2 -translate-y-1/2 rounded-md;
+}
+
+.email-illustration {
+  @apply bg-[url('/assets/images/illustration-email.webp')] bg-center bg-cover bg-no-repeat h-32 w-48 mt-8;
+}

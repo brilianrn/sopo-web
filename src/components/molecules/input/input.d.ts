@@ -85,3 +85,19 @@ export interface InputTextSearchProps {
   autoHideAfterClickItem?: boolean;
   size?: "sm" | "md" | "lg" | "xl";
 }
+
+export interface InputSelelctProps {
+  placeholder?: string;
+  useLabelInside?: boolean;
+  size?: "sm" | "md" | "lg" | "xl";
+  label?: string;
+  errorMessage?: string;
+  disabled?: boolean;
+  register?: UseFormRegister<any>; // eslint-disable-line
+  className?: string;
+  name?: string;
+  value?: string;
+  setValue?: (data: string) => void;
+  options: { label: string; value: string }[];
+  required?: boolean;
+}

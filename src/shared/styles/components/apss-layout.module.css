@@ -1,7 +1,7 @@
 @reference "../tailwind.css";
 
 .apps-layout {
-  @apply w-screen h-screen bg-gray-400/70 flex justify-center overflow-hidden;
+  @apply w-screen h-screen flex justify-center overflow-hidden;
 }
 
 .inner {

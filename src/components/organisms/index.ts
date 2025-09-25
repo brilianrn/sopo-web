@@ -9,5 +9,5 @@ export * from "./apps/nearest-farmer/farmer-item";
 export * from "./apps/nearest-farmerland";
 export * from "./apps/nearest-farmerland/farmerland-item";
 export * from "./apps/popular-product";
-
 export * from "./product/card";
+export * from "./register/verify-confirm-password";

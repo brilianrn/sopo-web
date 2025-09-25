@@ -1,8 +1,10 @@
 export { default as OgImage } from "../../og-image.webp";
+export { default as IcApple } from "./apple.webp";
 export { default as IcCo2 } from "./co2.webp";
 export { default as BgDashboard } from "./dashboard-background.webp";
 export { default as IcFarmer } from "./farmer.webp";
 export { default as IcFarmerland } from "./farmerland.webp";
+export { default as IcGoogle } from "./google.webp";
 export { default as ImAppIphone } from "./landing-page/app-iphone.webp";
 export { default as BgBadge } from "./landing-page/badge.webp";
 export { default as LogoWhite } from "./logo-white.webp";

@@ -8,3 +8,8 @@ export const isNumber = (num: string) => {
   const regex = /^\d+$/;
   return regex.test(num);
 };
+
+export const isPhone = (phone: string) => {
+  const regex = /^(?:\+62|0)[0-9]{8,13}$/;
+  return regex.test(phone);
+};

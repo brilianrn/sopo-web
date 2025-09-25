@@ -5,6 +5,7 @@ export enum Routes {
   DOCUMENT = "/apps/document",
   FARMERLAND = "/apps/farmerland",
   AUTH = "/apps/auth",
+  HELP_CENTER = "/apps/help-center",
 }
 
 export const categoryRoute = {
@@ -32,4 +33,10 @@ export const farmerlandRoute = {
 export const authRoute = {
   login: `${Routes.AUTH}/login`,
   register: `${Routes.AUTH}/register`,
+  forgotPassword: `${Routes.AUTH}/forgot-password`,
+};
+
+export const helpCenterRoute = {
+  tnc: `${Routes.HELP_CENTER}/tnc`,
+  privacyPolicy: `${Routes.HELP_CENTER}/privacy-policy`,
 };

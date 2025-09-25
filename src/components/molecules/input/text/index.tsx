@@ -82,7 +82,7 @@ export const InputText = ({
           className={cn(
             useLabelInside &&
               styles[`form-label-inside${value ? "-active" : ""}`],
-            useLabelInside && "text-primary-default dark:text-white"
+            useLabelInside && "text-gray-500 dark:text-white"
           )}
         >
           {label}
@@ -99,6 +99,7 @@ export const InputText = ({
               },
               valueAsNumber: type === "number",
             })}
+            autoComplete="off"
             onBlur={() => {
               setIsFocused(false);
               if (onBlur) onBlur();
@@ -120,8 +121,8 @@ export const InputText = ({
               styles[size],
               className,
               disabled
-                ? "cursor-not-allowed !bg-gray-100"
-                : "!bg-white dark:!bg-dark-default text-black dark:text-white focus:border-primary-default border-gray-300 dark:focus:border-primary-lighter",
+                ? "cursor-not-allowed !bg-gray-100 !border-gray-200"
+                : styles["form-input"],
               useLabelInside &&
                 styles[`form-input-inside${inputState ? "-active" : ""}`],
               errorMessage
@@ -144,6 +145,7 @@ export const InputText = ({
               setIsFocused(false);
               if (onBlur) onBlur();
             }}
+            autoComplete="off"
             onFocus={() => {
               setIsFocused(true);
               if (onFocus) onFocus();
@@ -163,8 +165,8 @@ export const InputText = ({
               styles[size],
               className,
               disabled
-                ? "cursor-not-allowed bg-gray-100"
-                : "!bg-white dark:!bg-dark-default text-black dark:text-white focus:border-primary-default border-gray-300 dark:focus:border-primary-lighter",
+                ? "cursor-not-allowed !bg-gray-100 !border-gray-200"
+                : styles["form-input"],
               useLabelInside &&
                 styles[`form-input-inside${value ? "-active" : ""}`],
               errorMessage
@@ -189,7 +191,7 @@ export const InputText = ({
                 `form-label-inside${inputState || value ? "-active" : ""}`
               ],
               isFocused || value || inputState
-                ? "text-primary-default dark:text-white"
+                ? "text-gray-500 dark:text-white"
                 : "text-gray-400"
             )}
           >
@@ -207,14 +209,14 @@ export const InputText = ({
               className={cn(
                 "absolute top-[50%] translate-y-[-50%]",
                 iconPosition === "right" ? "right-4" : "left-4",
-                disabled ? "!cursor-not-allowed" : ""
+                disabled && !iconOnClick ? "!cursor-not-allowed" : ""
               )}
             >
               <Image
                 alt={`input-${name}`}
                 src={icon}
                 className={`${iconClassName} ${
-                  disabled ? "!cursor-not-allowed" : ""
+                  disabled && !iconOnClick ? "!cursor-not-allowed" : ""
                 }`}
                 onClick={iconOnClick}
                 height={iconHeight}
@@ -228,7 +230,7 @@ export const InputText = ({
               iconClassName,
               "absolute top-[50%] translate-y-[-50%]",
               iconPosition === "right" ? "right-4" : "left-4",
-              disabled ? "!cursor-not-allowed" : ""
+              disabled && !iconOnClick ? "!cursor-not-allowed" : ""
             )}
             onClick={iconOnClick}
           >
@@ -237,9 +239,7 @@ export const InputText = ({
         )}
       </span>
       {errorMessage && (
-        <p className="text-danger-500 font-medium text-sm pl-4">
-          {errorMessage}
-        </p>
+        <p className="text-danger-500 text-sm pl-4">{errorMessage}</p>
       )}
     </div>
   );

@@ -3,6 +3,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import * as React from "react";
 
 import { cn } from "@/shared/utils/index";
+import { Loader2Icon } from "lucide-react";
 import Link from "next/link";
 
 const buttonVariants = cva(
@@ -53,18 +54,21 @@ const Button = ({
   variant,
   size,
   asChild = false,
+  isSubmitting,
+  href,
   ...props
 }: React.ComponentProps<"button"> &
   VariantProps<typeof buttonVariants> & {
     asChild?: boolean;
     href?: string;
+    isSubmitting?: boolean;
   }) => {
   const Comp = asChild ? Slot : "button";
 
   return (
     <div className="w-full">
-      {props?.href ? (
-        <Link href={props.href || ""}>
+      {href ? (
+        <Link href={href}>
           <Comp
             data-slot="button"
             className={cn(
@@ -78,8 +82,25 @@ const Button = ({
         <Comp
           data-slot="button"
           className={cn("w-full", buttonVariants({ variant, size, className }))}
+          disabled={isSubmitting || props.disabled}
           {...props}
-        />
+        >
+          {isSubmitting && (
+            <Loader2Icon
+              className={cn(
+                "animate-spin",
+                size === "2xl"
+                  ? "size-7"
+                  : size === "xl"
+                  ? "size-6"
+                  : size === "lg"
+                  ? "size-5"
+                  : "size-4"
+              )}
+            />
+          )}
+          {props.children}
+        </Comp>
       )}
     </div>
   );

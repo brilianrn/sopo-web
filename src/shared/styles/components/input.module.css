@@ -19,6 +19,10 @@
 .xl {
 }
 
+.form-input {
+  @apply !bg-white dark:!bg-dark-default text-black dark:text-white focus:border-primary-default border-gray-300 dark:focus:border-primary-lighter focus:ring-2 focus:ring-primary-200;
+}
+
 .form-input,
 .form-input-error,
 .form-input-with-icon-right,
@@ -31,7 +35,7 @@
 .form-input-error,
 .form-input-with-icon-right-error,
 .form-input-with-icon-left-error {
-  @apply border-danger-500;
+  @apply !border-danger-500 focus:!ring-2 focus:!ring-danger-200;
 }
 
 .form-input-with-icon-left,
@@ -65,21 +69,21 @@
 }
 
 .form-input-inside:focus {
-  @apply pt-9;
+  @apply pt-8;
   transition: 0.2s ease all;
 }
 
 .form-input-inside:focus ~ .form-label-inside {
-  @apply translate-y-[-110%] top-[50%] font-bold text-[12px] tracking-[0.4px];
+  @apply translate-y-[-110%] top-[43%] font-normal text-[10px] tracking-[0.4px];
 }
 
 .form-input-inside-active {
-  @apply pt-9 text-[12px];
+  @apply pt-8 text-[10px];
   transition: 0.2s ease all;
 }
 
 .form-label-inside-active {
-  @apply absolute translate-y-[-110%] top-[49%] text-[12px] tracking-[0.4px] font-bold left-4;
+  @apply absolute translate-y-[-110%] top-[42%] text-[10px] tracking-[0.4px] font-normal left-4;
   pointer-events: none;
 }
 
@@ -89,7 +93,7 @@
 }
 
 .form-area-label-inside-active {
-  @apply absolute text-[12px] font-bold left-4 top-2 w-full;
+  @apply absolute text-[10px] font-normal left-4 top-2 w-full;
   transition: 0.2s ease all;
 }
 
@@ -107,7 +111,7 @@
 }
 
 .form-area-input-inside-active {
-  @apply pt-6 text-[12px] border-gray-300;
+  @apply pt-6 text-[10px] border-gray-300;
   transition: 0.2s ease all;
 }
 
@@ -116,6 +120,6 @@
 }
 
 .form-select-label-inside-focused {
-  @apply text-xs font-bold absolute tracking-[0.4px] left-4 top-4;
+  @apply text-xs font-normal absolute tracking-[0.4px] left-4 top-4;
   transition: 0.2s ease all;
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import { useScreenSize } from "@/shared/hooks";
 import styles from "@/shared/styles/components/apss-layout.module.css";
 import { cn } from "@/shared/utils";
 import {
@@ -13,8 +14,10 @@ import { FC, ReactNode, useState } from "react";
 import { InstallPwaModal } from "../install-pwa";
 
 export const AppsLayout: FC<{ children: ReactNode }> = ({ children }) => {
-  const [visible, setVisible] = useState(true);
-  const [lastScrollTop, setLastScrollTop] = useState(0);
+  const [visible, setVisible] = useState<boolean>(true);
+  const [lastScrollTop, setLastScrollTop] = useState<number>(0);
+
+  const { width } = useScreenSize();
 
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
     const target = e.currentTarget;
@@ -39,20 +42,45 @@ export const AppsLayout: FC<{ children: ReactNode }> = ({ children }) => {
         <footer className={cn(styles.footer)}>
           <div className={cn(styles["bottom-bar"], styles[cls])}>
             <div className="bg-primary-darker/50 absolute left-1/2 -translate-x-1/2 h-full w-full z-[1] rounded-2xl box-shadow" />
-            <div className="rounded-xl box-shadow p-4 flex justify-start items-center gap-1 z-[2] bg-white/90">
+            <div
+              className={cn(
+                width <= 360 ? "p-3.5" : "p-4",
+                "rounded-xl box-shadow flex justify-start items-center gap-1 z-[2] bg-white/90"
+              )}
+            >
               <LayoutGrid className="size-6 text-primary-default fill-primary-default/70" />
               <p className="text-md text-primary-600">Utama</p>
             </div>
-            <div className="rounded-xl box-shadow p-4 flex justify-start items-center gap-1 z-[2] bg-white/90">
+            <div
+              className={cn(
+                width <= 360 ? "p-3.5" : "p-4",
+                "rounded-xl box-shadow flex justify-start items-center gap-1 z-[2] bg-white/90"
+              )}
+            >
               <Banknote className="size-6 text-black/60" />
             </div>
-            <div className="rounded-xl box-shadow p-4 flex justify-start items-center gap-1 z-[2] bg-white/90">
+            <div
+              className={cn(
+                width <= 360 ? "p-3.5" : "p-4",
+                "rounded-xl box-shadow flex justify-start items-center gap-1 z-[2] bg-white/90"
+              )}
+            >
               <Plus className="size-6 text-black/60" />
             </div>
-            <div className="rounded-xl box-shadow p-4 flex justify-start items-center gap-1 z-[2] bg-white/90">
+            <div
+              className={cn(
+                width <= 360 ? "p-3.5" : "p-4",
+                "rounded-xl box-shadow flex justify-start items-center gap-1 z-[2] bg-white/90"
+              )}
+            >
               <MessageCircleMore className="size-6 text-black/60" />
             </div>
-            <div className="rounded-xl box-shadow p-4 flex justify-start items-center gap-1 z-[2] bg-white/90">
+            <div
+              className={cn(
+                width <= 360 ? "p-3.5" : "p-4",
+                "rounded-xl box-shadow flex justify-start items-center gap-1 z-[2] bg-white/90"
+              )}
+            >
               <Bolt className="size-6 text-black/60" />
             </div>
           </div>
