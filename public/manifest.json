@@ -3,7 +3,7 @@
   "short_name": "SOPO",
   "description": "Ekosistem Pertanian Sacha Inchi Terintegrasi",
   "start_url": "/apps",
-  "orientation": "portrait",
+  "orientation": "portrait-primary",
   "scope": "/apps",
   "display": "standalone",
   "background_color": "#61BA44",
