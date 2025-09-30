@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "app.vercel.sopogamma.twa",
+      "sha256_cert_fingerprints": [
+        "D1:B3:6F:CD:3A:0F:A4:2A:2D:A2:30:76:62:75:BD:74:8C:E3:17:50:E1:3E:3D:36:7C:DF:32:15:62:8B:30:E2"
+      ]
+    }
+  }
+]
