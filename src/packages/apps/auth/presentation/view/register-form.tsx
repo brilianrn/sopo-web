@@ -13,20 +13,20 @@ import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { EUserType, TFormRegisterSchema } from '../../domain/request';
+import { TFormRegisterSchema } from '../../domain/request';
 import { IOtpInfo } from '../../domain/response';
 import { FormRegisterSchema } from '../../dto';
 import { EAuthQuery, useAuthController } from '../controller';
 
 export const RegisterFormView = () => {
-  const userTypeLabels: Record<EUserType, string> = {
-    [EUserType.CUSTOMER]: 'Pembeli',
-    [EUserType.FARMER]: 'Petani',
-    [EUserType.BREEDER]: 'Peternak',
-    [EUserType.LAND_OWNER]: 'Pemilik Lahan',
-    [EUserType.INVESTOR]: 'Investor',
-    [EUserType.TRAINER_OF_TRAINER]: 'Trainer of Trainer',
-  };
+  // const userTypeLabels: Record<EUserType, string> = {
+  //   [EUserType.CUSTOMER]: 'Pembeli',
+  //   [EUserType.FARMER]: 'Petani',
+  //   [EUserType.BREEDER]: 'Peternak',
+  //   [EUserType.LAND_OWNER]: 'Pemilik Lahan',
+  //   [EUserType.INVESTOR]: 'Investor',
+  //   [EUserType.TRAINER_OF_TRAINER]: 'Trainer of Trainer',
+  // };
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false);
@@ -73,11 +73,14 @@ export const RegisterFormView = () => {
         label: 'Mengandung 1 Karakter Spesial atau Simbol',
       },
     ];
+    // eslint-disable-next-line
   }, [watch('passwordConfirmation'), watch('password')]);
 
   useEffect(() => {
-    setValue('input', verifyInfo?.email || verifyInfo?.phone || '');
-  }, [verifyInfo]);
+    if (verifyInfo) {
+      setValue('input', verifyInfo.email || verifyInfo.phone || '');
+    }
+  }, [verifyInfo, setValue]);
 
   const checkSamePasswordMessage = useMemo(() => {
     const password = watch('password');
@@ -87,6 +90,7 @@ export const RegisterFormView = () => {
       watch('passwordConfirmation') &&
       validationMessage('Konfirmasi kata sandi').notSame('kata sandi')
     );
+    // eslint-disable-next-line
   }, [watch('password'), watch('passwordConfirmation')]);
 
   return (

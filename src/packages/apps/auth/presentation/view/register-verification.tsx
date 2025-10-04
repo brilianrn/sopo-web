@@ -42,7 +42,7 @@ export const RegisterVerificationView = () => {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [verifyInfo?.expiredAt]);
+  }, [verifyInfo?.expiredAt, showContent]);
 
   return (
     <Layout className="flex flex-col gap-3 items-center">

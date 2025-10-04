@@ -6,7 +6,7 @@
 
 .splash-screen-logo {
   @apply size-[300px];
-  background: url("../../../../public/og-image.webp");
+  background: url('../../../../public/og-image.webp');
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;

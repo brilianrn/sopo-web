@@ -46,7 +46,7 @@ export const InputSelect: FC<InputSelelctProps> = ({
         target: { value: e },
       });
     } else {
-      setValue && setValue(e);
+      if (setValue) setValue(e);
     }
     setInputState(e);
   };

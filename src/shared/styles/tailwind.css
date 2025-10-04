@@ -1,5 +1,5 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
 
 @theme {
   --color-danger-lighter: #fdcfcb;
@@ -107,7 +107,7 @@
   --color-ocean-900: #0a3a70;
   --color-ocean-950: #07254a;
 
-  --font-poppins: "Poppins", sans-serif;
+  --font-poppins: 'Poppins', sans-serif;
 
   --font-poppins-regular: var(--font-poppins);
   --font-poppins-italic: var(--font-poppins);
@@ -139,10 +139,6 @@
   }
 
   .bg-shadow {
-    background: linear-gradient(
-      180deg,
-      rgba(0, 0, 0, 0),
-      rgba(0, 0, 0, 1) 100%
-    );
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1) 100%);
   }
 }

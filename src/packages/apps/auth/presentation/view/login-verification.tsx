@@ -52,7 +52,7 @@ export const LoginVerificationView = () => {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [otpInfo?.expiredAt]);
+  }, [otpInfo?.expiredAt, showContent, setShowContent]);
 
   const onSubmit = async (otpData: string) => {
     setIsLoading(true);

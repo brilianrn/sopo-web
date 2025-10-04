@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { IRequestVerifyOtp } from '@/packages/apps/auth/domain/request';
 import { IResponseVerifyOtp } from '@/packages/apps/auth/domain/response';
 import { AuthRepository } from '@/packages/apps/auth/repository';
@@ -7,15 +9,6 @@ import { JWT } from 'next-auth/jwt';
 import CredentialsProviders from 'next-auth/providers/credentials';
 import { authRoute } from '../constants';
 import { http, RestAPI } from './rest-api';
-
-interface Token {
-  id: string;
-  name?: string | null | undefined;
-  email?: string | null | undefined;
-  avatar?: string | null | undefined;
-  phone?: string | null | undefined;
-  token?: string | null | undefined;
-}
 
 export const authOptions: NextAuthOptions = {
   providers: [

@@ -1,4 +1,5 @@
 import crypto from 'crypto';
+import Logger from './logger';
 
 const algorithm = 'aes-256-cbc';
 const key = crypto
@@ -27,6 +28,7 @@ export const decrypt = <T extends object | undefined>(cipherText: string): T | n
     const result: T = JSON.parse(decrypted);
     return result;
   } catch (error) {
+    Logger.error(error, { location: 'decrypt' });
     return null;
   }
 };

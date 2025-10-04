@@ -1,6 +1,6 @@
 .apps-banner {
   @apply relative p-5 w-full h-[292px] rounded-b-[20px];
-  background: url("../../../../public/assets/images/dashboard-background.webp");
+  background: url('../../../../public/assets/images/dashboard-background.webp');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
