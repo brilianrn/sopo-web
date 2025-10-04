@@ -1,3 +1,3 @@
-import { LoginVerificationView } from "@/packages/apps/auth/presentation/view";
+import { LoginVerificationView } from '@/packages/apps/auth/presentation/view';
 
 export default LoginVerificationView;

@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import styles from "@/shared/styles/components/input.module.css";
-import { cn } from "@/shared/utils";
-import Image from "next/image";
-import { ChangeEvent, useState } from "react";
-import { InputTextareaProps } from "../input";
+import styles from '@/shared/styles/components/input.module.css';
+import { cn } from '@/shared/utils';
+import Image from 'next/image';
+import { ChangeEvent, useState } from 'react';
+import { InputTextareaProps } from '../input';
 
 export const InputTextarea = ({
   className,
@@ -22,14 +22,14 @@ export const InputTextarea = ({
   value,
   setValue,
   disabled = false,
-  iconType = "image",
+  iconType = 'image',
   iconHeight = 50,
   iconWidth = 50,
   useLabelInside = false,
   onBlur,
   onFocus,
   onEnter,
-  size = "lg",
+  size = 'lg',
 }: InputTextareaProps) => {
   const [isFocused, setIsFocused] = useState(false);
   const [inputState, setInputState] = useState<string>();
@@ -41,18 +41,11 @@ export const InputTextarea = ({
 
   return (
     <div
-      className={cn(
-        labelClassName,
-        "w-full",
-        label && !useLabelInside && "flex flex-col gap-2"
-      )}
+      className={cn(labelClassName, 'w-full', label && !useLabelInside && 'flex flex-col gap-2')}
     >
       {label && !useLabelInside && (
         <label
-          className={cn(
-            useLabelInside &&
-              styles[`form-label-inside${value ? "-active" : ""}`]
-          )}
+          className={cn(useLabelInside && styles[`form-label-inside${value ? '-active' : ''}`])}
         >
           {label}
           {required && <span className="text-danger-500">*</span>}
@@ -62,14 +55,10 @@ export const InputTextarea = ({
         {label && useLabelInside && (
           <label
             className={cn(
-              styles[
-                `form-area-label-inside${
-                  isFocused || inputState || value ? "-active" : ""
-                }`
-              ],
+              styles[`form-area-label-inside${isFocused || inputState || value ? '-active' : ''}`],
               isFocused || value || inputState
-                ? "text-primary-default dark:text-white bg-white dark:bg-dark-default !w-[91%]"
-                : "text-gray-400"
+                ? 'text-primary-default dark:text-white bg-white dark:bg-dark-default !w-[91%]'
+                : 'text-gray-400',
             )}
           >
             <span>{label}</span>
@@ -92,36 +81,28 @@ export const InputTextarea = ({
               if (onFocus) onFocus();
             }}
             onKeyDown={(e) => {
-              if (e.key.toLowerCase() === "enter") {
+              if (e.key.toLowerCase() === 'enter') {
                 e.preventDefault();
                 if (onEnter) onEnter();
               }
             }}
-            placeholder={useLabelInside ? "" : placeholder}
+            placeholder={useLabelInside ? '' : placeholder}
             disabled={disabled}
             className={cn(
-              "!bg-white dark:!bg-dark-default text-black dark:text-white min-h-20 h-full !top-2",
+              '!bg-white dark:!bg-dark-default text-black dark:text-white min-h-20 h-full !top-2',
               styles[size],
               className,
-              disabled && "cursor-not-allowed",
+              disabled && 'cursor-not-allowed',
               useLabelInside &&
                 styles[
-                  `form-area-input-inside${
-                    errorMessage ? "error" : inputState ? "-active" : ""
-                  }`
+                  `form-area-input-inside${errorMessage ? 'error' : inputState ? '-active' : ''}`
                 ],
               errorMessage
                 ? styles[
-                    `form-input${
-                      icon && iconPosition ? `-with-icon-${iconPosition}` : ""
-                    }-error`
+                    `form-input${icon && iconPosition ? `-with-icon-${iconPosition}` : ''}-error`
                   ]
-                : styles[
-                    `form-input${
-                      icon && iconPosition ? `-with-icon-${iconPosition}` : ""
-                    }`
-                  ],
-              isFocused && "input-focused"
+                : styles[`form-input${icon && iconPosition ? `-with-icon-${iconPosition}` : ''}`],
+              isFocused && 'input-focused',
             )}
           />
         ) : (
@@ -135,67 +116,55 @@ export const InputTextarea = ({
               if (onFocus) onFocus();
             }}
             onKeyDown={(e) => {
-              if (e.key.toLowerCase() === "enter") {
+              if (e.key.toLowerCase() === 'enter') {
                 e.preventDefault();
                 if (onEnter) onEnter();
               }
             }}
-            value={value || ""}
+            value={value || ''}
             onChange={onChange}
-            placeholder={useLabelInside ? "" : placeholder}
+            placeholder={useLabelInside ? '' : placeholder}
             disabled={disabled}
             className={cn(
-              "!bg-white dark:!bg-dark-default text-black dark:text-white min-h-20 h-full",
+              '!bg-white dark:!bg-dark-default text-black dark:text-white min-h-20 h-full',
               styles[size],
               className,
-              disabled && "cursor-not-allowed",
-              useLabelInside &&
-                styles[`form-input-inside${value ? "-active" : ""}`],
+              disabled && 'cursor-not-allowed',
+              useLabelInside && styles[`form-input-inside${value ? '-active' : ''}`],
               errorMessage
                 ? styles[
-                    `form-input${
-                      icon && iconPosition ? `-with-icon-${iconPosition}` : ""
-                    }-error`
+                    `form-input${icon && iconPosition ? `-with-icon-${iconPosition}` : ''}-error`
                   ]
-                : styles[
-                    `form-input${
-                      icon && iconPosition ? `-with-icon-${iconPosition}` : ""
-                    }`
-                  ],
-              isFocused && "input-focused"
+                : styles[`form-input${icon && iconPosition ? `-with-icon-${iconPosition}` : ''}`],
+              isFocused && 'input-focused',
             )}
           />
         )}
-        {icon &&
-          iconPosition &&
-          iconType === "image" &&
-          typeof icon === "string" && (
-            <span
-              className={cn(
-                "absolute top-[50%] translate-y-[-50%]",
-                iconPosition === "right" ? "right-4" : "left-4",
-                disabled ? "!cursor-not-allowed" : ""
-              )}
-            >
-              <Image
-                alt={`input-${name}`}
-                src={icon}
-                className={`${iconClassName} ${
-                  disabled ? "!cursor-not-allowed" : ""
-                }`}
-                onClick={iconOnClick}
-                height={iconHeight}
-                width={iconWidth}
-              />
-            </span>
-          )}
-        {icon && iconPosition && iconType === "string" && (
+        {icon && iconPosition && iconType === 'image' && typeof icon === 'string' && (
+          <span
+            className={cn(
+              'absolute top-[50%] translate-y-[-50%]',
+              iconPosition === 'right' ? 'right-4' : 'left-4',
+              disabled ? '!cursor-not-allowed' : '',
+            )}
+          >
+            <Image
+              alt={`input-${name}`}
+              src={icon}
+              className={`${iconClassName} ${disabled ? '!cursor-not-allowed' : ''}`}
+              onClick={iconOnClick}
+              height={iconHeight}
+              width={iconWidth}
+            />
+          </span>
+        )}
+        {icon && iconPosition && iconType === 'string' && (
           <span
             className={cn(
               iconClassName,
-              "absolute top-[50%] translate-y-[-50%]",
-              iconPosition === "right" ? "right-4" : "left-4",
-              disabled ? "!cursor-not-allowed" : ""
+              'absolute top-[50%] translate-y-[-50%]',
+              iconPosition === 'right' ? 'right-4' : 'left-4',
+              disabled ? '!cursor-not-allowed' : '',
             )}
             onClick={iconOnClick}
           >
@@ -203,11 +172,7 @@ export const InputTextarea = ({
           </span>
         )}
       </span>
-      {errorMessage && (
-        <p className="text-danger-500 font-medium text-sm pl-4">
-          {errorMessage}
-        </p>
-      )}
+      {errorMessage && <p className="text-danger-500 font-medium text-sm pl-4">{errorMessage}</p>}
     </div>
   );
 };

@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { Spinner } from "@/components/atoms";
-import classNames from "clsx";
-import { Search, X } from "lucide-react";
-import { FC, useState } from "react";
-import { useDebouncedCallback } from "use-debounce";
-import { InputTextSearchProps } from "../input";
-import { InputText } from "../text";
+import { Spinner } from '@/components/atoms';
+import classNames from 'clsx';
+import { Search, X } from 'lucide-react';
+import { FC, useState } from 'react';
+import { useDebouncedCallback } from 'use-debounce';
+import { InputTextSearchProps } from '../input';
+import { InputText } from '../text';
 
 const InputTextSearch: FC<InputTextSearchProps> = ({
   search,
@@ -21,30 +21,27 @@ const InputTextSearch: FC<InputTextSearchProps> = ({
   children,
   suggestionEmptyState,
   autoHideAfterClickItem = true,
-  size = "md",
+  size = 'md',
 }) => {
-  const [keyword, setKeyword] = useState<string>("");
+  const [keyword, setKeyword] = useState<string>('');
   const [isShowSuggestion, setIsShowSuggestion] = useState<boolean>(false);
 
-  const debounce = useDebouncedCallback(
-    (value) => setSearch(value),
-    delayDebounce
-  );
+  const debounce = useDebouncedCallback((value) => setSearch(value), delayDebounce);
 
   const onChangeText = (value: string) => {
     setKeyword(value);
-    if (typeof value === "string" && value) {
+    if (typeof value === 'string' && value) {
       debounce(value);
     } else {
-      setSearch("", true);
+      setSearch('', true);
     }
   };
 
   return (
-    <div className={classNames(["group relative w-full"])}>
+    <div className={classNames(['group relative w-full'])}>
       <InputText
         useLabelInside={useLabelInside}
-        label={useLabelInside ? placeholder : ""}
+        label={useLabelInside ? placeholder : ''}
         type="text"
         icon={
           (delayDebounce ? !keyword : !search) ? (
@@ -54,8 +51,8 @@ const InputTextSearch: FC<InputTextSearchProps> = ({
           )
         }
         iconOnClick={() => {
-          setSearch("");
-          setKeyword("");
+          setSearch('');
+          setKeyword('');
         }}
         iconClassName="cursor-pointer"
         iconHeight={20}
@@ -65,19 +62,14 @@ const InputTextSearch: FC<InputTextSearchProps> = ({
         size={size}
         placeholder={placeholder}
         className={classNames([
-          delayDebounce ? keyword : search && "!border-primary-default",
-          "w-full",
+          delayDebounce ? keyword : search && '!border-primary-default',
+          'w-full',
           className,
         ])}
         value={delayDebounce ? keyword : search}
         setValue={delayDebounce ? onChangeText : setSearch}
         onFocus={() => setIsShowSuggestion(true)}
-        onBlur={() =>
-          setTimeout(
-            () => autoHideAfterClickItem && setIsShowSuggestion(false),
-            200
-          )
-        }
+        onBlur={() => setTimeout(() => autoHideAfterClickItem && setIsShowSuggestion(false), 200)}
         onEnter={() => {
           if (onEnter) {
             onEnter(delayDebounce ? keyword : search);
@@ -93,7 +85,7 @@ const InputTextSearch: FC<InputTextSearchProps> = ({
             children
           ) : (
             <p className="my-10 w-full text-center text-sm italic text-gray-400">
-              {suggestionEmptyState || "-- Produk tidak ditemukan --"}
+              {suggestionEmptyState || '-- Produk tidak ditemukan --'}
             </p>
           )}
         </div>

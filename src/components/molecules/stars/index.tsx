@@ -1,6 +1,6 @@
-import { Star } from "lucide-react";
-import { FC } from "react";
-import { StarsProps } from "./stars";
+import { Star } from 'lucide-react';
+import { FC } from 'react';
+import { StarsProps } from './stars';
 
 export const Stars: FC<StarsProps> = ({ count }) => (
   <div className="flex items-center gap-1 text-yellow-400">

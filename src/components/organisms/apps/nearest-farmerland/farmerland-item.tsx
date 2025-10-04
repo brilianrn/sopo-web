@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { Button, Image } from "@/components/atoms";
-import { farmerlandRoute } from "@/shared/constants";
-import styles from "@/shared/styles/packages/apps.module.css";
-import { cn } from "@/shared/utils";
-import { Grid3X3, HeartHandshake, Key } from "lucide-react";
-import Link from "next/link";
-import { FC } from "react";
-import { IcPinRed } from "../../../../../public/assets/icons";
-import { AppsFarmerlandItemProps } from "../apps";
+import { Button, Image } from '@/components/atoms';
+import { farmerlandRoute } from '@/shared/constants';
+import styles from '@/shared/styles/packages/apps.module.css';
+import { cn } from '@/shared/utils';
+import { Grid3X3, HeartHandshake, Key } from 'lucide-react';
+import Link from 'next/link';
+import { FC } from 'react';
+import { IcPinRed } from '../../../../../public/assets/icons';
+import { AppsFarmerlandItemProps } from '../apps';
 
 export const AppsNearestFarmerlandItem: FC<AppsFarmerlandItemProps> = ({
   location,
@@ -19,8 +19,8 @@ export const AppsNearestFarmerlandItem: FC<AppsFarmerlandItemProps> = ({
 }) => {
   return (
     <Link
-      href={farmerlandRoute.detail(seoKey || "")}
-      className={cn("box-shadow z-0", styles["apps-nearest-farmerland-item"])}
+      href={farmerlandRoute.detail(seoKey || '')}
+      className={cn('box-shadow z-0', styles['apps-nearest-farmerland-item'])}
     >
       <Image
         src={photo}
@@ -28,7 +28,7 @@ export const AppsNearestFarmerlandItem: FC<AppsFarmerlandItemProps> = ({
         width={208}
         height={187}
         errorClassName="!p-0"
-        className={styles["apps-nearest-farmerland-item-image"]}
+        className={styles['apps-nearest-farmerland-item-image']}
       />
       <div className="px-2 py-2 space-y-1">
         <div className="flex items-center gap-2">
@@ -50,7 +50,7 @@ export const AppsNearestFarmerlandItem: FC<AppsFarmerlandItemProps> = ({
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
-            console.log("Ajukan kerjasama diklik");
+            console.log('Ajukan kerjasama diklik');
           }}
         >
           <HeartHandshake className="size-4" />

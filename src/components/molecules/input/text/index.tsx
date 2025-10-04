@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import styles from "@/shared/styles/components/input.module.css";
-import { cn, formatRupiah, isNumber, unformatRupiah } from "@/shared/utils";
-import Image from "next/image";
-import { ChangeEvent, useEffect, useState } from "react";
-import { InputTextProps } from "../input";
+import styles from '@/shared/styles/components/input.module.css';
+import { cn, formatRupiah, isNumber, unformatRupiah } from '@/shared/utils';
+import Image from 'next/image';
+import { ChangeEvent, useEffect, useState } from 'react';
+import { InputTextProps } from '../input';
 
 export const InputText = ({
   type,
@@ -23,14 +23,14 @@ export const InputText = ({
   value,
   setValue,
   disabled = false,
-  iconType = "image",
+  iconType = 'image',
   iconHeight = 50,
   iconWidth = 50,
   useLabelInside = false,
   onBlur,
   onFocus,
   onEnter,
-  size = "lg",
+  size = 'lg',
 }: InputTextProps) => {
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const [inputState, setInputState] = useState<string>();
@@ -44,27 +44,22 @@ export const InputText = ({
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const tempValue = e.target.value;
-    if (type === "price") {
+    if (type === 'price') {
       const nonIDR = unformatRupiah(tempValue);
       if (isNumber(nonIDR)) {
-        const IDR = formatRupiah(Number(nonIDR || "0"), ".");
+        const IDR = formatRupiah(Number(nonIDR || '0'), '.');
         setInputState(IDR);
         return setValue && setValue(nonIDR);
       }
-      setInputState(
-        tempValue === "" || tempValue.length < 4 ? "" : (value as string)
-      );
+      setInputState(tempValue === '' || tempValue.length < 4 ? '' : (value as string));
       return (
-        setValue &&
-        setValue(
-          tempValue === "" || tempValue.length < 4 ? "" : (value as string)
-        )
+        setValue && setValue(tempValue === '' || tempValue.length < 4 ? '' : (value as string))
       );
-    } else if (type === "bank-account-number") {
+    } else if (type === 'bank-account-number') {
       if (isNumber(tempValue)) {
         return setValue && setValue(tempValue);
       }
-      return setValue && setValue(tempValue === "" ? "" : (value as string));
+      return setValue && setValue(tempValue === '' ? '' : (value as string));
     }
     return setValue && setValue(tempValue);
   };
@@ -73,16 +68,15 @@ export const InputText = ({
     <div
       className={cn(
         labelClassName,
-        "relative w-full",
-        label && !useLabelInside && "flex flex-col gap-2"
+        'relative w-full',
+        label && !useLabelInside && 'flex flex-col gap-2',
       )}
     >
       {label && !useLabelInside && (
         <label
           className={cn(
-            useLabelInside &&
-              styles[`form-label-inside${value ? "-active" : ""}`],
-            useLabelInside && "text-gray-500 dark:text-white"
+            useLabelInside && styles[`form-label-inside${value ? '-active' : ''}`],
+            useLabelInside && 'text-gray-500 dark:text-white',
           )}
         >
           {label}
@@ -97,7 +91,7 @@ export const InputText = ({
                 setInputState(e?.target?.value);
                 return e;
               },
-              valueAsNumber: type === "number",
+              valueAsNumber: type === 'number',
             })}
             autoComplete="off"
             onBlur={() => {
@@ -109,34 +103,25 @@ export const InputText = ({
               if (onFocus) onFocus();
             }}
             onKeyDown={(e) => {
-              if (e.key.toLowerCase() === "enter") {
+              if (e.key.toLowerCase() === 'enter') {
                 e.preventDefault();
                 if (onEnter) onEnter();
               }
             }}
-            type={type === "price" ? "text" : type}
-            placeholder={useLabelInside ? "" : placeholder}
+            type={type === 'price' ? 'text' : type}
+            placeholder={useLabelInside ? '' : placeholder}
             disabled={disabled}
             className={cn(
               styles[size],
               className,
-              disabled
-                ? "cursor-not-allowed !bg-gray-100 !border-gray-200"
-                : styles["form-input"],
-              useLabelInside &&
-                styles[`form-input-inside${inputState ? "-active" : ""}`],
+              disabled ? 'cursor-not-allowed !bg-gray-100 !border-gray-200' : styles['form-input'],
+              useLabelInside && styles[`form-input-inside${inputState ? '-active' : ''}`],
               errorMessage
                 ? styles[
-                    `form-input${
-                      icon && iconPosition ? `-with-icon-${iconPosition}` : ""
-                    }-error`
+                    `form-input${icon && iconPosition ? `-with-icon-${iconPosition}` : ''}-error`
                   ]
-                : styles[
-                    `form-input${
-                      icon && iconPosition ? `-with-icon-${iconPosition}` : ""
-                    }`
-                  ],
-              isFocused && "input-focused"
+                : styles[`form-input${icon && iconPosition ? `-with-icon-${iconPosition}` : ''}`],
+              isFocused && 'input-focused',
             )}
           />
         ) : (
@@ -151,48 +136,35 @@ export const InputText = ({
               if (onFocus) onFocus();
             }}
             onKeyDown={(e) => {
-              if (e.key.toLowerCase() === "enter") {
+              if (e.key.toLowerCase() === 'enter') {
                 e.preventDefault();
                 if (onEnter) onEnter();
               }
             }}
-            type={type === "price" ? "text" : type}
-            value={inputState || value || ""}
+            type={type === 'price' ? 'text' : type}
+            value={inputState || value || ''}
             onChange={onChange}
-            placeholder={useLabelInside ? "" : placeholder}
+            placeholder={useLabelInside ? '' : placeholder}
             disabled={disabled}
             className={cn(
               styles[size],
               className,
-              disabled
-                ? "cursor-not-allowed !bg-gray-100 !border-gray-200"
-                : styles["form-input"],
-              useLabelInside &&
-                styles[`form-input-inside${value ? "-active" : ""}`],
+              disabled ? 'cursor-not-allowed !bg-gray-100 !border-gray-200' : styles['form-input'],
+              useLabelInside && styles[`form-input-inside${value ? '-active' : ''}`],
               errorMessage
                 ? styles[
-                    `form-input${
-                      icon && iconPosition ? `-with-icon-${iconPosition}` : ""
-                    }-error`
+                    `form-input${icon && iconPosition ? `-with-icon-${iconPosition}` : ''}-error`
                   ]
-                : styles[
-                    `form-input${
-                      icon && iconPosition ? `-with-icon-${iconPosition}` : ""
-                    }`
-                  ],
-              isFocused && "input-focused"
+                : styles[`form-input${icon && iconPosition ? `-with-icon-${iconPosition}` : ''}`],
+              isFocused && 'input-focused',
             )}
           />
         )}
         {label && useLabelInside && (
           <label
             className={cn(
-              styles[
-                `form-label-inside${inputState || value ? "-active" : ""}`
-              ],
-              isFocused || value || inputState
-                ? "text-gray-500 dark:text-white"
-                : "text-gray-400"
+              styles[`form-label-inside${inputState || value ? '-active' : ''}`],
+              isFocused || value || inputState ? 'text-gray-500 dark:text-white' : 'text-gray-400',
             )}
           >
             <span>{label}</span>
@@ -201,36 +173,33 @@ export const InputText = ({
             )}
           </label>
         )}
-        {icon &&
-          iconPosition &&
-          iconType === "image" &&
-          typeof icon === "string" && (
-            <span
-              className={cn(
-                "absolute top-[50%] translate-y-[-50%]",
-                iconPosition === "right" ? "right-4" : "left-4",
-                disabled && !iconOnClick ? "!cursor-not-allowed" : ""
-              )}
-            >
-              <Image
-                alt={`input-${name}`}
-                src={icon}
-                className={`${iconClassName} ${
-                  disabled && !iconOnClick ? "!cursor-not-allowed" : ""
-                }`}
-                onClick={iconOnClick}
-                height={iconHeight}
-                width={iconWidth}
-              />
-            </span>
-          )}
-        {icon && iconPosition && iconType === "string" && (
+        {icon && iconPosition && iconType === 'image' && typeof icon === 'string' && (
+          <span
+            className={cn(
+              'absolute top-[50%] translate-y-[-50%]',
+              iconPosition === 'right' ? 'right-4' : 'left-4',
+              disabled && !iconOnClick ? '!cursor-not-allowed' : '',
+            )}
+          >
+            <Image
+              alt={`input-${name}`}
+              src={icon}
+              className={`${iconClassName} ${
+                disabled && !iconOnClick ? '!cursor-not-allowed' : ''
+              }`}
+              onClick={iconOnClick}
+              height={iconHeight}
+              width={iconWidth}
+            />
+          </span>
+        )}
+        {icon && iconPosition && iconType === 'string' && (
           <span
             className={cn(
               iconClassName,
-              "absolute top-[50%] translate-y-[-50%]",
-              iconPosition === "right" ? "right-4" : "left-4",
-              disabled && !iconOnClick ? "!cursor-not-allowed" : ""
+              'absolute top-[50%] translate-y-[-50%]',
+              iconPosition === 'right' ? 'right-4' : 'left-4',
+              disabled && !iconOnClick ? '!cursor-not-allowed' : '',
             )}
             onClick={iconOnClick}
           >
@@ -238,9 +207,7 @@ export const InputText = ({
           </span>
         )}
       </span>
-      {errorMessage && (
-        <p className="text-danger-500 text-sm pl-4">{errorMessage}</p>
-      )}
+      {errorMessage && <p className="text-danger-500 text-sm pl-4">{errorMessage}</p>}
     </div>
   );
 };

@@ -1,3 +1,3 @@
-import { AppsDashboardView } from "@/packages/apps/dashboard/presentation/view";
+import { AppsDashboardView } from '@/packages/apps/dashboard/presentation/view';
 
 export default AppsDashboardView;

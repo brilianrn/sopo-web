@@ -1,23 +1,28 @@
-const withPWA = require("next-pwa")({
-  dest: "public",
-  disable: process.env.NODE_ENV === "development",
+const withPWA = require('next-pwa')({
+  dest: 'public',
+  disable: process.env.NODE_ENV === 'development',
   register: true,
   skipWaiting: true,
 });
 
 module.exports = withPWA({
-  pageExtensions: ["ts", "tsx"],
+  pageExtensions: ['ts', 'tsx'],
   generateEtags: false,
   poweredByHeader: false,
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ["img.freepik.com", "sc04.alicdn.com", "s.alicdn.com"],
+    domains: ['img.freepik.com', 'sc04.alicdn.com', 's.alicdn.com'],
   },
   staticPageGenerationTimeout: 1000,
   env: {
     PORT: process.env.PORT,
-    PREFIX_API_V1: process.env.PREFIX_API_V1 ?? "",
+    BASE_API_URL: process.env.BASE_API_URL,
+    APP_KEY: process.env.APP_KEY,
+    NEXTAUTH_URL: process.env.NEXTAUTH_URL,
+    NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
+    NEXTAUTH_SESSION_MAX_AGE: process.env.NEXTAUTH_SESSION_MAX_AGE,
+    FARMER_CODE: process.env.FARMER_CODE,
   },
   experimental: {
     missingSuspenseWithCSRBailout: false,
@@ -25,18 +30,18 @@ module.exports = withPWA({
   headers: async () => {
     return [
       {
-        source: "/(.*)",
+        source: '/(.*)',
         headers: [
           {
-            key: "Access-Control-Allow-Origin",
-            value: "*",
+            key: 'Access-Control-Allow-Origin',
+            value: '*',
           },
           {
-            key: "X-Frame-Options",
-            value: "SAMEORIGIN",
+            key: 'X-Frame-Options',
+            value: 'SAMEORIGIN',
           },
           {
-            key: "Content-Security-Policy",
+            key: 'Content-Security-Policy',
             value: `frame-ancestors 'self' http://localhost:4006/`,
           },
         ],
@@ -54,14 +59,13 @@ module.exports = withPWA({
       if (Array.isArray(loaders.use)) {
         loaders.use.forEach((loader) => {
           const isCssLoader =
-            typeof loader?.loader === "string" &&
-            /(?<!post)css-loader/.test(loader?.loader);
+            typeof loader?.loader === 'string' && /(?<!post)css-loader/.test(loader?.loader);
           const hasGetLocalIdent = !!loader?.options?.modules?.getLocalIdent;
           if (isCssLoader && hasGetLocalIdent) {
             const { getLocalIdent } = loader.options.modules;
             if (getLocalIdent) {
               loader.options.modules.getLocalIdent = (...args) => {
-                if (args.includes("dark")) return "dark";
+                if (args.includes('dark')) return 'dark';
                 return getLocalIdent(...args);
               };
             }
@@ -71,9 +75,7 @@ module.exports = withPWA({
     });
 
     // Add SVGR as a loader
-    const fileLoaderRule = config.module.rules.find((rule) =>
-      rule.test?.test?.(".svg")
-    );
+    const fileLoaderRule = config.module.rules.find((rule) => rule.test?.test?.('.svg'));
     config.module.rules.push(
       {
         ...fileLoaderRule,
@@ -84,8 +86,8 @@ module.exports = withPWA({
         test: /\.svg$/i,
         issuer: fileLoaderRule.issuer,
         resourceQuery: { not: [...fileLoaderRule.resourceQuery.not, /url/] },
-        use: ["@svgr/webpack"],
-      }
+        use: ['@svgr/webpack'],
+      },
     );
     fileLoaderRule.exclude = /\.svg$/i;
 

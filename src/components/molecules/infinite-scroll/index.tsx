@@ -1,5 +1,5 @@
-import React, { ReactNode } from "react";
-import ReactInfiniteScroll from "react-infinite-scroll-component";
+import React, { ReactNode } from 'react';
+import ReactInfiniteScroll from 'react-infinite-scroll-component';
 
 interface InfiniteScrollProps {
   children: ReactNode;
@@ -25,16 +25,11 @@ export const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
       dataLength={React.Children.count(children)}
       next={fetchMoreData}
       hasMore={hasMore}
-      loader={
-        loader || (SkeletonComponent ? <SkeletonComponent /> : "Loading...")
-      }
+      loader={loader || (SkeletonComponent ? <SkeletonComponent /> : 'Loading...')}
       className={className}
     >
       {children}
-      {!hasMore &&
-        (endMessage || (
-          <p className="text-center mt-4">Semua data telah ditampilkan</p>
-        ))}
+      {!hasMore && (endMessage || <p className="text-center mt-4">Semua data telah ditampilkan</p>)}
     </ReactInfiniteScroll>
   );
 };

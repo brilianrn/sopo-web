@@ -1,11 +1,11 @@
 export enum Routes {
-  APPS = "/apps",
-  CATEGORY = "/apps/category",
-  FARMER = "/apps/farmer",
-  DOCUMENT = "/apps/document",
-  FARMERLAND = "/apps/farmerland",
-  AUTH = "/apps/auth",
-  HELP_CENTER = "/apps/help-center",
+  APPS = '/apps',
+  CATEGORY = '/apps/category',
+  FARMER = '/apps/farmer',
+  DOCUMENT = '/apps/document',
+  FARMERLAND = '/apps/farmerland',
+  AUTH = '/apps/auth',
+  HELP_CENTER = '/apps/help-center',
 }
 
 export const categoryRoute = {
@@ -32,7 +32,9 @@ export const farmerlandRoute = {
 
 export const authRoute = {
   login: `${Routes.AUTH}/login`,
+  loginOtp: (token: string) => `${Routes.AUTH}/login/${token}`,
   register: `${Routes.AUTH}/register`,
+  registerOtp: (token: string) => `${Routes.AUTH}/register/${token}`,
   forgotPassword: `${Routes.AUTH}/forgot-password`,
 };
 

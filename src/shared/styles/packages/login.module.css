@@ -32,6 +32,18 @@
   @apply bg-[url('/assets/images/apple.webp')] bg-center bg-cover bg-no-repeat h-6 w-5 absolute left-4 top-1/2 -translate-y-1/2 rounded-md;
 }
 
+.register-verify-illustration {
+  @apply bg-center bg-cover bg-no-repeat h-32 w-48 mt-8;
+}
+
 .email-illustration {
-  @apply bg-[url('/assets/images/illustration-email.webp')] bg-center bg-cover bg-no-repeat h-32 w-48 mt-8;
+  @apply bg-[url('/assets/images/illustration-email.webp')];
+}
+
+.whatsapp-illustration {
+  @apply bg-[url('/assets/images/illustration-whatsapp.webp')];
+}
+
+.sms-illustration {
+  @apply bg-[url('/assets/images/illustration-sms.webp')];
 }

@@ -21,6 +21,10 @@
   @apply size-10 rounded-full border-2 my-auto;
 }
 
+.apps-top-bar-login {
+  @apply w-fit !bg-white/40 border-transparent font-semibold !uppercase text-black items-center flex;
+}
+
 .apps-top-bar-right {
   @apply flex items-center gap-2 justify-end;
 }

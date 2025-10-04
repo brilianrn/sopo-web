@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import classNames from "clsx";
-import NextImage, { ImageProps } from "next/image";
-import { FC, SyntheticEvent, useEffect, useState } from "react";
-import { ImageCompProps } from "./image";
+import classNames from 'clsx';
+import NextImage, { ImageProps } from 'next/image';
+import { FC, SyntheticEvent, useEffect, useState } from 'react';
+import { ImageCompProps } from './image';
 
-const defaultImage = "/assets/images/placeholder.webp";
+const defaultImage = '/assets/images/placeholder.webp';
 
 const shimmer = (w: number, h: number) => `
 <svg width="${w}" height="${h}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -22,9 +22,7 @@ const shimmer = (w: number, h: number) => `
 </svg>`;
 
 const toBase64 = (str: string) =>
-  typeof window === "undefined"
-    ? Buffer.from(str).toString("base64")
-    : window.btoa(str);
+  typeof window === 'undefined' ? Buffer.from(str).toString('base64') : window.btoa(str);
 
 const skeleton = `data:image/svg+xml;base64,${toBase64(shimmer(700, 475))}`;
 
@@ -34,7 +32,7 @@ export const Image: FC<ImageCompProps & ImageProps> = ({
   src,
   width,
   onClick,
-  placeholder = "blur",
+  placeholder = 'blur',
   className,
   useBaseUrl,
   priority,
@@ -50,7 +48,7 @@ export const Image: FC<ImageCompProps & ImageProps> = ({
       setImage(useBaseUrl ? `${process.env.CDN_URL}/${src}` : src);
     } else {
       setImage(errorImage || defaultImage);
-      setErrClassName(errorClassName || "!p-3 !object-contain");
+      setErrClassName(errorClassName || '!p-3 !object-contain');
     }
     // eslint-disable-next-line
   }, [src, useBaseUrl, errorImage]);
@@ -58,7 +56,7 @@ export const Image: FC<ImageCompProps & ImageProps> = ({
   const handleError = (event?: SyntheticEvent<HTMLImageElement, Event>) => {
     if (event) {
       setImage(errorImage || defaultImage);
-      setErrClassName(errorClassName || "!p-3 !object-contain");
+      setErrClassName(errorClassName || '!p-3 !object-contain');
     }
   };
 
@@ -71,11 +69,7 @@ export const Image: FC<ImageCompProps & ImageProps> = ({
       alt={alt}
       height={height}
       width={width}
-      className={classNames([
-        className,
-        onClick && "cursor-pointer",
-        errClassName,
-      ])}
+      className={classNames([className, onClick && 'cursor-pointer', errClassName])}
       onClick={onClick}
       onError={handleError}
       priority={priority}

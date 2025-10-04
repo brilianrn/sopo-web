@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { Image } from "@/components/atoms";
-import { productDetailRoute } from "@/shared/constants";
-import styles from "@/shared/styles/components/product.module.css";
-import { cn, formatRupiah } from "@/shared/utils";
-import { Star } from "lucide-react";
-import Link from "next/link";
-import { FC } from "react";
-import { IcPinRed } from "../../../../public/assets/icons";
-import { ProductCardProps } from "./product";
+import { Image } from '@/components/atoms';
+import { productDetailRoute } from '@/shared/constants';
+import styles from '@/shared/styles/components/product.module.css';
+import { cn, formatRupiah } from '@/shared/utils';
+import { Star } from 'lucide-react';
+import Link from 'next/link';
+import { FC } from 'react';
+import { IcPinRed } from '../../../../public/assets/icons';
+import { ProductCardProps } from './product';
 
 export const ProductCard: FC<ProductCardProps> = ({
   image,
@@ -20,20 +20,17 @@ export const ProductCard: FC<ProductCardProps> = ({
   sold,
 }) => {
   return (
-    <Link
-      href={productDetailRoute(seoTitle)}
-      className={cn("box-shadow", styles["product-card"])}
-    >
+    <Link href={productDetailRoute(seoTitle)} className={cn('box-shadow', styles['product-card'])}>
       <Image
         src={image}
         alt={`sopo product ${name?.toLowerCase()}`}
         width={195}
         height={195}
         errorClassName="!p-0"
-        className={styles["product-image"]}
+        className={styles['product-image']}
       />
       <div className="space-y-0 p-2">
-        <h2 className={styles["product-name"]}>{name}</h2>
+        <h2 className={styles['product-name']}>{name}</h2>
         <p className="font-bold text-lg truncate">{formatRupiah(price)}</p>
         <div className="block text-sm text-gray-500 space-y-1">
           {sold ? <p>{sold} terjual</p> : undefined}

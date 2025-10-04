@@ -1,1 +1,1 @@
-export * from "./global.provider";
+export * from './global.provider';

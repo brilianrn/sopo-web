@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   SelectContent,
@@ -7,16 +7,16 @@ import {
   Select as SelectOriginal,
   SelectTrigger,
   SelectValue,
-} from "@/components/atoms";
-import styles from "@/shared/styles/components/input.module.css";
-import { cn } from "@/shared/utils";
-import { ChevronDown } from "lucide-react";
-import { FC, useEffect, useMemo, useState } from "react";
-import { InputSelelctProps } from "../input";
+} from '@/components/atoms';
+import styles from '@/shared/styles/components/input.module.css';
+import { cn } from '@/shared/utils';
+import { ChevronDown } from 'lucide-react';
+import { FC, useEffect, useMemo, useState } from 'react';
+import { InputSelelctProps } from '../input';
 
 export const InputSelect: FC<InputSelelctProps> = ({
   className,
-  size = "lg",
+  size = 'lg',
   disabled,
   useLabelInside,
   errorMessage,
@@ -32,10 +32,7 @@ export const InputSelect: FC<InputSelelctProps> = ({
   const [inputState, setInputState] = useState<string>();
   const [opened, setOpened] = useState<boolean>(false);
 
-  const tuningRegister = useMemo(
-    () => register && name && register(name),
-    [register, name]
-  );
+  const tuningRegister = useMemo(() => register && name && register(name), [register, name]);
 
   useEffect(() => {
     if (tuningRegister && value) {
@@ -54,15 +51,20 @@ export const InputSelect: FC<InputSelelctProps> = ({
     setInputState(e);
   };
 
+  const labelValue = useMemo(
+    () => options?.find((e) => e.value === inputState)?.label,
+    [inputState, options],
+  );
+
   return (
     <SelectOriginal onOpenChange={setOpened} onValueChange={onChange}>
       <SelectTrigger
         icon={
           <ChevronDown
             className={cn(
-              "transition-all duration-200",
-              opened ? "rotate-180" : "",
-              size === "lg" ? "size-6" : size === "md" ? "size-5" : "size-4"
+              'transition-all duration-200',
+              opened ? 'rotate-180' : '',
+              size === 'lg' ? 'size-6' : size === 'md' ? 'size-5' : 'size-4',
             )}
           />
         }
@@ -70,12 +72,11 @@ export const InputSelect: FC<InputSelelctProps> = ({
           styles[size],
           className,
           disabled
-            ? "cursor-not-allowed !bg-gray-100 !border-gray-200"
-            : "!bg-white dark:!bg-dark-default text-black dark:text-white focus:border-primary-default border-gray-300 dark:focus:border-primary-lighter",
-          useLabelInside &&
-            styles[`form-input-inside${inputState ? "-active" : ""}`],
-          errorMessage ? styles["form-input-error"] : styles["form-input"],
-          opened && "input-focused"
+            ? 'cursor-not-allowed !bg-gray-100 !border-gray-200'
+            : '!bg-white dark:!bg-dark-default text-black dark:text-white focus:border-primary-default border-gray-300 dark:focus:border-primary-lighter',
+          useLabelInside && styles[`form-input-inside${inputState ? '-active' : ''}`],
+          errorMessage ? styles['form-input-error'] : styles['form-input'],
+          opened && 'input-focused',
         )}
       >
         <SelectValue
@@ -84,15 +85,9 @@ export const InputSelect: FC<InputSelelctProps> = ({
             useLabelInside && (
               <label
                 className={cn(
-                  "transition-all duration-200",
-                  styles[
-                    `form-label-inside${
-                      inputState || value || opened ? "-active" : ""
-                    }`
-                  ],
-                  opened || value || inputState
-                    ? "text-gray-500 dark:text-white"
-                    : "text-gray-400"
+                  'transition-all duration-200',
+                  styles[`form-label-inside${inputState || value || opened ? '-active' : ''}`],
+                  opened || value || inputState ? 'text-gray-500 dark:text-white' : 'text-gray-400',
                 )}
               >
                 <span>{label || placeholder}</span>
@@ -106,15 +101,9 @@ export const InputSelect: FC<InputSelelctProps> = ({
           {label && useLabelInside && (
             <label
               className={cn(
-                "transition-all duration-200",
-                styles[
-                  `form-label-inside${
-                    inputState || value || opened ? "-active" : ""
-                  }`
-                ],
-                opened || value || inputState
-                  ? "text-gray-500 dark:text-white"
-                  : "text-gray-400"
+                'transition-all duration-200',
+                styles[`form-label-inside${inputState || value || opened ? '-active' : ''}`],
+                opened || value || inputState ? 'text-gray-500 dark:text-white' : 'text-gray-400',
               )}
             >
               <span>{label}</span>
@@ -123,9 +112,7 @@ export const InputSelect: FC<InputSelelctProps> = ({
               )}
             </label>
           )}
-          {inputState && (
-            <p>{options.find((o) => o.value === inputState)?.label}</p>
-          )}
+          {inputState && <p>{labelValue}</p>}
         </SelectValue>
       </SelectTrigger>
       <SelectContent>

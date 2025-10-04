@@ -1,5 +1,5 @@
-import { ReactNode } from "react";
-import { UseFormRegister } from "react-hook-form";
+import { ReactNode } from 'react';
+import { UseFormRegister } from 'react-hook-form';
 
 export interface InputProps {
   value?: string;
@@ -20,13 +20,7 @@ export interface InputProps {
 }
 
 export interface IInputTextType {
-  type:
-    | "text"
-    | "number"
-    | "password"
-    | "email"
-    | "price"
-    | "bank-account-number";
+  type: 'text' | 'number' | 'password' | 'email' | 'price' | 'bank-account-number';
 }
 
 export interface InputTextProps extends IInputTextType {
@@ -39,8 +33,8 @@ export interface InputTextProps extends IInputTextType {
   required?: boolean;
   iconOnClick?: () => void;
   icon?: string | ReactNode;
-  iconPosition?: "right" | "left";
-  iconType?: "string" | "image";
+  iconPosition?: 'right' | 'left';
+  iconType?: 'string' | 'image';
   iconClassName?: string;
   iconHeight?: number;
   iconWidth?: number;
@@ -57,13 +51,11 @@ export interface InputTextProps extends IInputTextType {
   onBlur?: () => void;
   onFocus?: () => void;
   onEnter?: () => void;
-  size?: "sm" | "md" | "lg" | "xl";
+  size?: 'sm' | 'md' | 'lg' | 'xl';
 }
 
-export interface InputTextareaProps
-  extends InputTextProps,
-    Partial<IInputTextType> {
-  type?: "textarea";
+export interface InputTextareaProps extends InputTextProps, Partial<IInputTextType> {
+  type?: 'textarea';
   maxLength?: number;
   placeholder?: string;
   useLabelInside?: boolean;
@@ -83,13 +75,13 @@ export interface InputTextSearchProps {
   loadingSuggestion?: boolean;
   onEnter?: (value?: string) => void;
   autoHideAfterClickItem?: boolean;
-  size?: "sm" | "md" | "lg" | "xl";
+  size?: 'sm' | 'md' | 'lg' | 'xl';
 }
 
 export interface InputSelelctProps {
   placeholder?: string;
   useLabelInside?: boolean;
-  size?: "sm" | "md" | "lg" | "xl";
+  size?: 'sm' | 'md' | 'lg' | 'xl';
   label?: string;
   errorMessage?: string;
   disabled?: boolean;

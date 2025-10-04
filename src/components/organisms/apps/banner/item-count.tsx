@@ -1,21 +1,17 @@
-"use client";
+'use client';
 
-import styles from "@/shared/styles/packages/apps.module.css";
-import { thousandFormat } from "@/shared/utils";
-import { FC } from "react";
-import { AppsBannerItemCountProps } from "../apps";
+import styles from '@/shared/styles/packages/apps.module.css';
+import { thousandFormat } from '@/shared/utils';
+import { FC } from 'react';
+import { AppsBannerItemCountProps } from '../apps';
 
-export const AppsBannerItemCount: FC<AppsBannerItemCountProps> = ({
-  icon,
-  label,
-  total,
-}) => {
+export const AppsBannerItemCount: FC<AppsBannerItemCountProps> = ({ icon, label, total }) => {
   return (
-    <div className={styles["apps-top-bar-right-item-count"]}>
+    <div className={styles['apps-top-bar-right-item-count']}>
       <div className="flex items-center gap-1">
-        {typeof icon === "string" ? (
+        {typeof icon === 'string' ? (
           <div
-            className={styles["apps-top-bar-right-item-count-icon"]}
+            className={styles['apps-top-bar-right-item-count-icon']}
             style={{ backgroundImage: `url(/assets/images/${icon})` }}
           />
         ) : (
@@ -23,9 +19,7 @@ export const AppsBannerItemCount: FC<AppsBannerItemCountProps> = ({
         )}
         <p className="text-sm font-medium">{label}</p>
       </div>
-      <p className="text-2xl tracking-075 font-bold truncate">
-        {thousandFormat(total)}
-      </p>
+      <p className="text-2xl tracking-075 font-bold truncate">{thousandFormat(total)}</p>
     </div>
   );
 };

@@ -5,7 +5,7 @@ import {
   AppsNearestFarmer,
   AppsNearestFarmerland,
   AppsPopularProduct,
-} from "@/components/organisms";
+} from '@/components/organisms';
 
 export const AppsDashboardView = () => {
   return (
