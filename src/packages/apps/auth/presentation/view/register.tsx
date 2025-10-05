@@ -49,7 +49,8 @@ export const RegisterView = () => {
             size="lg"
             type="email"
             useLabelInside
-            label="Masukkan Email atau No HP"
+            // TODO: Must be available for email/phone label="Masukkan Email atau No HP"
+            label="Email"
             name="input"
             register={register}
             errorMessage={errors.input?.message || ''}
@@ -71,10 +72,10 @@ export const RegisterView = () => {
             <div className={styles.google} />
             Daftar dengan Google
           </Button>
-          <Button size="lg" className="!text-white !bg-black !border-black relative">
+          {/* TODO: Must be available for Register with Apple <Button size="lg" className="!text-white !bg-black !border-black relative">
             <div className={styles.apple} />
             Daftar dengan Apple
-          </Button>
+          </Button> */}
         </form>
         <div className="text-center mt-20">
           <p className="text-sm ">

@@ -2,6 +2,7 @@ export * from './button';
 export * from './card';
 export * from './card/card-children';
 export * from './checkbox';
+export * from './collapse';
 export * from './dialog';
 export * from './drawer';
 export * from './image';

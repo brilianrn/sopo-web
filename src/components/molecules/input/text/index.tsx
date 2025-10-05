@@ -76,7 +76,7 @@ export const InputText = ({
         <label
           className={cn(
             useLabelInside && styles[`form-label-inside${value ? '-active' : ''}`],
-            useLabelInside && 'text-gray-500 dark:text-white',
+            useLabelInside && 'text-gray-500',
           )}
         >
           {label}
@@ -164,7 +164,7 @@ export const InputText = ({
           <label
             className={cn(
               styles[`form-label-inside${inputState || value ? '-active' : ''}`],
-              isFocused || value || inputState ? 'text-gray-500 dark:text-white' : 'text-gray-400',
+              isFocused || value || inputState ? 'text-gray-500' : 'text-gray-400',
             )}
           >
             <span>{label}</span>

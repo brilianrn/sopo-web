@@ -5,5 +5,21 @@
 }
 
 .dashboard-blur {
-  @apply relative flex min-h-screen flex-col items-center justify-center px-12 text-center text-white bg-black/30 backdrop-blur-sm h-screen w-screen;
+  @apply relative flex min-h-screen flex-col items-center justify-center md:px-12 px-4 text-center text-white bg-black/30 backdrop-blur-sm h-screen w-screen;
+}
+
+.topbar {
+  @apply fixed top-4 left-1/2 -translate-x-1/2 px-4 py-3 bg-white text-primary-default z-20 gap-4 md:min-w-3/4 min-w-11/12 lg:rounded-full rounded-4xl;
+}
+
+.topbar-logo {
+  @apply bg-[url('/assets/images/logo.webp')] bg-center bg-cover bg-no-repeat w-10 h-10;
+}
+
+.topbar-active-menu {
+  @apply !bg-warning-default !text-white font-medium py-1 flex lg:justify-center justify-start items-center lg:rounded-full rounded-lg px-4;
+}
+
+.topbar-menu {
+  @apply transition-all duration-200 hover:text-primary-default;
 }

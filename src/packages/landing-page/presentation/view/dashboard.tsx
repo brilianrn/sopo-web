@@ -1,173 +1,171 @@
 'use client';
 
-import { Button } from '@/components/atoms';
+import { Button, Collapse } from '@/components/atoms';
+import {
+  LandingPageAbout,
+  LandingPageCTA,
+  LandingPageEcosystem,
+  LandingPageFooter,
+  LandingPageHero,
+  LandingPagePillar,
+} from '@/components/organisms/landing-page';
 import { authRoute } from '@/shared/constants';
 import styles from '@/shared/styles/packages/landing-page.module.css';
+import { cn } from '@/shared/utils';
+import classNames from 'clsx';
+import { ChevronDown } from 'lucide-react';
 import Image from 'next/image';
-import Link from 'next/link';
-import { BgBadge, ImAppIphone } from '../../../../../public/assets/images';
+import { useCallback, useEffect, useState } from 'react';
+import { Logo } from '../../../../../public/assets/images';
+
+const sectionIds = ['hero', 'ecosystem', 'pillars', 'about'];
 
 export const DashboardView = () => {
-  return (
-    <main className="bg-gray-50 text-gray-900">
-      {/* HERO SECTION */}
-      <section className={styles.dashboard}>
-        <div className={styles['dashboard-blur']}>
-          <Image
-            src={BgBadge}
-            alt="sopo logo"
-            priority
-            className="absolute left-1/2 lg:w-28 md:w-24 w-20 -translate-x-1/2 top-0"
-            width={100}
-            height={100}
-          />
-          <h1 className="text-4xl font-extrabold sm:text-6xl">
-            Bersama Membangun Ekosistem Agribisnis Berkelanjutan
-          </h1>
-          <p className="mt-6 max-w-2xl text-lg sm:text-xl text-green-100">
-            Ekosistem pertanian digital berbasis <b className="text-primary-default">Sacha Inchi</b>{' '}
-            yang mempertemukan petani, pemodal, pemilik lahan, pembibit, trainer, dan konsumen dalam
-            satu aplikasi.
-          </p>
-          <div className="mt-8 flex md:flex-row flex-col gap-4">
-            <Button
-              href={authRoute.register}
-              variant="warning"
-              size="2xl"
-              className="text-warning-darker font-semibold hover:text-warning-200 transition-all duration-200"
-            >
-              Gabung Sekarang
-            </Button>
-            <Button
-              href="#fitur"
-              variant="warningOutline"
-              size="2xl"
-              className="text-white font-semibold border-white hover:text-warning-darker transition-all duration-200"
-            >
-              Pelajari Lebih Lanjut
-            </Button>
-          </div>
-        </div>
-      </section>
-      {/* VALUE PROPOSITION */}{' '}
-      <section id="fitur" className="mx-auto max-w-6xl px-6 py-20">
-        {' '}
-        <h2 className="mb-12 text-center text-3xl font-bold text-green-700">
-          {' '}
-          Kenapa Memilih SOPO?{' '}
-        </h2>{' '}
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {' '}
-          {[
-            {
-              title: 'Petani',
-              desc: 'Akses modal, lahan, pendampingan digital, dan sertifikasi petani.',
-            },
-            {
-              title: 'Pemilik Lahan',
-              desc: 'Optimalisasi lahan nganggur dengan kolaborasi bersama petani.',
-            },
-            {
-              title: 'Pemodal',
-              desc: 'Investasi transparan, terukur, dengan ID pohon, usia, dan lokasi.',
-            },
-            {
-              title: 'Konsumen',
-              desc: 'Produk sehat, berkualitas, dengan jejak asal produk yang jelas.',
-            },
-            {
-              title: 'Pembibit',
-              desc: 'Distribusi bibit berkualitas dengan dukungan marketplace SOPO.',
-            },
-            {
-              title: 'Trainer',
-              desc: 'Fasilitator TOT untuk meningkatkan keterampilan petani.',
-            },
-          ].map((item) => (
-            <div key={item.title} className="rounded-xl bg-white p-6 shadow-md hover:shadow-lg">
-              {' '}
-              <h3 className="text-xl font-semibold text-green-700"> {item.title} </h3>{' '}
-              <p className="mt-2 text-gray-600">{item.desc}</p>{' '}
-            </div>
-          ))}{' '}
-        </div>{' '}
-      </section>{' '}
-      {/* FEATURES */}
-      <section className="bg-white py-20">
-        <div className="mx-auto max-w-6xl px-6">
-          <h2 className="mb-12 text-center text-3xl font-bold text-green-700">Fitur Utama</h2>
+  const [activeSection, setActiveSection] = useState('hero');
+  const [openedMenu, setOpenedMenu] = useState<boolean>(false);
 
-          <div className="grid gap-12 md:grid-cols-2 items-center">
-            {/* LEFT: FEATURES LIST */}
-            <div className="space-y-6">
-              {[
-                {
-                  title: 'Marketplace Produk',
-                  desc: 'Jual beli hasil panen & produk turunan sacha inchi secara transparan.',
-                },
-                {
-                  title: 'Carbon Credit',
-                  desc: 'Hitung dan jual kredit karbon dari pohon yang ditanam.',
-                },
-                {
-                  title: 'Manajemen Lahan',
-                  desc: 'Cari dan kelola lahan kosong terdekat yang bisa digarap.',
-                },
-                {
-                  title: 'Training Digital',
-                  desc: 'Akses materi TOT, video pelatihan, dan sertifikasi petani.',
-                },
-              ].map((f) => (
-                <div
-                  key={f.title}
-                  className="rounded-lg border border-gray-200 bg-gray-50 p-6 hover:shadow-md transition"
-                >
-                  <h3 className="text-lg font-semibold text-green-700">{f.title}</h3>
-                  <p className="mt-2 text-gray-600">{f.desc}</p>
-                </div>
-              ))}
-            </div>
-            <div className="flex justify-center">
-              <Image
-                src={ImAppIphone}
-                priority
-                alt="sopo app iphone"
-                className="w-[280px] md:w-[320px] drop-shadow-2xl rounded-2xl"
-                height={320}
-                width={280}
-              />
-            </div>
+  const handleScroll = useCallback(() => {
+    let currentActive = 'hero';
+
+    const offset = 100;
+
+    sectionIds.forEach((id) => {
+      const section = document.getElementById(id);
+      if (section) {
+        if (window.scrollY >= section.offsetTop - offset) {
+          currentActive = id;
+        }
+      }
+    });
+
+    setActiveSection(currentActive);
+  }, [sectionIds]);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [handleScroll]);
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
+    const section = document.getElementById(id);
+    if (section) {
+      section.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+
+      window.history.pushState(null, '', `#${id}`);
+      setActiveSection(id);
+    }
+  };
+
+  const getClassName = (id: string) =>
+    cn(styles['topbar-menu'], activeSection === id && styles['topbar-active-menu']);
+
+  return (
+    <main className="bg-gray-50 text-gray-900 relative">
+      {openedMenu && (
+        <div
+          className="fixed bg-transparent w-screen h-screen z-[2]"
+          onClick={() => setOpenedMenu(false)}
+        />
+      )}
+      <div className={cn(styles.topbar, 'box-shadow')}>
+        <div className={cn('flex items-center justify-between')}>
+          <Image src={Logo} alt="sopo logo" className="h-10 w-fit" />
+          <div className="lg:flex hidden absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 gap-4 text-md text-black items-center">
+            <a
+              href="#hero"
+              className={getClassName('hero')}
+              onClick={(e) => handleNavClick(e, 'hero')}
+            >
+              Beranda
+            </a>
+            <a
+              href="#ecosystem"
+              className={getClassName('ecosystem')}
+              onClick={(e) => handleNavClick(e, 'ecosystem')}
+            >
+              Ekosistem
+            </a>
+            <a
+              href="#pillars"
+              className={getClassName('pillars')}
+              onClick={(e) => handleNavClick(e, 'pillars')}
+            >
+              Pilar
+            </a>
+            <a
+              href="#about"
+              className={getClassName('about')}
+              onClick={(e) => handleNavClick(e, 'about')}
+            >
+              Tentang
+            </a>
+          </div>
+          <div className="flex justify-end items-center gap-1">
+            <Button href={authRoute.register} className="rounded-full w-fit" target="_blank">
+              Gabung <span className="md:block hidden">Sekarang</span>
+            </Button>
+            <ChevronDown
+              onClick={() => setOpenedMenu(!openedMenu)}
+              className={cn(
+                openedMenu && 'rotate-180',
+                'lg:hidden block size-8 text-black cursor-pointer transition-all duration-200',
+              )}
+            />
           </div>
         </div>
-      </section>
-      {/* CTA SECTION */}{' '}
-      <section
-        id="daftar"
-        className="relative flex flex-col items-center justify-center bg-green-700 px-6 py-20 text-center text-white"
-      >
-        {' '}
-        <h2 className="text-3xl font-bold sm:text-4xl">
-          {' '}
-          Siap Menjadi Bagian dari Revolusi Hijau?{' '}
-        </h2>{' '}
-        <p className="mt-4 max-w-2xl text-green-100">
-          {' '}
-          Daftar sekarang untuk mendapatkan akses awal ke platform SOPO dan ikut membangun ekosistem
-          pertanian berkelanjutan berbasis sacha inchi.{' '}
-        </p>{' '}
-        <Link
-          href={authRoute.register}
-          className="mt-8 rounded-md bg-yellow-400 px-8 py-3 text-lg font-semibold text-black shadow-md hover:bg-yellow-500"
+        <Collapse
+          opened={openedMenu}
+          className={classNames([
+            openedMenu ? 'md:mt-2 mt-8' : 'mt-0',
+            'flex flex-col gap-8 text-left text-dark-default px-4',
+          ])}
         >
-          {' '}
-          Daftar Sekarang{' '}
-        </Link>{' '}
-      </section>{' '}
-      {/* FOOTER */}{' '}
-      <footer className="bg-gray-900 px-6 py-10 text-center text-gray-400">
-        {' '}
-        <p> © {new Date().getFullYear()} SOPO. Ekosistem Pertanian Digital Berkelanjutan. </p>{' '}
-      </footer>
+          <a
+            href="#hero"
+            className={getClassName('hero')}
+            onClick={(e) => handleNavClick(e, 'hero')}
+          >
+            Beranda
+          </a>
+          <a
+            href="#ecosystem"
+            className={getClassName('ecosystem')}
+            onClick={(e) => handleNavClick(e, 'ecosystem')}
+          >
+            Ekosistem
+          </a>
+          <a
+            href="#pillars"
+            className={getClassName('pillars')}
+            onClick={(e) => handleNavClick(e, 'pillars')}
+          >
+            Pilar
+          </a>
+          <a
+            href="#about"
+            className={getClassName('about')}
+            onClick={(e) => handleNavClick(e, 'about')}
+          >
+            Tentang
+          </a>
+        </Collapse>
+      </div>
+
+      {/* SECTIONS: Pastikan ID sesuai dengan daftar sectionIds di atas */}
+      <LandingPageHero id="hero" />
+      <LandingPageEcosystem id="ecosystem" />
+      <LandingPagePillar id="pillars" />
+      <LandingPageAbout id="about" />
+      <LandingPageCTA />
+      <LandingPageFooter />
     </main>
   );
 };

@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components/atoms';
-import { Checkbox, InputText } from '@/components/molecules';
+import { InputText } from '@/components/molecules';
 import { Layout, TopNavigation } from '@/components/templates';
 import { authRoute, Routes } from '@/shared/constants';
 import styles from '@/shared/styles/packages/login.module.css';
@@ -67,7 +67,8 @@ export const LoginView = () => {
             iconOnClick={changeInput}
             icon={isNextStep && <SquarePen className="text-primary-default cursor-pointer" />}
             iconPosition="right"
-            label="Masukkan Email atau No HP"
+            // TODO: Must be available for email/phone label="Masukkan Email atau No HP"
+            label="Email"
             name="input"
             register={register}
             errorMessage={errors.input?.message || ''}
@@ -91,12 +92,12 @@ export const LoginView = () => {
               register={register}
               errorMessage={errors.password?.message || ''}
             />
-            <div className="flex justify-between items-center mt-2">
-              <Checkbox id="remember" setChecked={setIsRemember} checked={isRemember}>
+            <div className="flex justify-end items-center mt-2">
+              {/* TODO: Must be available to remember me <Checkbox id="remember" setChecked={setIsRemember} checked={isRemember}>
                 <span className="text-sm text-gray-500 cursor-pointer hover:text-primary-darker">
                   Ingat Saya
                 </span>
-              </Checkbox>
+              </Checkbox> */}
               <Link href={authRoute.forgotPassword} className={styles['forgot-password']}>
                 Lupa Kata Sandi?
               </Link>
@@ -122,10 +123,10 @@ export const LoginView = () => {
             <div className={styles.google} />
             Masuk dengan Google
           </Button>
-          <Button size="lg" className="!text-white !bg-black !border-black relative">
+          {/* TODO: Must be available for Login with Apple <Button size="lg" className="!text-white !bg-black !border-black relative">
             <div className={styles.apple} />
             Masuk dengan Apple
-          </Button>
+          </Button> */}
         </form>
         <div className="text-center mt-20">
           <p className="text-sm ">

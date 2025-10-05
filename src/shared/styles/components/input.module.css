@@ -20,7 +20,7 @@
 }
 
 .form-input {
-  @apply !bg-white dark:!bg-dark-default text-black dark:text-white focus:border-primary-default border-gray-300 dark:focus:border-primary-lighter focus:ring-2 focus:ring-primary-200;
+  @apply !bg-white text-black focus:border-primary-default border-gray-300 focus:ring-2 focus:ring-primary-200;
 }
 
 .form-input,
