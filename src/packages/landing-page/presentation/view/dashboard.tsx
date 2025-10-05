@@ -39,6 +39,7 @@ export const DashboardView = () => {
     });
 
     setActiveSection(currentActive);
+    // eslint-disable-next-line
   }, [sectionIds]);
 
   useEffect(() => {

@@ -17,7 +17,6 @@ import { useAuthController } from '../controller';
 export const LoginView = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [isNextStep, setIsNextStep] = useState<boolean>(false);
-  const [isRemember, setIsRemember] = useState<boolean>(false);
 
   const {
     register,

@@ -23,6 +23,7 @@ export const LandingPageAbout: FC<LandingPageSectionProps> = ({ id }) => {
               </h2>
 
               <p className="text-lg text-primary-foreground/90 leading-relaxed">
+                {/* eslint-disable-next-line */}
                 Sacha Inchi, juga dikenal sebagai "Inca Peanut", adalah tanaman superfood yang kaya
                 akan Omega-3, Omega-6, dan Omega-9. Dengan kandungan nutrisi yang luar biasa, Sacha
                 Inchi menjadi sumber Omega Nabati terbaik untuk kesehatan masyarakat Indonesia.
