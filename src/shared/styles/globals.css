@@ -38,20 +38,16 @@ a {
   left: unset !important;
   right: unset !important;
 
-  /* Atur posisi ke Kiri Bawah */
   bottom: 8rem !important; /* Jarak dari bawah */
   right: 1rem !important; /* Jarak dari kiri */
 
-  /* Opsional: Tampilan tombol agar lebih bagus */
   border-radius: 0.5rem;
   box-shadow:
     0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -2px rgba(0, 0, 0, 0.1);
 }
 
-/* Menyesuaikan tombol di dalamnya jika perlu, misalnya memberi padding */
 .ol-zoom button {
-  /* Menambahkan sedikit estetika Tailwind */
   background-color: #ffffff;
   color: #4f46e5;
   transition: background-color 0.2s;
