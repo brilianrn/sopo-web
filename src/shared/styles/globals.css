@@ -9,14 +9,14 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: red;
+    /* --background: #0a0a0a;
+    --foreground: red; */
   }
 }
 
 html,
 body {
-  @apply text-black tracking-[0.3px] font-poppins bg-dark-default;
+  @apply text-black tracking-[0.3px] font-poppins bg-dark-default/5;
 }
 
 ::-webkit-scrollbar {

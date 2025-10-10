@@ -145,7 +145,7 @@ export const LoginView = () => {
             }
             onClick={!isNextStep ? () => setIsNextStep(true) : undefined}
           >
-            {!isNextStep ? 'Selanjutnya' : 'Verifikasi'}
+            {!isNextStep ? 'Selanjutnya' : 'Masuk'}
           </Button>
           <div className={styles.or}>
             <div className={styles['or-text']}>Atau menggunakan</div>

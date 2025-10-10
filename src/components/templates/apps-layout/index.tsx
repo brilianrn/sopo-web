@@ -18,9 +18,7 @@ export const AppsLayout: FC<{
   const [lastScrollTop, setLastScrollTop] = useState<number>(0);
 
   const { width } = useScreenSize();
-  const {
-    dataUser: { role },
-  } = useAuth();
+  const { dataUser } = useAuth();
 
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
     const target = e.currentTarget;
@@ -66,7 +64,7 @@ export const AppsLayout: FC<{
               >
                 <Banknote className="size-6 text-black/60" />
               </div>
-              {role === process.env.FARMER_CODE && (
+              {dataUser?.role === process.env.FARMER_CODE && (
                 <Link
                   href={farmerlandRoute.index}
                   className={cn(

@@ -30,12 +30,10 @@ const data: AppsCategoryItemProps[] = [
 ];
 
 export const AppsCategory = () => {
-  const {
-    dataUser: { role },
-  } = useAuth();
+  const { dataUser } = useAuth();
 
   const categories = useMemo(() => {
-    if (role === process.env.FARMER_CODE) {
+    if (dataUser?.role === process.env.FARMER_CODE) {
       return [
         {
           icon: 'cat-education.png',
@@ -83,7 +81,7 @@ export const AppsCategory = () => {
       },
       ...data,
     ];
-  }, [role]);
+  }, [dataUser?.role]);
 
   return (
     <div className="grid grid-cols-4 gap-4 w-full px-4">

@@ -1,6 +1,7 @@
 export * from './apps-layout';
 export * from './apps-layout/auth-layout';
 export * from './apps-layout/layout';
+export * from './apps-layout/main-layout';
 export * from './install-pwa';
 export * from './navigation/botton-navigation';
 export * from './navigation/top-navigation';

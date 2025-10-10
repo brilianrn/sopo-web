@@ -128,7 +128,7 @@
   --font-poppins-extrabold: var(--font-poppins);
   --font-poppins-black: var(--font-poppins);
 
-  --background: 48 20% 98%;
+  /* --background: 48 20% 98%;
   --foreground: 160 30% 15%;
 
   --card: 0 0% 100%;
@@ -154,14 +154,37 @@
 
   --border: 142 20% 88%;
   --input: 142 20% 88%;
-  --ring: 142 76% 36%;
+  --ring: 142 76% 36%; */
+
+  --background: #faf9f8; /* 48 20% 98% */
+  --foreground: #163d2e; /* 160 30% 15% */
+
+  --card: #ffffff; /* 0 0% 100% */
+  --card-foreground: #163d2e; /* 160 30% 15% */
+
+  --popover: #ffffff; /* 0 0% 100% */
+  --popover-foreground: #163d2e; /* 160 30% 15% */
+
+  --primary: #16a34a; /* 142 76% 36% → hijau */
+  --primary-foreground: #ffffff; /* 0 0% 100% */
+
+  --secondary: #d2b96b; /* 35 55% 65% → kuning kecoklatan */
+  --secondary-foreground: #163d2e; /* 160 30% 15% */
+
+  --muted: #f1efe9; /* 48 20% 92% */
+  --muted-foreground: #66786c; /* 160 15% 45% */
+
+  --accent: #b9e6c4; /* 142 50% 88% → hijau muda */
+  --accent-foreground: #163d2e; /* 160 30% 15% */
+
+  --destructive: #ef4444; /* 0 84.2% 60.2% → merah */
+  --destructive-foreground: #ffffff; /* 0 0% 100% */
+
+  --border: #d5e7d5; /* 142 20% 88% */
+  --input: #d5e7d5; /* sama dengan border */
+  --ring: #16a34a; /* 142 76% 36% → hijau utama */
 
   --radius: 0.75rem;
-
-  /* Custom SOPO tokens */
-  --gradient-primary: linear-gradient(135deg, hsl(142 76% 36%), hsl(160 70% 42%));
-  --gradient-earth: linear-gradient(180deg, hsl(35 55% 65%), hsl(30 45% 55%));
-  --gradient-hero: linear-gradient(135deg, hsl(160 30% 15%) 0%, hsl(142 76% 36%) 100%);
 
   --shadow-soft: 0 4px 20px hsla(142, 40%, 30%, 0.1);
   --shadow-glow: 0 0 40px hsla(142, 76%, 36%, 0.2);

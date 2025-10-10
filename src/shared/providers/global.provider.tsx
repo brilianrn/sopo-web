@@ -1,7 +1,7 @@
 'use client';
 
 import { Toaster } from '@/components/atoms';
-import { SplashScreen } from '@/components/templates';
+import { MainLayout, SplashScreen } from '@/components/templates';
 import { queryClient } from '@/shared/utils';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
@@ -22,22 +22,26 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
   const { isLoadingAuth } = useAuth();
 
   return (
-    <QueryClientProvider client={queryClientState}>
-      <Toaster
-        richColors
-        position="bottom-center"
-        theme="light"
-        toastOptions={{
-          className: '!rounded-full !px-5 !py-4 !shadow-md !text-white',
-          classNames,
-        }}
-      />
-      {isLoadingAuth ? (
-        <SplashScreen />
-      ) : (
-        <Suspense fallback={<SplashScreen />}>{children}</Suspense>
-      )}
-      {process.env.NEXT_PUBLIC_DEV_TOOLS === 'true' && <ReactQueryDevtools initialIsOpen={false} />}
-    </QueryClientProvider>
+    <MainLayout>
+      <QueryClientProvider client={queryClientState}>
+        <Toaster
+          richColors
+          position="bottom-center"
+          theme="light"
+          toastOptions={{
+            className: '!rounded-full !px-5 !py-4 !shadow-md !text-white',
+            classNames,
+          }}
+        />
+        {isLoadingAuth ? (
+          <SplashScreen />
+        ) : (
+          <Suspense fallback={<SplashScreen />}>{children}</Suspense>
+        )}
+        {process.env.NEXT_PUBLIC_DEV_TOOLS === 'true' && (
+          <ReactQueryDevtools initialIsOpen={false} />
+        )}
+      </QueryClientProvider>
+    </MainLayout>
   );
 };

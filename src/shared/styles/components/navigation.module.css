@@ -15,5 +15,5 @@
 }
 
 .bottom-navigation {
-  @apply fixed bottom-0 w-full left-1/2 -translate-x-1/2 bg-white px-4 py-2;
+  @apply fixed bottom-0 w-full left-1/2 -translate-x-1/2 bg-white px-4 py-2 max-w-[480px];
 }
