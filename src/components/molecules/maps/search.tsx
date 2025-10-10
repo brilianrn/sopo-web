@@ -98,7 +98,6 @@ export const InteractiveMap: React.FC<InteractiveMapProps> = ({
       const json: LonLat[] = await response.json();
       setSearchResults(json);
     } catch (error) {
-      console.error('Nominatim search error:', error);
       setSearchResults([]);
     } finally {
       setLoading(false);
