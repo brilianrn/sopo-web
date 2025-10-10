@@ -78,7 +78,9 @@ export const DashboardView = () => {
       )}
       <div className={cn(styles.topbar, 'box-shadow')}>
         <div className={cn('flex items-center justify-between')}>
-          <Image src={Logo} alt="sopo logo" className="h-10 w-fit" />
+          <a href="#hero" onClick={(e) => handleNavClick(e, 'hero')}>
+            <Image src={Logo} alt="sopo logo" className="h-10 w-fit cursor-pointer" priority />
+          </a>
           <div className="lg:flex hidden absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 gap-4 text-md text-black items-center">
             <a
               href="#hero"

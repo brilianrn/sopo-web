@@ -78,14 +78,14 @@ const InputTextSearch: FC<InputTextSearchProps> = ({
         }}
       />
       {useSuggestion && isShowSuggestion && (
-        <div className="z-1 absolute w-full rounded-md mt-2 bg-white shadow-[0px_0px_4px_0px_rgba(87,87,87,0.24)]">
+        <div className="z-1 absolute w-full max-h-fit h-96 overflow-y-auto rounded-md mt-2 bg-white shadow-[0px_0px_4px_0px_rgba(87,87,87,0.24)]">
           {loadingSuggestion ? (
-            <Spinner />
+            <Spinner variant="primary" />
           ) : children ? (
             children
           ) : (
             <p className="my-10 w-full text-center text-sm italic text-gray-400">
-              {suggestionEmptyState || '-- Produk tidak ditemukan --'}
+              {suggestionEmptyState || '-- Data tidak ditemukan --'}
             </p>
           )}
         </div>

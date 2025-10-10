@@ -18,7 +18,7 @@ export const AppsCategoryItem: FC<AppsCategoryItemProps> = ({ icon, label, seoTi
         ) : (
           icon
         )}
-        <p className="text-sm text-center text-nowrap truncate">{label}</p>
+        <p className="text-sm text-center text-wrap">{label}</p>
       </div>
     </Link>
   );

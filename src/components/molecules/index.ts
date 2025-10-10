@@ -6,4 +6,6 @@ export * from './input/select';
 export * from './input/text';
 export * from './input/text/area';
 export * from './loading-overlay';
+export * from './maps';
+export * from './maps/search';
 export * from './stars';

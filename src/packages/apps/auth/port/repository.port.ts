@@ -9,7 +9,8 @@ import {
 import { ILoginFirst, IResponseVerifyOtp } from '../domain/response';
 
 export interface IAuthRepository {
-  login(data: Partial<TLoginSchema>): Promise<ResponseREST<ILoginFirst>>;
+  // TODO: used when we have OTP verified login(data: Partial<TLoginSchema>): Promise<ResponseREST<ILoginFirst>>;
+  login(data: Partial<TLoginSchema>): Promise<ResponseREST<IResponseVerifyOtp>>;
   otpVerify(data: IRequestVerifyOtp): Promise<ResponseREST<IResponseVerifyOtp>>;
   register(data: TFirstFormRegisterSchema): Promise<ResponseREST<ILoginFirst>>;
   lovRole: () => Promise<ResponseREST<Array<ISelectOption>>>;

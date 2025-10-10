@@ -58,7 +58,7 @@ export const useAuthController = (query?: EAuthQuery): IAuthController => {
         return toast.error(error?.message || message);
       }
       toast.success(message);
-      return navigate(authRoute.registerOtp(data?.token || ''));
+      return navigate(authRoute.registerForm(data?.token || ''));
     },
     onError: (error) => {
       toast.error(error?.message);

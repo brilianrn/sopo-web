@@ -49,8 +49,7 @@ export const RegisterView = () => {
             size="lg"
             type="email"
             useLabelInside
-            // TODO: Must be available for email/phone label="Masukkan Email atau No HP"
-            label="Email"
+            label="Masukkan Email atau No HP"
             name="input"
             register={register}
             errorMessage={errors.input?.message || ''}

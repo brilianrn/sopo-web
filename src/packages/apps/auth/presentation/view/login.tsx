@@ -1,22 +1,26 @@
 'use client';
 
 import { Button } from '@/components/atoms';
-import { InputText } from '@/components/molecules';
+import { InputText, LoadingOverlay } from '@/components/molecules';
 import { Layout, TopNavigation } from '@/components/templates';
-import { authRoute, Routes } from '@/shared/constants';
+import { authRoute, Routes, validationMessage } from '@/shared/constants';
 import styles from '@/shared/styles/packages/login.module.css';
+import { isEmail } from '@/shared/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Eye, EyeOff, SquarePen } from 'lucide-react';
+import { signIn } from 'next-auth/react';
 import Link from 'next/link';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 import { TLoginSchema } from '../../domain/request';
 import { LoginSchema } from '../../dto';
-import { useAuthController } from '../controller';
 
 export const LoginView = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [isNextStep, setIsNextStep] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const {
     register,
@@ -30,9 +34,14 @@ export const LoginView = () => {
     resolver: zodResolver(LoginSchema),
   });
 
-  const {
-    login: { mutateAsync, isPending: isLoading },
-  } = useAuthController();
+  const { replace } = useRouter();
+
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get('callbackUrl');
+
+  // const {
+  //   login: { mutateAsync, isPending: isLoading },
+  // } = useAuthController();
 
   const changeInput = () => {
     setIsNextStep(false);
@@ -40,8 +49,27 @@ export const LoginView = () => {
     resetField('method');
   };
 
+  const onSubmit = async (data: TLoginSchema) => {
+    setIsLoading(true);
+    const res = await signIn('credentials', {
+      ...data,
+      redirect: false,
+      callbackUrl: callbackUrl?.toString(),
+    });
+    if (res?.error || !res) {
+      window.location.reload();
+      return toast.error(
+        validationMessage().failedLogin(isEmail(data?.input) ? 'Email' : 'Nomor telepon'),
+      );
+    }
+
+    replace(callbackUrl || Routes.APPS);
+    setIsLoading(false);
+  };
+
   return (
     <Layout>
+      <LoadingOverlay visible={isLoading} />
       <TopNavigation
         title="Masuk"
         titlePosition="left"
@@ -56,7 +84,7 @@ export const LoginView = () => {
         }
       />
       <div className={styles.login}>
-        <form className="space-y-3 w-full" onSubmit={handleSubmit((data) => mutateAsync(data))}>
+        <form className="space-y-3 w-full" onSubmit={handleSubmit(onSubmit)}>
           <InputText
             size="lg"
             type="email"
@@ -66,8 +94,13 @@ export const LoginView = () => {
             iconOnClick={changeInput}
             icon={isNextStep && <SquarePen className="text-primary-default cursor-pointer" />}
             iconPosition="right"
-            // TODO: Must be available for email/phone label="Masukkan Email atau No HP"
-            label="Email"
+            label={
+              isNextStep
+                ? isEmail(watch('input'))
+                  ? 'Email'
+                  : 'Nomor Telepon'
+                : 'Masukan Email atau No HP'
+            }
             name="input"
             register={register}
             errorMessage={errors.input?.message || ''}

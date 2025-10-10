@@ -50,7 +50,6 @@ export const AppsNearestFarmerlandItem: FC<AppsFarmerlandItemProps> = ({
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
-            console.log('Ajukan kerjasama diklik');
           }}
         >
           <HeartHandshake className="size-4" />

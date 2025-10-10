@@ -8,7 +8,8 @@ import {
 import { ILoginFirst, IResponseVerifyOtp } from '../domain/response';
 
 export interface IAuthUsecase {
-  login(data: TLoginSchema): Promise<IUsecaseResponse<ILoginFirst>>;
+  // TODO: used when we have OTP verified login(data: TLoginSchema): Promise<IUsecaseResponse<ILoginFirst>>;
+  login(data: TLoginSchema): Promise<IUsecaseResponse<IResponseVerifyOtp>>;
   otpVerify(data: IRequestVerifyOtp): Promise<IUsecaseResponse<IResponseVerifyOtp>>;
   register(data: TFirstFormRegisterSchema): Promise<IUsecaseResponse<ILoginFirst>>;
   lovRole(): Promise<IUsecaseResponse<Array<ISelectOption>>>;

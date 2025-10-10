@@ -8,6 +8,7 @@ export interface IUser {
   phone?: string | null;
   name?: string | null;
   gender?: TGender | null;
+  role?: string;
 }
 
 export interface IResponseLogin {
@@ -40,4 +41,5 @@ export interface IResponseUserVerifyOtp {
   avatar?: string;
   name: string;
   gender?: 'MALE' | 'FEMALE';
+  role?: string;
 }

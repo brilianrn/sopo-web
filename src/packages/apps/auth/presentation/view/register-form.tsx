@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components/atoms';
-import { InputSelect, InputText, LoadingOverlay } from '@/components/molecules';
+import { Checkbox, InputText, LoadingOverlay } from '@/components/molecules';
 import { VerifyConfirmPassword } from '@/components/organisms';
 import { Layout, TopNavigation } from '@/components/templates';
 import { helpCenterRoute, validationMessage } from '@/shared/constants';
@@ -19,15 +19,6 @@ import { FormRegisterSchema } from '../../dto';
 import { EAuthQuery, useAuthController } from '../controller';
 
 export const RegisterFormView = () => {
-  // const userTypeLabels: Record<EUserType, string> = {
-  //   [EUserType.CUSTOMER]: 'Pembeli',
-  //   [EUserType.FARMER]: 'Petani',
-  //   [EUserType.BREEDER]: 'Peternak',
-  //   [EUserType.LAND_OWNER]: 'Pemilik Lahan',
-  //   [EUserType.INVESTOR]: 'Investor',
-  //   [EUserType.TRAINER_OF_TRAINER]: 'Trainer of Trainer',
-  // };
-
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false);
 
@@ -79,6 +70,10 @@ export const RegisterFormView = () => {
   useEffect(() => {
     if (verifyInfo) {
       setValue('input', verifyInfo.email || verifyInfo.phone || '');
+      setValue('roleCode', process.env.CUSTOMER_CODE || '', {
+        shouldDirty: true,
+        shouldValidate: true,
+      });
     }
   }, [verifyInfo, setValue]);
 
@@ -121,15 +116,6 @@ export const RegisterFormView = () => {
           name="name"
           register={register}
           errorMessage={errors.name?.message}
-        />
-        <InputSelect
-          useLabelInside
-          label="Tipe Pengguna"
-          setValue={(e) =>
-            setValue('roleCode', e, { shouldDirty: true, shouldTouch: true, shouldValidate: true })
-          }
-          value={watch('roleCode')}
-          options={lovRole || []}
         />
         <InputText
           size="lg"
@@ -178,6 +164,20 @@ export const RegisterFormView = () => {
             <VerifyConfirmPassword label={item?.label} isValid={item?.isValid} key={index} />
           ))}
         </div>
+        <Checkbox
+          id={process.env.FARMER_CODE || ''}
+          setChecked={(e) => {
+            if (e) setValue('roleCode', process.env.FARMER_CODE || '');
+            else setValue('roleCode', process.env.CUSTOMER_CODE || '');
+          }}
+          checked={
+            watch('roleCode') === lovRole?.find((e) => e?.value === process.env.FARMER_CODE)?.value
+          }
+        >
+          <span className="text-sm text-gray-500 cursor-pointer hover:text-primary-darker">
+            Saya adalah petani
+          </span>
+        </Checkbox>
         <div className="space-y-3 text-center">
           <Button
             type="submit"

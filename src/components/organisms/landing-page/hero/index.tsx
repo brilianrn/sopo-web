@@ -11,7 +11,7 @@ export const LandingPageHero: FC<LandingPageSectionProps> = ({ id }) => {
   return (
     <section id={id} className={styles.dashboard}>
       <div className={styles['dashboard-blur']}>
-        <div className="inline-flex justify-center items-center gap-2 px-4 py-2 accent-primary-default/30 backdrop-blur-sm rounded-full border border-primary-default/30 mb-8 md:mt-0 mt-10">
+        <div className="inline-flex justify-center items-center gap-2 px-4 py-2 accent-primary-default/30 backdrop-blur-sm rounded-full border border-primary-default/30 md:mb-8 mb-2 md:mt-0 mt-16">
           <Leaf className="size-4 text-primary-default" />
           <span className="text-sm font-medium text-primary-foreground">
             Ekosistem Pertanian Digital
@@ -22,13 +22,8 @@ export const LandingPageHero: FC<LandingPageSectionProps> = ({ id }) => {
         </h1>
         <p className="mt-6 max-w-3xl text-lg sm:text-xl text-green-100">
           <span className="block text-2xl sm:text-3xl font-extrabold text-white leading-tight mb-2">
-            Kami Sedang Meng-Omega-kan Indonesia,
-          </span>
-          <span className="block">
-            dengan cara membangun
-            <b className="text-yellow-300"> Ekosistem Omega Nabati </b>
-            melalui platform digital yang
-            <b className="font-semibold text-primary-light"> terintegrasi</b>.
+            Kita sedang membangun ekosistem <span className="text-warning-default">omega</span>{' '}
+            nabati Indonesia melalui aplikasi
           </span>
         </p>
         <div className="mt-16 flex md:flex-row flex-col gap-4">

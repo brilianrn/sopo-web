@@ -1,6 +1,7 @@
-import { GlobalProvider } from '@/shared/providers';
+import { GlobalProvider, SessionProvider } from '@/shared/providers';
 import '@/shared/styles/globals.css';
 import '@/shared/styles/tailwind.css';
+import 'moment/locale/id';
 import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
 import { ReactNode } from 'react';
@@ -96,7 +97,9 @@ const RootLayout = ({
   return (
     <html lang="en" className={poppins.variable}>
       <body suppressHydrationWarning>
-        <GlobalProvider>{children}</GlobalProvider>
+        <SessionProvider>
+          <GlobalProvider>{children}</GlobalProvider>
+        </SessionProvider>
       </body>
     </html>
   );

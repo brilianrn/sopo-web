@@ -26,8 +26,8 @@ const counts: AppsBannerItemCountProps[] = [
     total: 850,
   },
   {
-    icon: 'co2.webp',
-    label: 'Serapan CO² (Ton)',
+    icon: 'carbon.webp',
+    label: 'Total Karbon (Ton)',
     total: 73829,
   },
 ];

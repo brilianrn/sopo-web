@@ -27,6 +27,7 @@ export const documentRoute = {
 
 export const farmerlandRoute = {
   index: Routes.FARMERLAND,
+  form: `${Routes.FARMERLAND}/form`,
   detail: (id: string) => `${Routes.FARMERLAND}/${id}`,
 };
 
@@ -35,6 +36,7 @@ export const authRoute = {
   loginOtp: (token: string) => `${Routes.AUTH}/login/${token}`,
   register: `${Routes.AUTH}/register`,
   registerOtp: (token: string) => `${Routes.AUTH}/register/${token}`,
+  registerForm: (token: string) => `${Routes.AUTH}/register/${token}/form`,
   forgotPassword: `${Routes.AUTH}/forgot-password`,
 };
 

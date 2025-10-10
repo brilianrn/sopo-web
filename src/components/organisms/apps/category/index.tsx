@@ -1,28 +1,12 @@
+'use client';
+
 import { categoryRoute } from '@/shared/constants';
+import { useAuth } from '@/shared/hooks';
+import { useMemo } from 'react';
 import { AppsCategoryItemProps } from '../apps';
 import { AppsCategoryItem } from './item';
 
 const data: AppsCategoryItemProps[] = [
-  {
-    icon: 'cat-education.png',
-    label: 'Pelatihan',
-    seoTitle: 'pelatihan',
-  },
-  {
-    icon: 'cat-seed.png',
-    label: 'Benih',
-    seoTitle: 'benih',
-  },
-  {
-    icon: 'cat-tools.png',
-    label: 'Sarana',
-    seoTitle: 'sarana',
-  },
-  {
-    icon: 'cat-environment.png',
-    label: 'Biochar',
-    seoTitle: 'biochar',
-  },
   {
     icon: 'cat-oil.png',
     label: 'Minyak',
@@ -46,9 +30,64 @@ const data: AppsCategoryItemProps[] = [
 ];
 
 export const AppsCategory = () => {
+  const {
+    dataUser: { role },
+  } = useAuth();
+
+  const categories = useMemo(() => {
+    if (role === process.env.FARMER_CODE) {
+      return [
+        {
+          icon: 'cat-education.png',
+          label: 'Pelatihan',
+          seoTitle: 'pelatihan',
+        },
+        {
+          icon: 'cat-seed.png',
+          label: 'Benih',
+          seoTitle: 'benih',
+        },
+        {
+          icon: 'cat-tools.png',
+          label: 'Sarana',
+          seoTitle: 'sarana',
+        },
+        {
+          icon: 'cat-environment.png',
+          label: 'Biochar',
+          seoTitle: 'biochar',
+        },
+        ...data,
+      ];
+    }
+    return [
+      {
+        icon: 'star-peanut.webp',
+        label: 'Kacang Bintang',
+        seoTitle: 'kacang-bintang',
+      },
+      {
+        icon: 'oc.webp',
+        label: 'Kacang Coklat',
+        seoTitle: 'kacang-coklat',
+      },
+      {
+        icon: 'white-kernel.webp',
+        label: 'Kacang Putih',
+        seoTitle: 'kacang-putih',
+      },
+      {
+        icon: 'cat-tools.png',
+        label: 'Sarana',
+        seoTitle: 'sarana',
+      },
+      ...data,
+    ];
+  }, [role]);
+
   return (
     <div className="grid grid-cols-4 gap-4 w-full px-4">
-      {data.map((item, index) => (
+      {categories?.map((item, index) => (
         <AppsCategoryItem key={index} {...item} />
       ))}
     </div>

@@ -23,6 +23,7 @@ module.exports = withPWA({
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
     NEXTAUTH_SESSION_MAX_AGE: process.env.NEXTAUTH_SESSION_MAX_AGE,
     FARMER_CODE: process.env.FARMER_CODE,
+    CUSTOMER_CODE: process.env.CUSTOMER_CODE,
   },
   experimental: {
     missingSuspenseWithCSRBailout: false,

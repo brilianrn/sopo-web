@@ -1,0 +1,25 @@
+@reference "../tailwind.css";
+
+.farmerland-card {
+  @apply flex justify-start gap-2 p-2 rounded-xl;
+}
+
+.farmerland-image {
+  @apply size-28 rounded-lg;
+}
+
+.farmerland-menu-option {
+  @apply flex justify-start gap-4 hover:bg-gray-100 px-2 py-4 items-center text-md text-gray-500;
+}
+
+.farmerland-add-button {
+  @apply fixed lg:right-[36.5%] md:right-[21%] right-4 lg:translate-x-1/2 bottom-4 flex justify-center items-center rounded-full bg-primary-default z-[2] p-4 cursor-pointer;
+}
+
+.farmerland-form-location {
+  @apply flex justify-between items-center gap-2 px-4 py-2 rounded-lg border border-gray-300 cursor-pointer;
+}
+
+.farmerland-form-location-icon {
+  @apply bg-[url('/assets/images/illustration-pin-map.webp')] bg-center bg-cover bg-no-repeat min-h-12 min-w-12;
+}

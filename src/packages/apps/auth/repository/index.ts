@@ -20,7 +20,7 @@ export class AuthRepository implements IAuthRepository {
 
   login = async (body: TLoginSchema) => {
     try {
-      const res = await this.restApi.post<ILoginFirst>({
+      const res = await this.restApi.post<IResponseVerifyOtp>({
         endpoint: authPath.login,
         body,
       });

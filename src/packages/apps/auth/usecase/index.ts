@@ -20,7 +20,7 @@ export class AuthUseCase implements IAuthUsecase {
     this.repository = repository;
   }
 
-  login = async (data: TLoginSchema): Promise<IUsecaseResponse<ILoginFirst>> => {
+  login = async (data: TLoginSchema): Promise<IUsecaseResponse<IResponseVerifyOtp>> => {
     try {
       let type = data.method;
       if (!type) {

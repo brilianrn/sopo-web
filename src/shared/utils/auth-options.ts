@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-import { IRequestVerifyOtp } from '@/packages/apps/auth/domain/request';
+import { TLoginSchema } from '@/packages/apps/auth/domain/request';
 import { IResponseVerifyOtp } from '@/packages/apps/auth/domain/response';
 import { AuthRepository } from '@/packages/apps/auth/repository';
 import { AuthUseCase } from '@/packages/apps/auth/usecase';
@@ -16,9 +16,12 @@ export const authOptions: NextAuthOptions = {
       id: 'credentials',
       name: 'Credentials',
       credentials: {
-        token: { label: 'Token', type: 'text' },
-        otp: { label: 'OTP', type: 'text' },
-        purpose: { label: 'Purpose', type: 'text' },
+        input: { label: 'Input', type: 'text' },
+        password: { label: 'Password', type: 'password' },
+        // TODO: this used when we have OTP
+        // token: { label: 'Token', type: 'text' },
+        // otp: { label: 'OTP', type: 'text' },
+        // purpose: { label: 'Purpose', type: 'text' },
       },
       authorize: async (credentials): Promise<User | null> => {
         try {
@@ -26,23 +29,20 @@ export const authOptions: NextAuthOptions = {
           const authRepository = new AuthRepository(dataStoreApi);
           const authUseCase = new AuthUseCase(authRepository);
 
-          const payload: IRequestVerifyOtp = {
-            purpose: 'LOGIN',
-            otp: credentials?.otp || '',
-            token: credentials?.token || '',
+          const payload: TLoginSchema = {
+            input: credentials?.input || '',
+            password: credentials?.password || '',
           };
 
-          const response = await authUseCase.otpVerify(payload);
+          const response = await authUseCase.login(payload);
           if (response?.error) return null;
 
           return {
             id: response?.data?.user.id,
-            email: response?.data?.user.email || undefined,
-            name: response?.data?.user.name,
-            phone: response?.data?.user.phone || undefined,
-            avatar: response?.data?.user.avatar || undefined,
+            ...response?.data?.user,
             token: response?.data?.token,
-          } as User & IResponseVerifyOtp & { phone?: string; avatar?: string; token: string };
+          } as User &
+            IResponseVerifyOtp & { phone?: string; avatar?: string; token: string; role: string };
         } catch (error) {
           return null;
         }
@@ -60,6 +60,7 @@ export const authOptions: NextAuthOptions = {
         token.phone = (user as any).phone;
         token.avatar = (user as any).avatar;
         token.token = (user as any).token;
+        token.role = (user as any).role;
       }
       return token;
     },
@@ -73,6 +74,7 @@ export const authOptions: NextAuthOptions = {
         phone: token.phone as string,
         avatar: token.avatar as string,
         token: token.token as string,
+        role: token.role as string,
       };
       return session;
     },
