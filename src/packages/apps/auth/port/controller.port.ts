@@ -9,7 +9,7 @@ import {
 import { ILoginFirst, IResponseVerifyOtp } from '../domain/response';
 
 export interface IAuthController {
-  login: UseMutationResult<IUsecaseResponse<ILoginFirst>, unknown, TLoginSchema>;
+  login: UseMutationResult<IUsecaseResponse<IResponseVerifyOtp>, unknown, TLoginSchema>;
   otpVerify: UseMutationResult<IUsecaseResponse<IResponseVerifyOtp>, unknown, IRequestVerifyOtp>;
   register: UseMutationResult<IUsecaseResponse<ILoginFirst>, unknown, TFirstFormRegisterSchema>;
   lovRole: UseQueryResult<Array<ISelectOption>, unknown>;
