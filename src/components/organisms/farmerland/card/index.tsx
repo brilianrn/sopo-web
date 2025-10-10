@@ -64,7 +64,7 @@ export const FarmerlandCard = () => {
             </div>
             <div className="flex items-center gap-1">
               <IcPinRed className="size-4" />
-              <p className="text-sm text-gray-500">Jember, Jawa Timur</p>
+              <p className="text-sm text-gray-500">Sidoarjo, Jawa Timur</p>
             </div>
           </div>
         </div>
