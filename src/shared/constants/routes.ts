@@ -28,6 +28,7 @@ export const documentRoute = {
 export const farmerlandRoute = {
   index: Routes.FARMERLAND,
   form: `${Routes.FARMERLAND}/form`,
+  formMaps: `${Routes.FARMERLAND}/form/maps`,
   detail: (id: string) => `${Routes.FARMERLAND}/${id}`,
 };
 

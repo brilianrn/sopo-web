@@ -1,11 +1,11 @@
 @reference "../tailwind.css";
 
 .farmerland-card {
-  @apply flex justify-start gap-2 p-2 rounded-xl;
+  @apply flex justify-start gap-2 rounded-xl;
 }
 
 .farmerland-image {
-  @apply size-28 rounded-lg;
+  @apply w-28 min-h-[144.5px] h-full object-cover rounded-l-xl my-auto;
 }
 
 .farmerland-menu-option {
@@ -22,4 +22,8 @@
 
 .farmerland-form-location-icon {
   @apply bg-[url('/assets/images/illustration-pin-map.webp')] bg-center bg-cover bg-no-repeat min-h-12 min-w-12;
+}
+
+.farmerland-form-icon-upload {
+  @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-20 transition-all duration-200;
 }

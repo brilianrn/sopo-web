@@ -8,6 +8,7 @@ export * from './dialog';
 export * from './drawer';
 export * from './end-message';
 export * from './image';
+export * from './not-found';
 export * from './otp';
 export * from './select';
 export * from './skeleton';

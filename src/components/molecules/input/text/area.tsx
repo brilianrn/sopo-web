@@ -57,7 +57,7 @@ export const InputTextarea = ({
             className={cn(
               styles[`form-area-label-inside${isFocused || inputState || value ? '-active' : ''}`],
               isFocused || value || inputState
-                ? 'text-primary-default dark:text-white bg-white dark:bg-dark-default !w-[91%]'
+                ? 'text-primary-default bg-white !w-[91%]'
                 : 'text-gray-400',
             )}
           >
@@ -89,7 +89,7 @@ export const InputTextarea = ({
             placeholder={useLabelInside ? '' : placeholder}
             disabled={disabled}
             className={cn(
-              '!bg-white dark:!bg-dark-default text-black dark:text-white min-h-20 h-full !top-2',
+              '!bg-white text-black min-h-20 h-full !top-2',
               styles[size],
               className,
               disabled && 'cursor-not-allowed',
@@ -126,7 +126,7 @@ export const InputTextarea = ({
             placeholder={useLabelInside ? '' : placeholder}
             disabled={disabled}
             className={cn(
-              '!bg-white dark:!bg-dark-default text-black dark:text-white min-h-20 h-full',
+              '!bg-white text-black min-h-20 h-full',
               styles[size],
               className,
               disabled && 'cursor-not-allowed',

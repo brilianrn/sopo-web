@@ -1,6 +1,6 @@
 'use client';
 
-import { Spinner } from '@/components/atoms';
+import { NotFoundComp, Spinner } from '@/components/atoms';
 import classNames from 'clsx';
 import { Search, X } from 'lucide-react';
 import { FC, useState } from 'react';
@@ -22,6 +22,7 @@ const InputTextSearch: FC<InputTextSearchProps> = ({
   suggestionEmptyState,
   autoHideAfterClickItem = true,
   size = 'md',
+  suggestionLoadingState,
 }) => {
   const [keyword, setKeyword] = useState<string>('');
   const [isShowSuggestion, setIsShowSuggestion] = useState<boolean>(false);
@@ -78,15 +79,15 @@ const InputTextSearch: FC<InputTextSearchProps> = ({
         }}
       />
       {useSuggestion && isShowSuggestion && (
-        <div className="z-1 absolute w-full max-h-fit h-96 overflow-y-auto rounded-md mt-2 bg-white shadow-[0px_0px_4px_0px_rgba(87,87,87,0.24)]">
+        <div className="z-1 absolute w-full max-h-80 h-fit overflow-y-auto rounded-md mt-2 bg-white box-shadow">
           {loadingSuggestion ? (
-            <Spinner variant="primary" />
+            <div className="h-80 w-full flex items-center justify-center">
+              <Spinner variant="primary" message={suggestionLoadingState} />
+            </div>
           ) : children ? (
             children
           ) : (
-            <p className="my-10 w-full text-center text-sm italic text-gray-400">
-              {suggestionEmptyState || '-- Data tidak ditemukan --'}
-            </p>
+            <NotFoundComp label="Data" message={suggestionEmptyState} className="py-10" />
           )}
         </div>
       )}

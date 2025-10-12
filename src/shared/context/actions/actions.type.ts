@@ -1,0 +1,3 @@
+export enum ESetValue {
+  SET_FARMERLAND_FORM_MAPS = 'SET_FARMERLAND_FORM_MAPS',
+}

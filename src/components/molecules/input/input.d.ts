@@ -76,6 +76,7 @@ export interface InputTextSearchProps {
   onEnter?: (value?: string) => void;
   autoHideAfterClickItem?: boolean;
   size?: 'sm' | 'md' | 'lg' | 'xl';
+  suggestionLoadingState?: ReactNode | string;
 }
 
 export interface InputSelelctProps {

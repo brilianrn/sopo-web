@@ -73,7 +73,7 @@ export const InputSelect: FC<InputSelelctProps> = ({
           className,
           disabled
             ? 'cursor-not-allowed !bg-gray-100 !border-gray-200'
-            : '!bg-white dark:!bg-dark-default text-black dark:text-white focus:border-primary-default border-gray-300 dark:focus:border-primary-lighter',
+            : '!bg-white text-black focus:border-primary-default border-gray-300',
           useLabelInside && styles[`form-input-inside${inputState ? '-active' : ''}`],
           errorMessage ? styles['form-input-error'] : styles['form-input'],
           opened && 'input-focused',
@@ -87,7 +87,7 @@ export const InputSelect: FC<InputSelelctProps> = ({
                 className={cn(
                   'transition-all duration-200',
                   styles[`form-label-inside${inputState || value || opened ? '-active' : ''}`],
-                  opened || value || inputState ? 'text-gray-500 dark:text-white' : 'text-gray-400',
+                  opened || value || inputState ? 'text-gray-500' : 'text-gray-400',
                 )}
               >
                 <span>{label || placeholder}</span>
@@ -103,7 +103,7 @@ export const InputSelect: FC<InputSelelctProps> = ({
               className={cn(
                 'transition-all duration-200',
                 styles[`form-label-inside${inputState || value || opened ? '-active' : ''}`],
-                opened || value || inputState ? 'text-gray-500 dark:text-white' : 'text-gray-400',
+                opened || value || inputState ? 'text-gray-500' : 'text-gray-400',
               )}
             >
               <span>{label}</span>
