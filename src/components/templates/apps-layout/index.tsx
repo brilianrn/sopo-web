@@ -1,12 +1,15 @@
 'use client';
 
 import { farmerlandRoute } from '@/shared/constants';
+import { store } from '@/shared/context';
+import { setFarmerlandForm } from '@/shared/context/actions';
 import { useAuth, useScreenSize } from '@/shared/hooks';
 import styles from '@/shared/styles/components/apss-layout.module.css';
 import { cn } from '@/shared/utils';
 import { Banknote, Bolt, LayoutGrid, MessageCircleMore, Plus } from 'lucide-react';
 import Link from 'next/link';
-import { FC, ReactNode, useState } from 'react';
+import { usePathname } from 'next/navigation';
+import { FC, ReactNode, useContext, useEffect, useState } from 'react';
 
 export const AppsLayout: FC<{
   children: ReactNode;
@@ -14,8 +17,12 @@ export const AppsLayout: FC<{
   useTopNavigation?: boolean;
   className?: string;
 }> = ({ children, useFooter = true, useTopNavigation, className }) => {
+  const { dispatch } = useContext(store);
+
   const [visible, setVisible] = useState<boolean>(true);
   const [lastScrollTop, setLastScrollTop] = useState<number>(0);
+
+  const pathname = usePathname();
 
   const { width } = useScreenSize();
   const { dataUser } = useAuth();
@@ -34,6 +41,13 @@ export const AppsLayout: FC<{
   };
 
   const cls = visible ? 'visible-navbar' : 'hidden-navbar';
+
+  useEffect(() => {
+    const path = pathname.split('?')[0];
+    if (path !== farmerlandRoute.form && path !== farmerlandRoute.formMaps) {
+      dispatch(setFarmerlandForm(undefined));
+    }
+  }, [pathname]);
 
   return (
     <div className={cn(styles['apps-layout'])}>

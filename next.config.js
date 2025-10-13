@@ -24,6 +24,8 @@ module.exports = withPWA({
     NEXTAUTH_SESSION_MAX_AGE: process.env.NEXTAUTH_SESSION_MAX_AGE,
     FARMER_CODE: process.env.FARMER_CODE,
     CUSTOMER_CODE: process.env.CUSTOMER_CODE,
+    BASE_API_URL_REGION_IDN: process.env.BASE_API_URL_REGION_IDN,
+    BASE_URL: process.env.BASE_URL,
   },
   experimental: {
     missingSuspenseWithCSRBailout: false,

@@ -8,6 +8,7 @@ import { store } from '@/shared/context';
 import { setFarmerlandFormMaps } from '@/shared/context/actions';
 import { useRouter } from 'next/navigation';
 import { useContext } from 'react';
+import { EMapSet } from '../../domain/request';
 
 export const FarmerLandFormMapsView = () => {
   const { dispatch, state } = useContext(store);
@@ -16,7 +17,7 @@ export const FarmerLandFormMapsView = () => {
 
   const onChoosing = (value: ILonLat) => {
     dispatch(setFarmerlandFormMaps(value));
-    replace(farmerlandRoute.form);
+    replace(`${farmerlandRoute.form}?maps=${EMapSet.SETTLED}`);
   };
 
   return (

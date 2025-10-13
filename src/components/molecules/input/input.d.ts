@@ -24,6 +24,7 @@ export interface IInputTextType {
 }
 
 export interface InputTextProps extends IInputTextType {
+  inputRef?: React.MutableRefObject<HTMLInputElement | null>;
   value?: string;
   setValue?: (data: string) => void;
   name?: string;
@@ -65,7 +66,7 @@ export interface InputTextareaProps extends InputTextProps, Partial<IInputTextTy
 export interface InputTextSearchProps {
   useLabelInside?: boolean;
   search: string;
-  setSearch: (value: string, isChooseItem?: boolean) => void;
+  setSearch: (value?: string, isChooseItem?: boolean) => void;
   placeholder?: string;
   className?: string;
   delayDebounce?: number;

@@ -35,6 +35,10 @@ export const InputSelect: FC<InputSelelctProps> = ({
   const tuningRegister = useMemo(() => register && name && register(name), [register, name]);
 
   useEffect(() => {
+    if (!value) setInputState(undefined);
+  }, [value]);
+
+  useEffect(() => {
     if (tuningRegister && value) {
       setInputState(value);
     }
@@ -43,7 +47,10 @@ export const InputSelect: FC<InputSelelctProps> = ({
   const onChange = (e: string) => {
     if (tuningRegister) {
       tuningRegister?.onChange({
-        target: { value: e },
+        target: {
+          name,
+          value: e,
+        },
       });
     } else {
       if (setValue) setValue(e);
@@ -57,7 +64,7 @@ export const InputSelect: FC<InputSelelctProps> = ({
   );
 
   return (
-    <SelectOriginal onOpenChange={setOpened} onValueChange={onChange}>
+    <SelectOriginal disabled={disabled} onOpenChange={setOpened} onValueChange={onChange}>
       <SelectTrigger
         icon={
           <ChevronDown
@@ -72,7 +79,7 @@ export const InputSelect: FC<InputSelelctProps> = ({
           styles[size],
           className,
           disabled
-            ? 'cursor-not-allowed !bg-gray-100 !border-gray-200'
+            ? '!cursor-not-allowed !bg-gray-100 !border-gray-200'
             : '!bg-white text-black focus:border-primary-default border-gray-300',
           useLabelInside && styles[`form-input-inside${inputState ? '-active' : ''}`],
           errorMessage ? styles['form-input-error'] : styles['form-input'],
@@ -115,7 +122,7 @@ export const InputSelect: FC<InputSelelctProps> = ({
           {inputState && <p>{labelValue}</p>}
         </SelectValue>
       </SelectTrigger>
-      <SelectContent>
+      <SelectContent className="overflow-y-auto max-h-64">
         <SelectGroup>
           {options.map((option) => (
             <SelectItem

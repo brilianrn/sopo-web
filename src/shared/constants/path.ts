@@ -19,3 +19,10 @@ export const authPath = {
 export const rolePath = {
   lov: `${EPaths.ROLE}/lov`,
 };
+
+export const pathRegion = {
+  province: '/provinces.json',
+  regency: (provinceCode: string) => `/regencies/${provinceCode}.json`,
+  district: (regencyCode: string) => `/districts/${regencyCode}.json`,
+  village: (districtCode: string) => `/villages/${districtCode}.json`,
+};

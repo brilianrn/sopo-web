@@ -31,16 +31,15 @@ export const InputText = ({
   onFocus,
   onEnter,
   size = 'lg',
+  inputRef,
 }: InputTextProps) => {
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const [inputState, setInputState] = useState<string>();
 
   useEffect(() => {
-    if (value && !inputState) {
-      onChange({ target: { value } } as ChangeEvent<HTMLInputElement>);
-    }
-    // eslint-disable-next-line
-  }, [value, inputState]);
+    if (value) setInputState(value);
+    else setInputState(undefined);
+  }, [value]);
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const tempValue = e.target.value;
@@ -126,6 +125,7 @@ export const InputText = ({
           />
         ) : (
           <input
+            ref={inputRef}
             onBlur={() => {
               setIsFocused(false);
               if (onBlur) onBlur();
@@ -143,7 +143,7 @@ export const InputText = ({
             }}
             type={type === 'price' ? 'text' : type}
             value={inputState || value || ''}
-            onChange={onChange}
+            onChange={(e) => setValue!(e?.target?.value)}
             placeholder={useLabelInside ? '' : placeholder}
             disabled={disabled}
             className={cn(

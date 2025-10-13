@@ -1,4 +1,4 @@
-@reference "../tailwind.css";
+@reference '../tailwind.css';
 
 .farmerland-card {
   @apply flex justify-start gap-2 rounded-xl;

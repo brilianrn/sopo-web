@@ -3,8 +3,8 @@
 import { NotFoundComp, Spinner } from '@/components/atoms';
 import classNames from 'clsx';
 import { Search, X } from 'lucide-react';
-import { FC, useState } from 'react';
-import { useDebouncedCallback } from 'use-debounce';
+import { FC, useEffect, useRef, useState } from 'react';
+import { useDebounce } from 'use-debounce';
 import { InputTextSearchProps } from '../input';
 import { InputText } from '../text';
 
@@ -24,23 +24,27 @@ const InputTextSearch: FC<InputTextSearchProps> = ({
   size = 'md',
   suggestionLoadingState,
 }) => {
-  const [keyword, setKeyword] = useState<string>('');
+  const searchRef = useRef<HTMLInputElement>(null);
+
+  const [keyword, setKeyword] = useState<string>();
   const [isShowSuggestion, setIsShowSuggestion] = useState<boolean>(false);
 
-  const debounce = useDebouncedCallback((value) => setSearch(value), delayDebounce);
+  const [debounceValue] = useDebounce(keyword, !keyword ? 0 : delayDebounce || 1000);
+
+  useEffect(() => setSearch(debounceValue), [debounceValue, setSearch]);
 
   const onChangeText = (value: string) => {
     setKeyword(value);
-    if (typeof value === 'string' && value) {
-      debounce(value);
-    } else {
-      setSearch('', true);
-    }
   };
+
+  useEffect(() => {
+    !delayDebounce && setKeyword('');
+  }, [delayDebounce]);
 
   return (
     <div className={classNames(['group relative w-full'])}>
       <InputText
+        inputRef={searchRef}
         useLabelInside={useLabelInside}
         label={useLabelInside ? placeholder : ''}
         type="text"
@@ -52,8 +56,8 @@ const InputTextSearch: FC<InputTextSearchProps> = ({
           )
         }
         iconOnClick={() => {
-          setSearch('');
-          setKeyword('');
+          setSearch(undefined);
+          setKeyword(undefined);
         }}
         iconClassName="cursor-pointer"
         iconHeight={20}

@@ -1,24 +1,45 @@
 'use client';
 
 import { Badge, Button, Image } from '@/components/atoms';
-import { InputText, InputTextarea, Maps } from '@/components/molecules';
+import { InputSelect, InputText, InputTextarea, Maps } from '@/components/molecules';
 import { AppsLayout, BottomNavigation, TopNavigation } from '@/components/templates';
 import { farmerlandRoute } from '@/shared/constants';
 import { store } from '@/shared/context';
+import { setFarmerlandForm } from '@/shared/context/actions';
 import styles from '@/shared/styles/packages/farmerland.module.css';
 import { cn, decrypt } from '@/shared/utils';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { ArrowRight, FolderUp } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
-import { useContext, useMemo, useRef, useState } from 'react';
+import { useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { flushSync } from 'react-dom';
+import { useForm } from 'react-hook-form';
+import { TFormFarmerland } from '../../domain/request';
+import { FormFarmerlandSchema } from '../../dto';
+import { EFarmerlandQuery, useFarmerland } from '../controller';
 
 const badgeList = ['Lahan Baru', 'Pekarangan Rumah', 'Lahan Desa', 'Lahan Barat'];
 
 export const FarmerLandFormView = () => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  const { state } = useContext(store);
+  const { state, dispatch } = useContext(store);
 
-  const [label, setLabel] = useState<string>();
+  const [file, setFile] = useState<File>();
+
+  const {
+    register,
+    getValues,
+    resetField,
+    watch,
+    handleSubmit,
+    setValue,
+    reset,
+    formState: { errors, isSubmitting, isValid },
+  } = useForm<TFormFarmerland>({
+    mode: 'onChange',
+    resolver: zodResolver(FormFarmerlandSchema),
+  });
 
   const { push: navigate } = useRouter();
   const params = useParams();
@@ -26,144 +47,255 @@ export const FarmerLandFormView = () => {
 
   const id = useMemo(() => idEncrypt && decrypt(idEncrypt || ''), [idEncrypt]);
 
+  const {
+    provinces: { data: provinces },
+    regencies: { data: regencies, mutate: getRegencies },
+    districts: { data: districts, mutate: getDistricts },
+    villages: { data: villages, mutate: getVillages },
+  } = useFarmerland({ query: EFarmerlandQuery.PROVINCE });
+
+  useEffect(() => {
+    if (watch('provinceCode')) {
+      getRegencies(watch('provinceCode'));
+      resetField('regencyCode');
+      resetField('districtCode');
+      resetField('villageCode');
+    }
+  }, [watch('provinceCode')]);
+
+  useEffect(() => {
+    if (watch('regencyCode')) {
+      getDistricts(watch('regencyCode'));
+      resetField('districtCode');
+      resetField('villageCode');
+    }
+  }, [watch('regencyCode')]);
+
+  useEffect(() => {
+    if (watch('districtCode')) {
+      getVillages(watch('districtCode'));
+      resetField('villageCode');
+    }
+  }, [watch('districtCode')]);
+
+  useEffect(() => {
+    if (state?.farmerlandFormMaps) {
+      setValue('lng', Number(state?.farmerlandFormMaps?.lon));
+      setValue('lat', Number(state?.farmerlandFormMaps?.lat));
+    }
+  }, [state?.farmerlandFormMaps]);
+
+  console.log(state, ' state?.farmerlandForm >>>>>', watch('provinceCode'));
+
+  // useEffect(() => {
+  //   if (state?.farmerlandForm) {
+  //     reset(state.farmerlandForm, { keepDirty: true, keepTouched: true });
+  //   }
+  // }, [state?.farmerlandForm, reset]);
+
+  useEffect(() => {
+    const attributes: (keyof TFormFarmerland)[] = [
+      'label',
+      'width',
+      'length',
+      'lng',
+      'lat',
+      'provinceCode',
+      'regencyCode',
+      'districtCode',
+      'villageCode',
+      'locationDetail',
+      'image',
+    ];
+
+    attributes.forEach((attr) => {
+      if (state?.farmerlandForm?.[attr]) {
+        setValue(attr, state.farmerlandForm[attr]);
+      }
+    });
+  }, [state?.farmerlandForm, setValue]);
+
+  const onNavigateMaps = () => {
+    const payload = getValues();
+    flushSync(() => dispatch(setFarmerlandForm(payload)));
+    navigate(farmerlandRoute.formMaps);
+  };
+
   return (
     <AppsLayout useTopNavigation useFooter={false} className="pb-16">
-      <TopNavigation
-        title={`${id ? 'Ubah' : 'Tambah'} Data Lahan`}
-        titlePosition="center"
-        backHref={farmerlandRoute.index}
-      />
-      <div
-        className="relative h-[180px] w-full bg-gray-200/30 group cursor-pointer"
-        onClick={() => fileInputRef?.current?.click()}
-      >
-        <input
-          ref={fileInputRef}
-          className="invisible h-[180px] w-full z-[2] absolute top-0 left-0"
-          type="file"
-          accept=".jpg,.jpeg,.png,.gif,.webp,.heic,.heif"
+      <form>
+        <TopNavigation
+          title={`${id ? 'Ubah' : 'Tambah'} Data Lahan`}
+          titlePosition="center"
+          backHref={farmerlandRoute.index}
         />
-        <FolderUp
-          className={cn(
-            'group-hover:fill-gray-50/80 group-hover:text-gray-400/70 text-gray-200/50 fill-transparent',
-            styles['farmerland-form-icon-upload'],
+        <div
+          className="relative h-[180px] w-full bg-gray-200/30 group cursor-pointer"
+          onClick={() => fileInputRef?.current?.click()}
+        >
+          <input
+            ref={fileInputRef}
+            className="invisible h-[180px] w-full z-[2] absolute top-0 left-0"
+            type="file"
+            accept=".jpg,.jpeg,.png,.gif,.webp,.heic,.heif"
+            onChange={(e) => setFile(e.target.files?.[0])}
+          />
+          <FolderUp
+            className={cn(
+              'group-hover:fill-gray-50/80 group-hover:text-gray-400/70 text-gray-200/50 fill-transparent',
+              styles['farmerland-form-icon-upload'],
+            )}
+          />
+          {file && (
+            <Image
+              src={URL.createObjectURL(file)}
+              alt="selected file"
+              height={100}
+              width={400}
+              className="object-cover w-full h-[180px]"
+              errorClassName="!h-full !w-full"
+            />
           )}
-        />
-        <Image
-          src="https://img.freepik.com/free-photo/aerial-shot-farmland-clear-sky-eifel-region-germany_181624-26567.jpg?t=st=1758033248~exp=1758036848~hmac=efae6e438a0f5b5348b5dba06ac0930b78dd522a035e4bc0218ab9c4d1be58e7&w=2000"
-          alt="sopo image - farmerland"
-          height={100}
-          width={400}
-          className="object-cover w-full h-[180px]"
-        />
-      </div>
-      <form className="space-y-4 py-4">
-        <div className="space-y-2">
-          <div className="px-4">
+        </div>
+        <div className="space-y-4 py-4">
+          <div className="space-y-2">
+            <div className="px-4">
+              <InputText
+                useLabelInside
+                label="Label Lahan"
+                type="text"
+                register={register}
+                value={watch('label')}
+                name="label"
+                errorMessage={errors?.label?.message}
+              />
+            </div>
+            <div className="flex justify-start items-center flex-nowrap w-full overflow-x-auto gap-1 px-4">
+              {badgeList.map((item, index) => (
+                <Badge
+                  onClick={() =>
+                    setValue('label', item, {
+                      shouldDirty: true,
+                      shouldTouch: true,
+                      shouldValidate: true,
+                    })
+                  }
+                  key={index}
+                  className="text-sm py-2"
+                  variant={watch('label') === item ? 'default' : 'outlinePrimary'}
+                >
+                  {item}
+                </Badge>
+              ))}
+            </div>
+          </div>
+          <div className="space-y-4 px-4">
             <InputText
               useLabelInside
-              label="Label Lahan"
-              type="text"
-              value={label}
-              setValue={setLabel}
+              label="Panjang Lahan"
+              type="number"
+              icon="m"
+              iconPosition="right"
+              value={(watch('length') ?? '')?.toString()}
+              iconType="string"
+              register={register}
+              name="length"
+              errorMessage={errors?.length?.message}
+            />
+            <InputText
+              useLabelInside
+              label="Lebar Lahan"
+              type="number"
+              icon="m"
+              iconPosition="right"
+              value={(watch('width') ?? '')?.toString()}
+              iconType="string"
+              register={register}
+              name="width"
+              errorMessage={errors?.width?.message}
             />
           </div>
-          <div className="flex justify-start items-center flex-nowrap w-full overflow-x-auto gap-1 px-4">
-            {badgeList.map((item, index) => (
-              <Badge
-                onClick={() => setLabel(item)}
-                key={index}
-                className="text-sm py-2"
-                variant={label === item ? 'default' : 'outlinePrimary'}
-              >
-                {item}
-              </Badge>
-            ))}
-          </div>
-        </div>
-        <div className="space-y-4 px-4">
-          <InputText
-            useLabelInside
-            label="Panjang Lahan"
-            type="number"
-            icon="m"
-            iconPosition="right"
-            iconType="string"
-          />
-          <InputText
-            useLabelInside
-            label="Lebar Lahan"
-            type="number"
-            icon="m"
-            iconPosition="right"
-            iconType="string"
-          />
-        </div>
-        <div className="px-4 cursor-pointer" onClick={() => navigate(farmerlandRoute.formMaps)}>
-          {!state?.farmerlandFormMaps ? (
-            <div className={styles['farmerland-form-location']}>
-              <div className="flex justify-start items-center gap-2">
-                <div className={cn(styles['farmerland-form-location-icon'])} />
-                <div className="space-y-0">
-                  <h3 className="font-bold">Lokasi Lahan</h3>
-                  <p className="text-xs text-gray-400">
-                    Penjemputan hasil panen menjadi lebih mudah
-                  </p>
+          <div className="px-4 cursor-pointer" onClick={onNavigateMaps}>
+            {!state?.farmerlandFormMaps ? (
+              <div className={styles['farmerland-form-location']}>
+                <div className="flex justify-start items-center gap-2">
+                  <div className={cn(styles['farmerland-form-location-icon'])} />
+                  <div className="space-y-0">
+                    <h3 className="font-bold">Lokasi Lahan</h3>
+                    <p className="text-xs text-gray-400">
+                      Penjemputan hasil panen menjadi lebih mudah
+                    </p>
+                  </div>
                 </div>
+                <ArrowRight className="min-h-5 min-w-5 text-gray-500" />
               </div>
-              <ArrowRight className="min-h-5 min-w-5 text-gray-500" />
+            ) : (
+              <Maps className="!h-48" choosenLocation={state?.farmerlandFormMaps} />
+            )}
+          </div>
+          {state?.farmerlandFormMaps && (
+            <div className="px-4 space-y-4">
+              {/* <InputSelect options={[]} useLabelInside label="Negara" /> */}
+              <InputSelect
+                value={watch('provinceCode')}
+                useLabelInside
+                label="Provinsi"
+                name="provinceCode"
+                register={register}
+                options={provinces || []}
+                errorMessage={errors?.provinceCode?.message}
+              />
+              <InputSelect
+                value={watch('regencyCode')}
+                useLabelInside
+                disabled={!watch('provinceCode')}
+                label="Kota/Kabupaten"
+                name="regencyCode"
+                register={register}
+                options={regencies || []}
+                errorMessage={errors?.regencyCode?.message}
+              />
+              <InputSelect
+                value={watch('districtCode')}
+                useLabelInside
+                disabled={!watch('regencyCode')}
+                label="Kecamatan"
+                name="districtCode"
+                register={register}
+                options={districts || []}
+                errorMessage={errors?.districtCode?.message}
+              />
+              <InputSelect
+                value={watch('villageCode')}
+                useLabelInside
+                disabled={!watch('districtCode')}
+                label="Kelurahan"
+                name="villageCode"
+                register={register}
+                options={villages || []}
+                errorMessage={errors?.villageCode?.message}
+              />
+              {/* <InputSelect options={[]} useLabelInside label="Kode Pos" /> */}
+              <InputTextarea
+                label="Detail Lokasi"
+                useLabelInside
+                className="min-h-32"
+                register={register}
+                name="locationDetail"
+                errorMessage={errors?.locationDetail?.message}
+              />
             </div>
-          ) : (
-            <Maps className="!h-48" choosenLocation={state?.farmerlandFormMaps} />
           )}
         </div>
-        {/* TODO: form maps
-        {state?.farmerlandFormMaps && (
-          <div className="px-4 space-y-4">
-            <InputSelect
-              options={[{ label: 'Indonesia', value: 'IDN' }]}
-              useLabelInside
-              label="Negara"
-            />
-            <InputSelect
-              options={[{ label: 'Indonesia', value: 'IDN' }]}
-              useLabelInside
-              label="Provinsi"
-            />
-            <InputSelect
-              options={[{ label: 'Indonesia', value: 'IDN' }]}
-              useLabelInside
-              label="Kota/Kabupaten"
-            />
-            <InputSelect
-              options={[{ label: 'Indonesia', value: 'IDN' }]}
-              useLabelInside
-              label="Kecamatan"
-            />
-            <InputSelect
-              options={[{ label: 'Indonesia', value: 'IDN' }]}
-              useLabelInside
-              label="Kelurahan"
-            />
-            <InputSelect
-              options={[{ label: 'Indonesia', value: 'IDN' }]}
-              useLabelInside
-              label="Kode Pos"
-            />
-          </div>
-        )} */}
-        <div className="px-4">
-          <InputTextarea label="Detail Lokasi" useLabelInside />
-        </div>
+        <BottomNavigation className="flex justify-center gap-2 items-center">
+          <Button type="reset" className="w-full" variant="dangerOutline">
+            Batalkan
+          </Button>
+          <Button type="submit" className="w-full" disabled={!isValid} isSubmitting={isSubmitting}>
+            Simpan
+          </Button>
+        </BottomNavigation>
       </form>
-      <BottomNavigation className="flex justify-center gap-2 items-center">
-        <Button type="button" className="w-full" variant="dangerOutline">
-          Batalkan
-        </Button>
-        <Button type="button" className="w-full">
-          Simpan
-        </Button>
-      </BottomNavigation>
     </AppsLayout>
   );
 };

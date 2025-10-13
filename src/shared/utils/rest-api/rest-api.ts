@@ -26,10 +26,12 @@ export class RestAPI implements RequestAPI {
     endpoint,
     config,
     queryParam,
+    isNextApi,
   }: {
     endpoint: string;
     queryParam?: object;
     config?: AxiosRequestConfig;
+    isNextApi?: boolean;
   }): Promise<ResponseREST<T>> {
     try {
       let url = endpoint;
@@ -40,7 +42,7 @@ export class RestAPI implements RequestAPI {
 
       const res = await this.http.get(url, {
         ...config,
-        baseURL: config?.baseURL || process.env.BASE_API_URL,
+        baseURL: config?.baseURL || (isNextApi ? process.env.BASE_URL : process.env.BASE_API_URL),
       });
 
       if (res.status !== 200) {
@@ -66,11 +68,13 @@ export class RestAPI implements RequestAPI {
     body,
     config,
     queryParam,
+    isNextApi,
   }: {
     endpoint: string;
     body?: object;
     queryParam?: object;
     config?: AxiosRequestConfig;
+    isNextApi?: boolean;
   }): Promise<ResponseREST<T>> {
     try {
       let url = endpoint;
@@ -81,7 +85,7 @@ export class RestAPI implements RequestAPI {
 
       const res = await this.http.post(url, body, {
         ...config,
-        baseURL: config?.baseURL || process.env.BASE_API_URL,
+        baseURL: config?.baseURL || (isNextApi ? process.env.BASE_URL : process.env.BASE_API_URL),
       });
 
       if (res.status !== 200) {
@@ -111,11 +115,13 @@ export class RestAPI implements RequestAPI {
     body,
     config,
     queryParam,
+    isNextApi,
   }: {
     endpoint: string;
     body?: object;
     queryParam?: object;
     config?: AxiosRequestConfig;
+    isNextApi?: boolean;
   }): Promise<ResponseREST<T>> {
     try {
       let url = endpoint;
@@ -126,7 +132,7 @@ export class RestAPI implements RequestAPI {
 
       const res = await this.http.put(url, body, {
         ...config,
-        baseURL: config?.baseURL || process.env.BASE_API_URL,
+        baseURL: config?.baseURL || (isNextApi ? process.env.BASE_URL : process.env.BASE_API_URL),
       });
 
       if (res.status !== 200) {
@@ -152,11 +158,13 @@ export class RestAPI implements RequestAPI {
     body,
     config,
     queryParam,
+    isNextApi,
   }: {
     endpoint: string;
     body?: object;
     queryParam?: object;
     config?: AxiosRequestConfig;
+    isNextApi?: boolean;
   }): Promise<ResponseREST<T>> {
     try {
       let url = endpoint;
@@ -167,7 +175,7 @@ export class RestAPI implements RequestAPI {
 
       const res = await this.http.patch(url, body, {
         ...config,
-        baseURL: config?.baseURL || process.env.BASE_API_URL,
+        baseURL: config?.baseURL || (isNextApi ? process.env.BASE_URL : process.env.BASE_API_URL),
       });
 
       if (res.status !== 200) {
@@ -193,11 +201,13 @@ export class RestAPI implements RequestAPI {
     bodyparam,
     config,
     queryParam,
+    isNextApi,
   }: {
     endpoint: string;
     bodyparam?: unknown;
     queryParam?: object;
     config?: AxiosRequestConfig;
+    isNextApi?: boolean;
   }): Promise<ResponseREST<T>> {
     try {
       let url = endpoint;
@@ -213,7 +223,7 @@ export class RestAPI implements RequestAPI {
 
       const res = await this.http.delete(url, {
         ...axiosConfig,
-        baseURL: config?.baseURL || process.env.BASE_API_URL,
+        baseURL: config?.baseURL || (isNextApi ? process.env.BASE_URL : process.env.BASE_API_URL),
       });
 
       if (res.status !== 200) {
