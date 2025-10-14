@@ -58,3 +58,7 @@ export interface ConfigService {
   Authorization: string;
   [key: string]: string | number | object | boolean;
 }
+
+export interface Context<T = unknown> {
+  params: T;
+}

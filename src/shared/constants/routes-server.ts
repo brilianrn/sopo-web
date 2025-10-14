@@ -8,3 +8,12 @@ export const regionRouteServer = {
   district: `${ERouteServerPrefix.API}/region/district`,
   village: `${ERouteServerPrefix.API}/region/village`,
 };
+
+export const authRouteServer = {
+  register: `${ERouteServerPrefix.API}/auth/register`,
+  registerFullForm: (token: string) => `${ERouteServerPrefix.API}/auth/register/${token}`,
+};
+
+export const roleRouteServer = {
+  lov: `${ERouteServerPrefix.API}/role/lov`,
+};

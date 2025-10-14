@@ -1,4 +1,4 @@
-import { authPath, rolePath } from '@/shared/constants';
+import { authPath, authRouteServer, roleRouteServer } from '@/shared/constants';
 import { ISelectOption } from '@/shared/domain/response.usecase';
 import Logger from '@/shared/utils/logger';
 import { RestAPI } from '@/shared/utils/rest-api';
@@ -47,8 +47,9 @@ export class AuthRepository implements IAuthRepository {
   register = async (data: TFirstFormRegisterSchema) => {
     try {
       const res = await this.restApi.post<ILoginFirst>({
-        endpoint: authPath.register,
+        endpoint: authRouteServer.register,
         body: data,
+        isNextApi: true,
       });
       return res;
     } catch (error) {
@@ -60,7 +61,8 @@ export class AuthRepository implements IAuthRepository {
   lovRole = async () => {
     try {
       const res = await this.restApi.get<Array<ISelectOption>>({
-        endpoint: rolePath.lov,
+        endpoint: roleRouteServer.lov,
+        isNextApi: true,
       });
       return res;
     } catch (error) {
@@ -72,8 +74,9 @@ export class AuthRepository implements IAuthRepository {
   registerFull = async ({ token, ...data }: Partial<TFormRegisterSchema>) => {
     try {
       const res = await this.restApi.put<void>({
-        endpoint: authPath.registerFullForm(token || ''),
+        endpoint: authRouteServer.registerFullForm(token || ''),
         body: data,
+        isNextApi: true,
       });
       return res;
     } catch (error) {

@@ -87,7 +87,7 @@ export const LoginView = () => {
         <form className="space-y-3 w-full" onSubmit={handleSubmit(onSubmit)}>
           <InputText
             size="lg"
-            type="email"
+            type="text"
             useLabelInside
             disabled={isNextStep}
             iconType="string"
@@ -99,7 +99,7 @@ export const LoginView = () => {
                 ? isEmail(watch('input'))
                   ? 'Email'
                   : 'Nomor Telepon'
-                : 'Masukan Email atau No HP'
+                : 'Masukkan Email atau No HP'
             }
             name="input"
             register={register}

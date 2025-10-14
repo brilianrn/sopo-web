@@ -1,5 +1,5 @@
 import { validationMessage } from '@/shared/constants';
-import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig, HttpStatusCode } from 'axios';
 import { serializeParam } from '../serialize';
 import { RequestAPI, ResponseREST } from './types';
 
@@ -45,8 +45,8 @@ export class RestAPI implements RequestAPI {
         baseURL: config?.baseURL || (isNextApi ? process.env.BASE_URL : process.env.BASE_API_URL),
       });
 
-      if (res.status !== 200) {
-        const response = { ...res.data, code: 5000 };
+      if (res.status !== HttpStatusCode.Ok) {
+        const response = { ...res.data, code: 500 };
         return response;
       }
 
@@ -88,12 +88,12 @@ export class RestAPI implements RequestAPI {
         baseURL: config?.baseURL || (isNextApi ? process.env.BASE_URL : process.env.BASE_API_URL),
       });
 
-      if (res.status !== 200) {
-        const response = { ...res.data, code: 5000 };
-        return response;
+      if (res.status === HttpStatusCode.Ok || res.status === HttpStatusCode.Created) {
+        return res.data;
       }
 
-      return res.data;
+      const response = { ...res.data, code: 500 };
+      return response;
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
         const errData: ResponseREST<T> = error.response?.data;
@@ -135,8 +135,8 @@ export class RestAPI implements RequestAPI {
         baseURL: config?.baseURL || (isNextApi ? process.env.BASE_URL : process.env.BASE_API_URL),
       });
 
-      if (res.status !== 200) {
-        const response = { ...res.data, code: 5000 };
+      if (res.status !== HttpStatusCode.Ok) {
+        const response = { ...res.data, code: 500 };
         return response;
       }
 
@@ -178,8 +178,8 @@ export class RestAPI implements RequestAPI {
         baseURL: config?.baseURL || (isNextApi ? process.env.BASE_URL : process.env.BASE_API_URL),
       });
 
-      if (res.status !== 200) {
-        const response = { ...res.data, code: 5000 };
+      if (res.status !== HttpStatusCode.Ok) {
+        const response = { ...res.data, code: 500 };
         return response;
       }
 
@@ -226,8 +226,8 @@ export class RestAPI implements RequestAPI {
         baseURL: config?.baseURL || (isNextApi ? process.env.BASE_URL : process.env.BASE_API_URL),
       });
 
-      if (res.status !== 200) {
-        const response = { ...res.data, code: 5000 };
+      if (res.status !== HttpStatusCode.Ok) {
+        const response = { ...res.data, code: 500 };
         return response;
       }
 

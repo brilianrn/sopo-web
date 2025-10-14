@@ -47,7 +47,7 @@ export const RegisterView = () => {
         <form className="space-y-3 w-full" onSubmit={handleSubmit((data) => mutate(data))}>
           <InputText
             size="lg"
-            type="email"
+            type="text"
             useLabelInside
             label="Masukkan Email atau No HP"
             name="input"
