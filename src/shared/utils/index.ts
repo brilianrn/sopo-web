@@ -1,4 +1,5 @@
 export * from './auth-options';
+export * from './cors-config';
 export * from './crypto';
 export * from './currency';
 export * from './formattor';
