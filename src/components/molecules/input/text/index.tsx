@@ -57,10 +57,13 @@ export const InputText = ({
       );
     } else if (type === 'bank-account-number') {
       if (isNumber(tempValue)) {
+        setInputState(tempValue);
         return setValue && setValue(tempValue);
       }
+      setInputState(tempValue === '' ? '' : (value as string));
       return setValue && setValue(tempValue === '' ? '' : (value as string));
     }
+    setInputState(tempValue);
     return setValue && setValue(tempValue);
   };
 
