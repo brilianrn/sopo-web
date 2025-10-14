@@ -5,12 +5,12 @@ export const metadata: Metadata = {
   title: '404 Not Found - SOPO',
   description:
     'Halaman yang Anda cari tidak ditemukan. Silakan coba lagi atau kembali ke halaman sebelumnya.',
-  metadataBase: new URL('https://sopo.vercel.app'),
+  metadataBase: new URL('https://sopo.co.id'),
   openGraph: {
     title: '404 Not Found - SOPO',
     description:
       'Halaman yang Anda cari tidak ditemukan. Silakan coba lagi atau kembali ke halaman sebelumnya.',
-    url: 'https://sopo.vercel.app/404',
+    url: 'https://sopo.co.id/404',
     siteName: 'SOPO',
     images: [
       {

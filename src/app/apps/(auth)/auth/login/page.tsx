@@ -5,13 +5,13 @@ export const metadata: Metadata = {
   title: 'Masuk ke SOPO | Akses Ekosistem Pertanian Digital Anda',
   description:
     'Masuk ke akun SOPO Anda. Akses fitur manajemen lahan, carbon credit, marketplace Sacha Inchi, dan pelatihan petani. Masuk mudah dengan email atau akun Google/Apple.',
-  metadataBase: new URL('https://sopo-gamma.vercel.app'),
+  metadataBase: new URL('https://.sopo.co.id'),
   manifest: '/manifest.json',
   openGraph: {
     title: 'Masuk ke SOPO',
     description:
       'Lanjutkan ke SOPO, platform agritech yang mempertemukan petani, investor, dan pembibit untuk pertanian Sacha Inchi yang berkelanjutan.',
-    url: 'https://sopo-gamma.vercel.app/login',
+    url: 'https://.sopo.co.id/apps/auth/login',
     siteName: 'SOPO',
     images: [
       {

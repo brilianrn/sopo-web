@@ -17,12 +17,12 @@ export const metadata: Metadata = {
   title: 'SOPO | Ekosistem Pertanian Sacha Inchi Terintegrasi',
   description:
     'SOPO adalah platform ekosistem pertanian digital yang berfokus pada sacha inchi. Mempertemukan petani, pemilik lahan, pemodal, pembibit, trainer, dan konsumen dalam satu aplikasi. Dari bibit, modal, pasar hingga produk turunan sacha inchi tersedia dalam satu ekosistem.',
-  metadataBase: new URL('https://sopo.vercel.app'),
+  metadataBase: new URL('https://sopo.co.id'),
   openGraph: {
     title: 'SOPO | Ekosistem Pertanian Sacha Inchi Terintegrasi',
     description:
       'Gabung bersama SOPO, platform ekosistem pertanian digital yang mendukung petani, pemodal, dan konsumen dengan solusi bibit, lahan, modal, hingga produk turunan sacha inchi. Transparan, berkelanjutan, dan ramah lingkungan.',
-    url: 'https://sopo.vercel.app',
+    url: 'https://sopo.co.id',
     siteName: 'SOPO',
     images: [
       {
