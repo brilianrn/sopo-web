@@ -37,8 +37,9 @@ export const InputText = ({
   const [inputState, setInputState] = useState<string>();
 
   useEffect(() => {
-    if (value) setInputState(value);
-    else setInputState(undefined);
+    if (value) onChange({ target: { value } } as ChangeEvent<HTMLInputElement>);
+    else onChange({ target: { value: '' } } as ChangeEvent<HTMLInputElement>);
+    // eslint-disable-next-line
   }, [value]);
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -87,7 +88,7 @@ export const InputText = ({
           <input
             {...register(name, {
               onChange: (e) => {
-                setInputState(e?.target?.value);
+                onChange(e);
                 return e;
               },
               valueAsNumber: type === 'number',

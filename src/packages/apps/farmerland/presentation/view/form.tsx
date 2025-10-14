@@ -61,7 +61,7 @@ export const FarmerLandFormView = () => {
       resetField('districtCode');
       resetField('villageCode');
     }
-  }, [watch('provinceCode')]);
+  }, [getRegencies, resetField, watch, watch('provinceCode')]);
 
   useEffect(() => {
     if (watch('regencyCode')) {
@@ -69,29 +69,21 @@ export const FarmerLandFormView = () => {
       resetField('districtCode');
       resetField('villageCode');
     }
-  }, [watch('regencyCode')]);
+  }, [getDistricts, resetField, watch, watch('regencyCode')]);
 
   useEffect(() => {
     if (watch('districtCode')) {
       getVillages(watch('districtCode'));
       resetField('villageCode');
     }
-  }, [watch('districtCode')]);
+  }, [getVillages, resetField, watch, watch('districtCode')]);
 
   useEffect(() => {
     if (state?.farmerlandFormMaps) {
       setValue('lng', Number(state?.farmerlandFormMaps?.lon));
       setValue('lat', Number(state?.farmerlandFormMaps?.lat));
     }
-  }, [state?.farmerlandFormMaps]);
-
-  console.log(state, ' state?.farmerlandForm >>>>>', watch('provinceCode'));
-
-  // useEffect(() => {
-  //   if (state?.farmerlandForm) {
-  //     reset(state.farmerlandForm, { keepDirty: true, keepTouched: true });
-  //   }
-  // }, [state?.farmerlandForm, reset]);
+  }, [setValue, state?.farmerlandFormMaps]);
 
   useEffect(() => {
     const attributes: (keyof TFormFarmerland)[] = [

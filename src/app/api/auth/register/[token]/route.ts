@@ -5,17 +5,21 @@ import { RestAPI } from '@/shared/utils/rest-api';
 import { response } from '@/shared/utils/rest-api/response';
 import { Context } from '@/shared/utils/rest-api/types';
 import { HttpStatusCode } from 'axios';
-import { NextRequest } from 'next/server';
+import { NextRequest } from 'next/server'; // Added NextResponse
 
 export const dynamic = 'force-dynamic';
 
 const api = new RestAPI();
 
-export const PUT = async (req: NextRequest, context: Context<{ token: string }>) => {
+export const PUT = async (req: NextRequest, context: unknown) => {
   try {
-    const { token } = context.params;
+    const { token } = (context as Context<{ token: string }>)?.params;
+    if (!token) {
+      return response[400]({ message: validationMessage()[400]() });
+    }
+
     const body: Partial<TFormRegisterSchema> = await req.json();
-    const res = await api.put<void>({ endpoint: authPath.registerFullForm(token || ''), body });
+    const res = await api.put<void>({ endpoint: authPath.registerFullForm(token), body });
     if (res?.code === HttpStatusCode.Ok) {
       return response[200]({ message: validationMessage('registrasi')[200]() });
     }

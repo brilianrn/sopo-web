@@ -18,6 +18,7 @@ const classNames = (...classes: (string | boolean | undefined | null)[]) => {
   return classes.filter(Boolean).join(' ');
 };
 
+import Logger from '@/shared/utils/logger';
 import { Locate, Search } from 'lucide-react';
 
 interface LonLat {
@@ -98,6 +99,7 @@ export const InteractiveMap: React.FC<InteractiveMapProps> = ({
       const json: LonLat[] = await response.json();
       setSearchResults(json);
     } catch (error) {
+      Logger.error(error, { location: 'InteractiveMap.searchLocation' });
       setSearchResults([]);
     } finally {
       setLoading(false);

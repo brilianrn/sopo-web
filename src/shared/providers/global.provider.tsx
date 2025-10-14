@@ -30,7 +30,7 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
           position="bottom-center"
           theme="light"
           toastOptions={{
-            className: '!rounded-full !px-5 !py-4 !shadow-md !text-white',
+            className: '!rounded-full !px-5 !py-4 !shadow-xl !text-white !border-0',
             classNames,
           }}
         />

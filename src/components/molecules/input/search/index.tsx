@@ -38,7 +38,9 @@ const InputTextSearch: FC<InputTextSearchProps> = ({
   };
 
   useEffect(() => {
-    !delayDebounce && setKeyword('');
+    if (!delayDebounce) {
+      setKeyword('');
+    }
   }, [delayDebounce]);
 
   return (

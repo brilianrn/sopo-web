@@ -3,6 +3,7 @@
 import { Button, NotFoundComp, Spinner } from '@/components/atoms';
 import styles from '@/shared/styles/components/maps.module.css';
 import { cn } from '@/shared/utils';
+import Logger from '@/shared/utils/logger';
 import { LocateFixed } from 'lucide-react';
 import Feature from 'ol/Feature';
 import Map from 'ol/Map';
@@ -126,7 +127,10 @@ export const Maps = ({
             updateMarkerPosition(lat, lon);
           }
         })
-        .catch((error) => console.error('Reverse geocoding error:', error));
+        .catch((error) => {
+          Logger.error(error, { location: 'MapsComponent.handleMapClick' });
+          toast.error('Gagal mendapatkan lokasi. Pastikan izin lokasi aktif.');
+        });
     });
 
     return () => {
@@ -152,7 +156,7 @@ export const Maps = ({
       const json: ILonLat[] = await response.json();
       setSearchResults(json);
     } catch (error) {
-      console.error('Nominatim search error:', error);
+      Logger.error(error, { location: 'MapsComponent.searchLocation' });
       setSearchResults([]);
     } finally {
       setLoading(false);
@@ -186,11 +190,11 @@ export const Maps = ({
             updateMarkerPosition(latitude, longitude);
           }
         } catch (err) {
-          console.error('Error reverse geocode:', err);
+          Logger.error(err, { location: 'MapsComponent.handleUseCurrentLocation' });
         }
       },
       (err) => {
-        console.error(err);
+        Logger.error(err, { location: 'MapsComponent.handleUseCurrentLocation' });
         toast.error('Gagal mendapatkan lokasi. Pastikan izin lokasi aktif.');
       },
       { enableHighAccuracy: true },

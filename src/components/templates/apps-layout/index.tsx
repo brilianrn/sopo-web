@@ -47,7 +47,7 @@ export const AppsLayout: FC<{
     if (path !== farmerlandRoute.form && path !== farmerlandRoute.formMaps) {
       dispatch(setFarmerlandForm(undefined));
     }
-  }, [pathname]);
+  }, [pathname, dispatch]);
 
   return (
     <div className={cn(styles['apps-layout'])}>

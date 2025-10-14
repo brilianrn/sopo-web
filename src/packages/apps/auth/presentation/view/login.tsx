@@ -151,7 +151,11 @@ export const LoginView = () => {
             <div className={styles['or-text']}>Atau menggunakan</div>
             <hr className={styles['or-line']} />
           </div>
-          <Button size="lg" className="!bg-white !text-black !border-gray-300 relative">
+          <Button
+            onClick={() => toast.info('Mohon maaf fitur ini belum tersedia')}
+            size="lg"
+            className="!bg-white !text-black !border-gray-300 relative"
+          >
             <div className={styles.google} />
             Masuk dengan Google
           </Button>

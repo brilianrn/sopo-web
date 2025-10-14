@@ -21,8 +21,9 @@ import { IcPinRed } from '../../../../../public/assets/icons';
 export const FarmerlandCard = () => {
   const [openMenu, setOpenMenu] = useState<boolean>(false);
 
+  // eslint-disable-next-line
   const currentMonth = useMemo(() => moment().locale('id').format('MMMM'), [moment()]);
-
+  // eslint-disable-next-line
   const nextMonth = useMemo(() => moment().locale('id').add(1, 'month').format('MMMM'), [moment()]);
 
   return (
