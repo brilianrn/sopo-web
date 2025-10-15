@@ -1,35 +1,54 @@
-import { setCorsHeaders } from '@/shared/utils';
 import { withAuth } from 'next-auth/middleware';
-import { NextFetchEvent, NextRequest, NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+import { NextResponse } from 'next/server';
 
 const authMiddleware = withAuth({
-  pages: { signIn: '/apps/auth/login' },
+  pages: {
+    signIn: '/apps/auth/login',
+  },
 });
 
-export default async function middleware(req: NextRequest, event: NextFetchEvent) {
-  const isApiRoute = req.nextUrl.pathname.startsWith('/api/');
-  if (isApiRoute && req.method === 'OPTIONS') {
-    const corsResponse = new NextResponse(null, { status: 204 });
-    return setCorsHeaders(corsResponse);
-  }
+export async function middleware(req: NextRequest) {
+  const { pathname } = req.nextUrl;
 
-  // eslint-disable-next-line
-  const authResult = await authMiddleware(req as any, event);
-  if (authResult instanceof NextResponse && authResult.status !== 200) {
-    if (isApiRoute) {
-      return setCorsHeaders(authResult);
+  // 🔹 CORS Handling
+  if (pathname.startsWith('/api/')) {
+    const res = NextResponse.next();
+
+    res.headers.set('Access-Control-Allow-Origin', '*');
+    res.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+    if (req.method === 'OPTIONS') {
+      return new NextResponse(null, { status: 204, headers: res.headers });
     }
-    return authResult;
+
+    // 🔹 Public APIs (tanpa token)
+    const publicAPIs = ['/api/auth', '/api/region', '/api/role/lov'];
+    const isPublicAPI = publicAPIs.some((api) => pathname.startsWith(api));
+
+    if (isPublicAPI) return res;
+
+    // 🔹 Private APIs (harus pakai token)
+    const token = req.headers.get('authorization');
+    if (!token) {
+      return new NextResponse(JSON.stringify({ message: 'Unauthorized' }), {
+        status: 401,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
+    return res;
   }
 
-  if (isApiRoute) {
-    const responseWithCors = NextResponse.next();
-    return setCorsHeaders(responseWithCors);
+  // 🔹 Protected pages
+  if (pathname.startsWith('/apps/account') || pathname.startsWith('/apps/farmerland')) {
+    return (authMiddleware as any)(req);
   }
 
-  return authResult;
+  return NextResponse.next();
 }
 
 export const config = {
-  matcher: ['/apps/account', '/apps/farmerland/:path*'],
+  matcher: ['/api/:path*', '/apps/account', '/apps/farmerland/:path*'],
 };
