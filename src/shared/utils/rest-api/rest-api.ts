@@ -42,7 +42,7 @@ export class RestAPI implements RequestAPI {
 
       const res = await this.http.get(url, {
         ...config,
-        baseURL: config?.baseURL || (isNextApi ? process.env.BASE_URL : process.env.BASE_API_URL),
+        baseURL: config?.baseURL || (!isNextApi && process.env.BASE_API_URL) || '',
       });
 
       if (res.status !== HttpStatusCode.Ok) {
@@ -85,7 +85,7 @@ export class RestAPI implements RequestAPI {
 
       const res = await this.http.post(url, body, {
         ...config,
-        baseURL: config?.baseURL || (isNextApi ? process.env.BASE_URL : process.env.BASE_API_URL),
+        baseURL: config?.baseURL || (!isNextApi && process.env.BASE_API_URL) || '',
       });
 
       if (res.status === HttpStatusCode.Ok || res.status === HttpStatusCode.Created) {
@@ -132,7 +132,7 @@ export class RestAPI implements RequestAPI {
 
       const res = await this.http.put(url, body, {
         ...config,
-        baseURL: config?.baseURL || (isNextApi ? process.env.BASE_URL : process.env.BASE_API_URL),
+        baseURL: config?.baseURL || (!isNextApi && process.env.BASE_API_URL) || '',
       });
 
       if (res.status !== HttpStatusCode.Ok) {
@@ -175,7 +175,7 @@ export class RestAPI implements RequestAPI {
 
       const res = await this.http.patch(url, body, {
         ...config,
-        baseURL: config?.baseURL || (isNextApi ? process.env.BASE_URL : process.env.BASE_API_URL),
+        baseURL: config?.baseURL || (!isNextApi && process.env.BASE_API_URL) || '',
       });
 
       if (res.status !== HttpStatusCode.Ok) {
@@ -223,7 +223,7 @@ export class RestAPI implements RequestAPI {
 
       const res = await this.http.delete(url, {
         ...axiosConfig,
-        baseURL: config?.baseURL || (isNextApi ? process.env.BASE_URL : process.env.BASE_API_URL),
+        baseURL: config?.baseURL || (!isNextApi && process.env.BASE_API_URL) || '',
       });
 
       if (res.status !== HttpStatusCode.Ok) {
