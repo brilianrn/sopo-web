@@ -11,7 +11,6 @@ const authMiddleware = withAuth({
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
-  // 🔹 CORS Handling
   if (pathname.startsWith('/api/')) {
     const res = NextResponse.next();
 
@@ -23,13 +22,11 @@ export async function middleware(req: NextRequest) {
       return new NextResponse(null, { status: 204, headers: res.headers });
     }
 
-    // 🔹 Public APIs (tanpa token)
     const publicAPIs = ['/api/auth', '/api/region', '/api/role/lov'];
     const isPublicAPI = publicAPIs.some((api) => pathname.startsWith(api));
 
     if (isPublicAPI) return res;
 
-    // 🔹 Private APIs (harus pakai token)
     const token = req.headers.get('authorization');
     if (!token) {
       return new NextResponse(JSON.stringify({ message: 'Unauthorized' }), {
@@ -41,8 +38,8 @@ export async function middleware(req: NextRequest) {
     return res;
   }
 
-  // 🔹 Protected pages
   if (pathname.startsWith('/apps/account') || pathname.startsWith('/apps/farmerland')) {
+    // eslint-disable-next-line
     return (authMiddleware as any)(req);
   }
 
