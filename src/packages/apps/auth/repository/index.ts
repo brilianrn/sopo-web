@@ -84,4 +84,17 @@ export class AuthRepository implements IAuthRepository {
       throw error;
     }
   };
+
+  socialAuth = async (token: string) => {
+    try {
+      const res = await this.restApi.post<IResponseVerifyOtp>({
+        endpoint: authPath.social,
+        body: { token },
+      });
+      return res;
+    } catch (error) {
+      Logger.error(error, { location: 'AuthRepository.socialAuth' });
+      throw error;
+    }
+  };
 }

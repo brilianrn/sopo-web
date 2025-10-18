@@ -143,4 +143,23 @@ export class AuthUseCase implements IAuthUsecase {
       };
     }
   };
+
+  socialAuth = async (token: string) => {
+    try {
+      const result = await this.repository.socialAuth(token);
+      if (result?.code === 200) {
+        return { data: result?.data, message: result?.message };
+      }
+      return {
+        error: new Error(result?.message),
+        message: result?.message,
+      };
+    } catch (err) {
+      Logger.error(err, { location: 'AuthUseCase.socialAuth' });
+      return {
+        error: new Error(err instanceof Error ? err.message : validationMessage()[500]()),
+        message: validationMessage()[400](),
+      };
+    }
+  };
 }

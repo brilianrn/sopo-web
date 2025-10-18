@@ -15,4 +15,5 @@ export interface IAuthRepository {
   register(data: TFirstFormRegisterSchema): Promise<ResponseREST<ILoginFirst>>;
   lovRole: () => Promise<ResponseREST<Array<ISelectOption>>>;
   registerFull: (data: Partial<TFormRegisterSchema>) => Promise<ResponseREST<void>>;
+  socialAuth: (token: string) => Promise<ResponseREST<IResponseVerifyOtp>>;
 }

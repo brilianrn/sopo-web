@@ -14,4 +14,5 @@ export interface IAuthUsecase {
   register(data: TFirstFormRegisterSchema): Promise<IUsecaseResponse<ILoginFirst>>;
   lovRole(): Promise<IUsecaseResponse<Array<ISelectOption>>>;
   registerFull: (data: TFormRegisterSchema) => Promise<IUsecaseResponse<void>>;
+  socialAuth: (token: string) => Promise<IUsecaseResponse<IResponseVerifyOtp>>;
 }

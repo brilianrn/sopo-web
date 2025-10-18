@@ -39,13 +39,13 @@ export const FormRegisterSchema = z.object({
   password: z
     .string()
     .min(8, { message: validationMessage('Kata sandi').minChar(8) })
-    .refine((val) => /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{8,}$/.test(val), {
+    .refine((val) => /^(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}$/.test(val), {
       message: validationMessage('Kata sandi').invalidField(),
     }),
   passwordConfirmation: z
     .string()
     .min(8, { message: validationMessage('Kata sandi').minChar(8) })
-    .refine((val) => /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{8,}$/.test(val), {
+    .refine((val) => /^(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}$/.test(val), {
       message: validationMessage('Kata sandi').invalidField(),
     }),
   token: z.optional(z.string()),

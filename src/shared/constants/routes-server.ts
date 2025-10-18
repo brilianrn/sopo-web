@@ -12,6 +12,7 @@ export const regionRouteServer = {
 export const authRouteServer = {
   register: `${ERouteServerPrefix.API}/auth/register`,
   registerFullForm: (token: string) => `${ERouteServerPrefix.API}/auth/register/${token}`,
+  socialAuth: `${ERouteServerPrefix.API}/auth/social`,
 };
 
 export const roleRouteServer = {

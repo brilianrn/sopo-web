@@ -67,6 +67,15 @@ export const LoginView = () => {
     setIsLoading(false);
   };
 
+  const loginGoogle = async () => {
+    setIsLoading(true);
+    await signIn('google', {
+      redirect: false,
+      callbackUrl: callbackUrl?.toString(),
+    });
+    setIsLoading(false);
+  };
+
   return (
     <Layout>
       <LoadingOverlay visible={isLoading} />
@@ -152,7 +161,8 @@ export const LoginView = () => {
             <hr className={styles['or-line']} />
           </div>
           <Button
-            onClick={() => toast.info('Mohon maaf fitur ini belum tersedia')}
+            type="button"
+            onClick={loginGoogle}
             size="lg"
             className="!bg-white !text-black !border-gray-300 relative"
           >

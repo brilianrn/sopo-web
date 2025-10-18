@@ -5,23 +5,20 @@ import { IResponseVerifyOtp } from '@/packages/apps/auth/domain/response';
 import { AuthRepository } from '@/packages/apps/auth/repository';
 import { AuthUseCase } from '@/packages/apps/auth/usecase';
 import type { NextAuthOptions, User } from 'next-auth';
-import { JWT } from 'next-auth/jwt';
-import CredentialsProviders from 'next-auth/providers/credentials';
+import CredentialsProvider from 'next-auth/providers/credentials';
+import GoogleProvider from 'next-auth/providers/google';
 import { authRoute } from '../constants';
+import Logger from './logger';
 import { http, RestAPI } from './rest-api';
 
 export const authOptions: NextAuthOptions = {
   providers: [
-    CredentialsProviders({
+    CredentialsProvider({
       id: 'credentials',
       name: 'Credentials',
       credentials: {
         input: { label: 'Input', type: 'text' },
         password: { label: 'Password', type: 'password' },
-        // TODO: this used when we have OTP
-        // token: { label: 'Token', type: 'text' },
-        // otp: { label: 'OTP', type: 'text' },
-        // purpose: { label: 'Purpose', type: 'text' },
       },
       authorize: async (credentials): Promise<User | null> => {
         try {
@@ -48,33 +45,64 @@ export const authOptions: NextAuthOptions = {
         }
       },
     }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    }),
   ],
-
   callbacks: {
-    // Save user fields into JWT
-    async jwt({ token, user }: { token: JWT; user?: User }) {
-      if (user) {
-        token.id = user.id;
-        token.email = user.email;
-        token.name = user.name;
-        token.phone = (user as any).phone;
-        token.avatar = (user as any).avatar;
-        token.token = (user as any).token;
-        token.role = (user as any).role;
+    async jwt({ token, user, account }) {
+      const dataStoreApi = new RestAPI(http);
+      const authRepository = new AuthRepository(dataStoreApi);
+      const authUseCase = new AuthUseCase(authRepository);
+
+      try {
+        if (account?.provider === 'google' && account.id_token) {
+          token.provider = 'google';
+          token.idToken = account.id_token;
+          token.accessToken = account.access_token;
+
+          const response = await authUseCase.socialAuth(account.id_token);
+          if (response?.data) {
+            token.id = response.data.user.id;
+            token.email = response.data.user.email || '';
+            token.name = response.data.user.name;
+            token.avatar = response.data.user.avatar;
+            token.role = response.data.user.role;
+            token.phone = response.data.user.phone;
+            token.token = response.data.token;
+          }
+        }
+
+        if (user && account?.provider === 'credentials') {
+          token.provider = 'credentials';
+          token.id = user.id ?? token.id;
+          token.email = user.email ?? token.email;
+          token.name = user.name ?? token.name;
+          token.avatar =
+            (((user as any).avatar ?? token.avatar) || (user as any).image) ?? token.picture;
+          token.role = (user as any).role ?? token.role;
+          token.phone = (user as any).phone ?? token.phone;
+          token.token = (user as any).token;
+        }
+
+        return token;
+      } catch (err) {
+        Logger.error(err, { location: 'NextAuth.jwt' });
+        return token;
       }
-      return token;
     },
 
-    // Expose fields into Session
-    async session({ session, token }: any) {
+    async session({ session, token }) {
       session.user = {
         id: token.id as string,
         email: token.email as string,
         name: token.name as string,
-        phone: token.phone as string,
         avatar: token.avatar as string,
         token: token.token as string,
         role: token.role as string,
+        phone: token.phone as string,
+        provider: token.provider as string,
       };
       return session;
     },
@@ -88,7 +116,7 @@ export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   session: {
     strategy: 'jwt',
-    maxAge: parseInt(process.env.NEXTAUTH_SESSION_MAX_AGE ?? '2592000'), // default 30 hari
+    maxAge: parseInt(process.env.NEXTAUTH_SESSION_MAX_AGE ?? '2592000'),
   },
   cookies: {
     sessionToken: {

@@ -12,7 +12,7 @@ export const authPath = {
   register: `${EPaths.AUTH}/register`,
   registerFullForm: (token: string) => `${EPaths.AUTH}/register/${token}`,
   login: `${EPaths.AUTH}/login`,
-  social: `${EPaths.AUTH}/login/:token`,
+  social: `${EPaths.AUTH}/login/social`,
   verifyOtp: `${EPaths.AUTH}/verify-otp`,
 };
 

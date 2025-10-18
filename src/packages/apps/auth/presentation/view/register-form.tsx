@@ -43,29 +43,33 @@ export const RegisterFormView = () => {
 
   const verifyInfo = useMemo(() => decrypt<IOtpInfo>(token || ''), [token]);
 
+  const password = watch('password');
+  const passwordConfirmation = watch('passwordConfirmation');
+
   const confirmPasswordVerify = useMemo(() => {
-    const passwordConfirmation = watch('passwordConfirmation');
-    const password = watch('password');
     return [
       {
-        isValid: passwordConfirmation?.length >= 8 && password?.length >= 8,
+        isValid: password?.length >= 8 && passwordConfirmation?.length >= 8,
         label: 'Minimal 8 Karakter',
       },
       {
-        isValid: /[A-Z]/.test(passwordConfirmation) && /[A-Z]/.test(password),
+        isValid: /[A-Z]/.test(password) && /[A-Z]/.test(passwordConfirmation),
         label: 'Mengandung Huruf Besar',
       },
       {
-        isValid: /[0-9]/.test(passwordConfirmation) && /[0-9]/.test(password),
+        isValid: /[0-9]/.test(password) && /[0-9]/.test(passwordConfirmation),
         label: 'Mengandung 1 Angka',
       },
       {
-        isValid: /[!@#$%^&*]/.test(passwordConfirmation) && /[!@#$%^&*]/.test(password),
+        isValid: /[^A-Za-z0-9]/.test(password) && /[^A-Za-z0-9]/.test(passwordConfirmation),
         label: 'Mengandung 1 Karakter Spesial atau Simbol',
       },
+      {
+        isValid: password === passwordConfirmation && !!password && !!passwordConfirmation,
+        label: 'Kata sandi dan konfirmasi harus sama',
+      },
     ];
-    // eslint-disable-next-line
-  }, [watch('passwordConfirmation'), watch('password')]);
+  }, [password, passwordConfirmation]);
 
   useEffect(() => {
     if (verifyInfo) {

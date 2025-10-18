@@ -1,18 +1,23 @@
 'use client';
 
 import { Button } from '@/components/atoms';
-import { InputText } from '@/components/molecules';
+import { InputText, LoadingOverlay } from '@/components/molecules';
 import { Layout, TopNavigation } from '@/components/templates';
 import { authRoute } from '@/shared/constants';
 import styles from '@/shared/styles/packages/login.module.css';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { signIn } from 'next-auth/react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { TFirstFormRegisterSchema } from '../../domain/request';
 import { FirstFormRegisterSchema } from '../../dto';
 import { useAuthController } from '../controller';
 
 export const RegisterView = () => {
+  const [loadingRegist, setLoadingRegis] = useState<boolean>(false);
+
   const {
     register,
     getFieldState,
@@ -28,8 +33,21 @@ export const RegisterView = () => {
     register: { mutate, isPending: isLoading },
   } = useAuthController();
 
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get('callbackUrl');
+
+  const regisGoogle = async () => {
+    setLoadingRegis(true);
+    await signIn('google', {
+      redirect: false,
+      callbackUrl: callbackUrl?.toString(),
+    });
+    setLoadingRegis(false);
+  };
+
   return (
     <Layout>
+      <LoadingOverlay visible={loadingRegist} />
       <TopNavigation
         title="Daftar"
         titlePosition="left"
@@ -67,7 +85,12 @@ export const RegisterView = () => {
             <div className={styles['or-text']}>Atau menggunakan</div>
             <hr className={styles['or-line']} />
           </div>
-          <Button size="lg" className="!bg-white !text-black !border-gray-300 relative">
+          <Button
+            type="button"
+            onClick={regisGoogle}
+            size="lg"
+            className="!bg-white !text-black !border-gray-300 relative"
+          >
             <div className={styles.google} />
             Daftar dengan Google
           </Button>
